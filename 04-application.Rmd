@@ -1,0 +1,179 @@
+# 중심성 (Centrality)
+
+중심성이란, 네트워크 구조 안에서 행위자가 얼마나 중심적인 위치를 차지하고 있는지를 나타내는 지표이다. 즉, 네트워크 내에서 행위자의 중요도를 측정할 때 사용한다. 중심성 또는 중요도를 정의하는 방식이 다양한 것만큼, 중심성 지표의 조작화 방식 또한 매우 다양하다. 이 튜토리얼에서는 네 가지 대표적인 중심성 척도를 다룬다: 연결중심성(degree), 매개중심성(betweenness), 근접중심성(closeness), 그리고 위세 또는 아이겐벡터(eigenvector). 각각의 중심성 척도마다 장단이 있어서 맥락에 따라 적합한 척도를 선택하는 것이 중요하다.
+
+중심성 척도는 주어진 네트워크의 연결(ties)이 얼마나 특정 노드에 집중되어 있는지를 측정한다. 연결 분포(degree distribution)를 통해서 네트워크가 얼마나 불균등(unequal)한지도 살펴볼 수 있다. 
+
+## 예시 네트워크 불러오기 (Loading the example network)
+
+우선 필요한 패키지를 R에 불러와라. 
+
+```{r, results='hide', message=FALSE}
+
+library(igraph)
+library(tidyverse)
+library(reshape2)
+
+```
+
+데이터는 John Padgett의 Florentine Families 데이터셋을 사용할 것이다. 이 데이터는 15세기 이탈리아에서 메디치가가 어떻게 정치 권력을 축적해 나갔는지를 살펴보기 위한 데이터이다. 메디치가 사람들의 여러 관계 중에서도 우리는 특히 혼인 관계에 집중할 것이다. 가족 간 연결(tie)은 한 가족의 딸이 다른 가족의 아들과의 혼인을 위해 보내졌을 때 그려진다고 하자(즉, 방향성이 있는 네트워크). 
+
+데이터는 Hoffman 교수의 깃헙에서 바로 불러오자. 결혼 관계를 나타내는 인접행렬과, 특성(attirbutes) 관련 데이터를 각각 저장하라. 
+
+```{r, results='hide'}
+# prepare the marriage adjacency matrix
+florentine_edj <- read.csv("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_marriage_edgelist.csv")
+florentine_edj <- florentine_edj[,2:3]
+
+# prepare the attributes file
+florentine_attributes <- read.csv("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_attributes.csv")
+
+```
+
+인접행렬은 현재 데이터프레임 구조를 갖고 있기 때문에, 우선 행렬로 변환하여 `graph.edgelist()` 함수를 통해 엣지리스트로 만들어주자. 이제 혼인 네트워크가 생성되었다. 
+
+```{r}
+marriageNet <- graph.edgelist(as.matrix(florentine_edj), directed = T)
+marriageNet
+```
+
+이 네트워크에 특성 변수들을 추가해보자. 먼저, 노드(가문)의 부(Wealth) 변수를 만들기 위해 네트워크 노드의 이름(가문 명)과 특성 데이터(florentine_attributes)의 가문(Family) 변수 값이 일치하는 경우의 총 부(GWealth) 변수 값을 추출한다. 
+
+```{r }
+V(marriageNet)$Wealth <- florentine_attributes$Gwealth[match(V(marriageNet)$name, florentine_attributes$Family)]
+
+summary(V(marriageNet)$Wealth)
+```
+
+NA 값이 있으므로 결측치는 평균 값으로 대체(simple mean imputation)하자. 
+
+```{r}
+V(marriageNet)$Wealth <- ifelse(is.na(V(marriageNet)$Wealth), mean(V(marriageNet)$Wealth, na.rm = T), V(marriageNet)$Wealth)
+summary(V(marriageNet)$Wealth)
+
+```
+
+다음은 당시에 피렌체를 통치했던 시의회(The Priorate) 소속 멤버(Priors)가 몇 명인지 알려주는 `Priorates` 변수를 추가하자. 1282년부터 1344년까지 기간 동안 각 가문에서 총 몇 명이 시의원이었는지 계산함으로써, 장기적/집합 수준에서 가문의 정치적 영향력을 측정할 수 있다. 
+
+```{r}
+V(marriageNet)$Priorates <- florentine_attributes$Npriors[match(V(marriageNet)$name, florentine_attributes$Family)]
+```
+
+시각화 해보자. 
+
+```{r, results='hide'}
+plot(marriageNet, vertex.size = 8, vertex.label.cex = .4, vertex.label.color = "black", vertex.color = "tomato", edge.arrow.size = 0.4)
+```
+
+
+
+## 연결중심성(Degree Centrality)
+
+연결중심성은 가장 단순한 중심성 척도로, 각 노드가 얼마나 많은 엣지를 갖는지를 계산한 값이다. 즉, 가장 중심성이 높은 노드는 가장 많은 연결(ties)을 가지고 있는 노드다. 
+
+
+***주의***: 방향성이 있는 네트워크에서는 in 또는 out ties 중 어느 것을 계산에 포함할지 명시해야 한다. 만약 in-degree, out-degree 둘 다 계산에 포함한다면, 그냥 degree라고 부른다. 
+연결중심성은 R의 `degree()`함수를 통해 계산할 수 있다. 
+
+```{r, results='hide'}
+degree(marriageNet) 
+```
+
+어떤 가문이 가장 연결중심성이 높은가?  
+
+
+이 연결중심성 값들을 새로운 변수로 추가하여, 노드의 크기를 연결중심성에 비례하도록 표시할 수 있다. 
+
+```{r, results='hide'}
+V(marriageNet)$degree <- degree(marriageNet) # assignment
+
+plot(marriageNet, vertex.label.cex = .6, vertex.label.color = "black", vertex.size = V(marriageNet)$degree, vertex.label.cex = .2) # sized by degree
+```
+
+이때 문제는 연결중심성 값들이 너무 작아서 시각화하는데 어려움이 있다는 것이다. 따라서 비율은 그대로 유지하되 값을 좀 키워 다시 시각화해보자. 
+
+```{r, results='hide' }
+plot(marriageNet, 
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$degree*3)
+```
+ 
+ 
+## 매개중심성(Betweenness Centrality)
+
+매개중심성은 네트워크 흐름 상 어떤 노드들이 중요한지를 측정한다. 이때 네트워크에서 가장 짧은 경로(shortest paths)를 이용한다. 경로란 인접한 노드들의 나열을 의미한다. 어떤 두 노드가 있을 때 가장 짧은 경로를 찾을 수 있다. 만약 노드 C가 A와 B 사이의 가장 짧은 경로에 놓여 있다면, 노드 C는 노드 A와 B사이의 효율적인 흐름 상 중요한 위치를 차지한다. 달리 말하면, C가 없을 경우 A에서 B로 가는 길이 더 멀어진다는 것이다. 
+
+그러므로, 매개중심성은 각 노드가 얼마나 많은 최단 경로 위에 놓여 있는지를 보여준다. 어떤 노드의 매개중심성이 높을수록 네트워크 내 효율적인 흐름 상 중요하다고 볼 수 있다. 
+
+매개중심성은 igraph 의 `betweenness()` 함수를 사용하여 계산할 수 있다. 
+
+```{r, results='hide'}
+betweenness(marriageNet, directed = FALSE)
+```
+
+
+이 매개중심성 값들을 네트워크 노드의 새로운 변수로 추가하여 노드의 크기를 비례하게 표시할 수 있다. 
+
+```{r, results='hide'}
+V(marriageNet)$betweenness <- betweenness(marriageNet, directed = F) # assignment
+
+plot(marriageNet, 
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$betweenness) # sized by betweenness
+```
+
+매개중심성 값은 매우 크다. 따라서 매개중심성 값에 비례하여 노드 크기를 설정할 때에는 정규화(normalize)해주는 것이 유용하다. 
+
+```{r, results='hide'}
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$betweenness/max(V(marriageNet)$betweenness) * 20)
+```
+
+
+## 근접중심성(Closeness Centrality)
+
+근접중심성 척도 또한 노드 간 최단 경로에 기반한 척도이다. 두 노드 간 거리를 최단 경로의 길이(length)로 측정한다. 어떤 노드의 farness는 해당 노드에서 다른 노드들까지의 평균 거리를 의미한다. 따라서 closeness는 farness의 역수이다 (1/farness). 근접중심성은 `closeness()`함수를 통해 계산 가능하다. 
+
+```{r}
+closeness(marriageNet)
+```
+
+마찬가지로 네트워크 노드의 새로운 변수로 추가한 후 시각화를 해보자. 
+```{r, results='hide'}
+V(marriageNet)$closeness <- closeness(marriageNet)
+```
+
+
+```{r, results='hide'}
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size =  V(marriageNet)$closeness/max(V(marriageNet)$closeness) * 20)
+```
+
+
+## 위세중심성(Eigenvector Centrality)
+
+연결중심성은 각 노드의 엣지의 개수를 고려할 뿐, 에고의 alters(연결된 타인)에 대한 정보는 고려하지 않는다. 하지만 만약 어떤 사람이 권력 있는 사람들과 연결되어 있다면, 엣지의 개수가 같더라도 차이가 있기 마련이다. 예컨대, 노드 A와 B가 동일한 연결중심성을 가지고 있더라도, A가 연결중심성이 높은 이들과 더 많이 연결되어 있는 반면, B가 연결중심성이 낮은 이들과 주로 연결되어 있다고 가정해보자. 이 경우, A의 중심성이 B보다는 더 높아야 하는 것이 직관적이다. 
+
+아이겐벡터 또는 위세중심성은 alters의 권력 또한 고려한다. `evcent()` 함수를 통해 계산할 수 있는데, 특이하게도 이 함수는 리스트 객체를 반환한다. 우리는 이 리스트에서 벡터만 필요하기 때문에 벡터를 추출하겠다. 
+
+```{r, results='hide'}
+evcent(marriageNet)$vector
+```
+
+위세중심성 값들을 네트워크 노드의 새로운 변수로 추가한 후 시각화해보자. 
+
+```{r, results='hide'}
+V(marriageNet)$eigenvector <- evcent(marriageNet)$vector
+
+plot(marriageNet,
+     vertex.label.cex = .6, 
+     vertex.label.color = "black", 
+     vertex.size = V(marriageNet)$eigenvector/max(V(marriageNet)$eigenvector) * 20)
+```
+
