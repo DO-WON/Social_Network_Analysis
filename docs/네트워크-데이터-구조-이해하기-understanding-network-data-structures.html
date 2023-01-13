@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 네트워크 데이터 구조 이해하기 (Understanding network data structures) | Social Network Analysis in R</title>
+  <meta name="description" content="Chapter 2 네트워크 데이터 구조 이해하기 (Understanding network data structures) | Social Network Analysis in R" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 네트워크 데이터 구조 이해하기 (Understanding network data structures) | Social Network Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 네트워크 데이터 구조 이해하기 (Understanding network data structures) | Social Network Analysis in R" />
+  
+  
+  
+
+<meta name="author" content="Do Won Kim, Hyowon Kim" />
+
+
+<meta name="date" content="2023-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="네트워크-시각화-network-visualization-and-aesthetics.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">네트워크분석 입문</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 들어가며</a></li>
+<li class="chapter" data-level="2" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><i class="fa fa-check"></i><b>2</b> 네트워크 데이터 구조 이해하기 (Understanding network data structures)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-데이터란"><i class="fa fa-check"></i><b>2.1</b> 네트워크 데이터란?</a></li>
+<li class="chapter" data-level="2.2" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#엣지-리스트-edge-lists"><i class="fa fa-check"></i><b>2.2</b> 엣지 리스트 (Edge lists)</a></li>
+<li class="chapter" data-level="2.3" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#인접행렬adjacency-matrices"><i class="fa fa-check"></i><b>2.3</b> 인접행렬(Adjacency matrices)</a></li>
+<li class="chapter" data-level="2.4" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#데이터에서-네트워크로-from-data-to-networks"><i class="fa fa-check"></i><b>2.4</b> 데이터에서 네트워크로 (From data to networks)</a></li>
+<li class="chapter" data-level="2.5" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-탐색하기-exploring-the-network"><i class="fa fa-check"></i><b>2.5</b> 네트워크 탐색하기 (Exploring the network)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>3</b> 네트워크 시각화 (Network Visualization and Aesthetics)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#기초-시각화-the-basics"><i class="fa fa-check"></i><b>3.1</b> 기초 시각화 (The Basics)</a></li>
+<li class="chapter" data-level="3.2" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-레이아웃-layouts"><i class="fa fa-check"></i><b>3.2</b> 네트워크 레이아웃 (Layouts)</a></li>
+<li class="chapter" data-level="3.3" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-객체에-특성-추가하기-adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>3.3</b> 네트워크 객체에 특성 추가하기 (Adding attributes to a network object)</a></li>
+<li class="chapter" data-level="3.4" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#특성에-따른-시각화-plotting-based-on-attributes"><i class="fa fa-check"></i><b>3.4</b> 특성에 따른 시각화 (Plotting based on attributes)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html"><i class="fa fa-check"></i><b>4</b> 에고 네트워크(Ego Networks)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기"><i class="fa fa-check"></i><b>4.1</b> 에고 네트워크 분석하기</a></li>
+<li class="chapter" data-level="4.2" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density"><i class="fa fa-check"></i><b>4.2</b> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html"><i class="fa fa-check"></i><b>5</b> 소속 관계 다루기(Affiliation Data)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html#원모드-변환unipartite-projection"><i class="fa fa-check"></i><b>5.1</b> 원모드 변환(Unipartite Projection)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="중심성-centrality.html"><a href="중심성-centrality.html"><i class="fa fa-check"></i><b>6</b> 중심성 (Centrality)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="중심성-centrality.html"><a href="중심성-centrality.html#예시-네트워크-불러오기-loading-the-example-network"><i class="fa fa-check"></i><b>6.1</b> 예시 네트워크 불러오기 (Loading the example network)</a></li>
+<li class="chapter" data-level="6.2" data-path="중심성-centrality.html"><a href="중심성-centrality.html#연결중심성degree-centrality"><i class="fa fa-check"></i><b>6.2</b> 연결중심성(Degree Centrality)</a></li>
+<li class="chapter" data-level="6.3" data-path="중심성-centrality.html"><a href="중심성-centrality.html#매개중심성betweenness-centrality"><i class="fa fa-check"></i><b>6.3</b> 매개중심성(Betweenness Centrality)</a></li>
+<li class="chapter" data-level="6.4" data-path="중심성-centrality.html"><a href="중심성-centrality.html#근접중심성closeness-centrality"><i class="fa fa-check"></i><b>6.4</b> 근접중심성(Closeness Centrality)</a></li>
+<li class="chapter" data-level="6.5" data-path="중심성-centrality.html"><a href="중심성-centrality.html#위세중심성eigenvector-centrality"><i class="fa fa-check"></i><b>6.5</b> 위세중심성(Eigenvector Centrality)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html"><i class="fa fa-check"></i><b>7</b> Small World / Weak Ties</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#its-a-small-world"><i class="fa fa-check"></i><b>7.1</b> It’s a small world!</a></li>
+<li class="chapter" data-level="7.2" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#좁은-세상-시뮬레이션"><i class="fa fa-check"></i><b>7.2</b> 좁은 세상 시뮬레이션</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Network Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="네트워크-데이터-구조-이해하기-understanding-network-data-structures" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> 네트워크 데이터 구조 이해하기 (Understanding network data structures)<a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-데이터-구조-이해하기-understanding-network-data-structures" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="네트워크-데이터란" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> 네트워크 데이터란?<a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-데이터란" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>점과 선으로 이어진 구조</p>
+<ul>
+<li>점: node, vertex, point, actor</li>
+<li>선: link, edge, line, tie</li>
+</ul>
+<p><br/>
+모든 네트워크는 ’관계’에 관한 것이다. 네트워크는 여려 영향을 만들어 낸다.</p>
+<p><br/>
+네트워크 자료와 그에 대한 분석은 이제까지 개체의 속성에 주목한 데이터와 그에 대한 분석이 놓친 영역을 탐구할 수 있다.</p>
+<p>ex) 행복 결정 요인 연구</p>
+<ul>
+<li>기존: 소득, 교육 수준, 자기 효능감 등 개인에게 귀속되는 속성으로 분석<br />
+</li>
+<li>네트워크 분석: 행복이 네트워크를 따라 전파되며, 네트워크를 통해 연결된 타인의 행복이 나의 행복의 영향을 미침(ex. 친구의 친구가 행복하면, 나도 행복할 가능성이 커짐)</li>
+</ul>
+<p><br/>
+두 가지 네트워크 효과: 관계적 접근(relational approach) vs 위치적 접근(positional approach)</p>
+<ul>
+<li>관계적 접근: 직접 연결이 미치는 영향에 주목</li>
+<li>위치적 접근: 네트워크 구조에서 지위가 만들어내는 역할 주목</li>
+</ul>
+<p><br/>
+네트워크 정보를 파악하는 관점 세 가지</p>
+<ul>
+<li>전체 네트워크 수준: 밀도, 디그리 분포, 이행성, 글로벌 클러스터링 계수 등</li>
+<li>노드 수준: 중심성, 지위와 관련된 측정치들(isolate, bridge 등)</li>
+<li>링크 수준 혹은 두 개의 노드쌍 수준: 링크 가중치 등</li>
+</ul>
+<p><br/><br />
+기본적으로 네트워크 분석에서 관계는 edge lists(엣지 리스트) 또는 adjacency matrices(인접행렬) 형태로 표현할 수 있다.</p>
+</div>
+<div id="엣지-리스트-edge-lists" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> 엣지 리스트 (Edge lists)<a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#엣지-리스트-edge-lists" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>네트워크 표현법 1. 에지 리스트 - edges 를 나열하여 표현</p>
+<p>Edge lists는 컴퓨터에게 각 edge로 연결되어 있는 행위자들이 누군지를 알려준다.
+방향성이 있는 네트워크(directed graph)에서는 A 열의 행위자들이 연결을 주는 주체이며, B 열의 행위자들은 연결 받는 대상이다. 한편, 방향성이 없는 네트워크(undirected graph)에서 열의 순서는 상관 없다.</p>
+<p>R에서 edge lists를 만들어 보자. 먼저 열 벡터(column vectors)를 정의하고, 정의한 열 벡터들을 데이터 프레임의 변수로 만들어 주면 된다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb1-1" aria-hidden="true" tabindex="-1"></a>personA <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>)</span>
+<span id="cb1-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb1-2" aria-hidden="true" tabindex="-1"></a>personB <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Aaron&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>)</span>
+<span id="cb1-3"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb1-4" aria-hidden="true" tabindex="-1"></a>edgelist <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PersonA =</span> personA, <span class="at">PersonB =</span> personB, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb1-5"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(edgelist)</span></code></pre></div>
+<pre><code>##   PersonA PersonB
+## 1    Mark   Peter
+## 2    Mark    Jill
+## 3   Peter     Bob
+## 4   Peter   Aaron
+## 5     Bob    Jill
+## 6    Jill   Aaron</code></pre>
+<p>Edge list는 네트워크를 표현하는 아주 간단한 방법이지만, 두 가지 단점이 있다.<br />
+첫 번째, edge lists로는 어디에도 연결되지 않은 노드(고립노드/isolates)를 표현할 수 없다.<br />
+두 번째, 수학적 계산에 용이한 데이터 형태가 아니다. 따라서 네트워크 분석을 위해서는 edge list를 인접행렬(adjacency matrix) 또는 네트워크 객체(network object)로 변환해야 한다.</p>
+</div>
+<div id="인접행렬adjacency-matrices" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> 인접행렬(Adjacency matrices)<a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#인접행렬adjacency-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>인접행렬의 각 행과 각 열은 노드(행위자)를 의미하며, 각 요소는 0 또는 1 이상의 정수 값을 갖는다. 예를 들어, 인접행렬의 1번째 행과 1번째 열에 해당하는 (1,1) 자리의 요소가 0이라면, 두 행위자가 네트워크에서 연결되지 않았음을 의미한다.</p>
+<p>먼저, 5 X 5 인접행렬을 만들어 보자. 이때 행(row)과 열(column) 차원의 이름(row names, column names)을 2차원 리스트로 지정해주자.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb3-1" aria-hidden="true" tabindex="-1"></a>adjacency <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>, <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Mark&quot;</span>, <span class="st">&quot;Peter&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Jill&quot;</span>, <span class="st">&quot;Aaron&quot;</span>)))</span>
+<span id="cb3-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(adjacency)</span></code></pre></div>
+<pre><code>##       Mark Peter Bob Jill Aaron
+## Mark     0     1   0    1     0
+## Peter    1     0   1    0     1
+## Bob      0     1   0    1     0
+## Jill     1     0   1    0     1
+## Aaron    0     1   0    1     0</code></pre>
+<ul>
+<li>밀도(Density): 실제로 존재하는 링크의 비율(가능성에 비해)
+<ul>
+<li>한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값</li>
+<li>평균 디그리/노드 숫자<br />
+<br/></li>
+</ul></li>
+<li>디그리(Degree): 어떤 노드가 다른 노드에 대해 가지는 링크의 숫자
+<ul>
+<li>방향이 있는 그래프에서는 in-degree와 out-degree가 나뉨<br />
+</li>
+<li>모든 노드의 디그리를 합치면, 링크 숫자의 두 배가 됨<br />
+<br/></li>
+</ul></li>
+<li>Weighted Networks(Valued Networks)
+<ul>
+<li>링크가 있고 없고를 넘어서, 링크가 강도를 가질 수 있음<br />
+</li>
+<li>소셜 네트워크에서 행위자 간 접촉 빈도 등을 가중치로 설정할 수 있음</li>
+<li>앞서 존재한 인접행렬 매트릭스(Adjacency Matrix)로 표현 가능함. 입력 값이 0/1 두 개의 값이 아니라 다양한 값으로 표현됨(음수를 활용하는 경우도 있음)<br />
+<br/></li>
+</ul></li>
+<li>Directed Networks
+<ul>
+<li>링크에 방향이 존재할 수 있음<br />
+</li>
+<li>앞선 네트워크들에서는 인접 매트릭스가 대칭 행렬이었음(방향이 없기 때문)</li>
+<li>방향을 가정할 때에는, A(i,j)와 A(j,i)가 다른 의미를 가짐. A(i,j)는 j로부터 i로 향하는 링크의 존재를 의미함(해석 주의!)</li>
+<li>약간 반직관적 설정이나, 여러 지표 계산에 최적화된 세팅임</li>
+</ul></li>
+</ul>
+</div>
+<div id="데이터에서-네트워크로-from-data-to-networks" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> 데이터에서 네트워크로 (From data to networks)<a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#데이터에서-네트워크로-from-data-to-networks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>R의 igraph 패키지는 네트워크를 시각화하는데 사용된다. 우선 igraph 패키지를 설치하고, igraph를 작업 공간에 불러오자.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&quot;igraph&quot;, repos=&#39;http://cran.us.r-project.org&#39;)</span></span>
+<span id="cb5-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
+<p>먼저 실습에 필요한 edge list를 만들어 보자.</p>
+<p>채무 관계를 표현하는 edge list를 만들 것이다. Ego는 돈을 꿔준 사람, Alter는 돈을 받은 사람으로 하겠다. Ego 열 벡터와 Alter 열 벡터를 각각 만든 후, data.frame() 함수를 통해 데이터프레임 형태로 만든다. Ego와 Alter는 따라서 데이터프레임의 변수 명이 된다. 이렇게 만든 데이터프레임을 money_edgelist라는 이름으로 저장하자.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb6-1" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Ego =</span> <span class="fu">c</span>(<span class="st">&quot;Greg&quot;</span>,<span class="st">&quot;Greg&quot;</span>,<span class="st">&quot;Greg&quot;</span>,<span class="st">&quot;Greg&quot;</span>,<span class="st">&quot;Greg&quot;</span>,<span class="st">&quot;Maria&quot;</span>,<span class="st">&quot;Maria&quot;</span>,<span class="st">&quot;Maria&quot;</span>,<span class="st">&quot;Maria&quot;</span>,<span class="st">&quot;Mark&quot;</span>,<span class="st">&quot;Lexi&quot;</span>),</span>
+<span id="cb6-3"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Alter =</span> <span class="fu">c</span>(<span class="st">&quot;Maria&quot;</span>,<span class="st">&quot;Mark&quot;</span>,<span class="st">&quot;Lexi&quot;</span>,<span class="st">&quot;Grace&quot;</span>,<span class="st">&quot;Nick&quot;</span>,<span class="st">&quot;Mark&quot;</span>,<span class="st">&quot;Lexi&quot;</span>,<span class="st">&quot;Grace&quot;</span>,<span class="st">&quot;Nick&quot;</span>,<span class="st">&quot;Nick&quot;</span>,<span class="st">&quot;Nick&quot;</span>)</span>
+<span id="cb6-4"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-5"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb6-6" aria-hidden="true" tabindex="-1"></a>money_edgelist</span></code></pre></div>
+<pre><code>##      Ego Alter
+## 1   Greg Maria
+## 2   Greg  Mark
+## 3   Greg  Lexi
+## 4   Greg Grace
+## 5   Greg  Nick
+## 6  Maria  Mark
+## 7  Maria  Lexi
+## 8  Maria Grace
+## 9  Maria  Nick
+## 10  Mark  Nick
+## 11  Lexi  Nick</code></pre>
+<p>이제 igraph 패키지를 사용하여 간단한 네트워크 분석을 해보자. igraph 패키지는 행렬만을 input으로 받는다. 따라서 데이터프레임을 행렬로 바꿔주어야 한다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb8-1" aria-hidden="true" tabindex="-1"></a>money_edgelist <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(money_edgelist)</span>
+<span id="cb8-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb8-3" aria-hidden="true" tabindex="-1"></a>money_edgelist</span></code></pre></div>
+<pre><code>##       Ego     Alter  
+##  [1,] &quot;Greg&quot;  &quot;Maria&quot;
+##  [2,] &quot;Greg&quot;  &quot;Mark&quot; 
+##  [3,] &quot;Greg&quot;  &quot;Lexi&quot; 
+##  [4,] &quot;Greg&quot;  &quot;Grace&quot;
+##  [5,] &quot;Greg&quot;  &quot;Nick&quot; 
+##  [6,] &quot;Maria&quot; &quot;Mark&quot; 
+##  [7,] &quot;Maria&quot; &quot;Lexi&quot; 
+##  [8,] &quot;Maria&quot; &quot;Grace&quot;
+##  [9,] &quot;Maria&quot; &quot;Nick&quot; 
+## [10,] &quot;Mark&quot;  &quot;Nick&quot; 
+## [11,] &quot;Lexi&quot;  &quot;Nick&quot;</code></pre>
+<p>igraph 패키지의 <code>graph.edgelist()</code> 함수를 통해 edge list를 네트워크 객체(network object)로 바꿀 수 있다. 이 함수에는 네트워크 데이터(=edge list)와 이 네트워크가 방향성이 있는지 없는지 여부가 인자(argument)로 들어간다. 우리의 채무 네트워크의 경우 Ego에서 Alter로의 방향성이 있다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb10-1" aria-hidden="true" tabindex="-1"></a>  moneyNetwork <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(money_edgelist, <span class="at">directed=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p>igraph 패키지를 통해 modey_edgelist 데이터를 moneyNetwork라는 네트워크 객체로 바꿔주었다.</p>
+<p>그렇다면 인접행렬의 경우는 어떻게 네트워크 객체로 바꿀 수 있을까? 인접행렬은 igraph 패키지의 <code>graph.adjacency()</code> 함수를 통해 네트워크로 바꿔주면 된다.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 참고 </span></span>
+<span id="cb11-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">graph.adjacency</span>(adjacency, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
+<pre><code>## IGRAPH 0a6d626 UN-- 5 6 -- 
+## + attr: name (v/c)
+## + edges from 0a6d626 (vertex names):
+## [1] Mark --Peter Mark --Jill  Peter--Bob   Peter--Aaron Bob  --Jill 
+## [6] Jill --Aaron</code></pre>
+</div>
+<div id="네트워크-탐색하기-exploring-the-network" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> 네트워크 탐색하기 (Exploring the network)<a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-탐색하기-exploring-the-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>이제 네트워크의 각각의 요소들이 무엇을 의미하는지 알아보자.
+아까 만든 moneyNetwork를 입력하면 네트워크의 summary가 출력된다.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb13-1" aria-hidden="true" tabindex="-1"></a>  moneyNetwork</span></code></pre></div>
+<pre><code>## IGRAPH 0a65b66 DN-- 6 11 -- 
+## + attr: name (v/c)
+## + edges from 0a65b66 (vertex names):
+##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
+##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
+## [11] Lexi -&gt;Nick</code></pre>
+<p>IGRAPH DN 으로 시작하는 맨 첫 줄은 moneyNetwork가 igraph object이고, 방향성이 있는 네트워크 (directed network)이며, 6개의 노드와 11개의 에지로 구성되었음을 알려준다.</p>
+<p>두 번째 줄은 moneyNetwork가 노드(vertices, v/c)의 이름(name)을 특성(attribute)으로 가지고 있음을 알려준다. 따라서 우리는 네트워크의 name 특성을 따로 뽑아낼 수 있다. 네트워크의 특성을 뽑아낼 때에는 <code>V()$</code> 를 사용한다.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(moneyNetwork)<span class="sc">$</span>name</span></code></pre></div>
+<pre><code>## [1] &quot;Greg&quot;  &quot;Maria&quot; &quot;Mark&quot;  &quot;Lexi&quot;  &quot;Grace&quot; &quot;Nick&quot;</code></pre>
+<p>summary의 첫 번째 줄에서 봤듯이, 이 네트워크의 노드는 총 6개가 있었고, 각 노드의 이름이 특성으로 저장되어 있다.</p>
+<p>다음으로, 세 번째 줄은 네트워크의 edges의 snapshot을 보여준다.</p>
+<p>plot() 함수를 사용하면 전체 네트워크를 시각화할 수 있다.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(moneyNetwork)</span></code></pre></div>
+<p><img src="images/1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>디폴트 그래프는 못 생겼다…다음 장에서 네트워크 시각화에 대해 더 배워보자.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="네트워크-시각화-network-visualization-and-aesthetics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Social_Network_Analysis.pdf", "Social_Network_Analysis.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Small World / Weak Ties | Social Network Analysis in R</title>
+  <meta name="description" content="Chapter 6 Small World / Weak Ties | Social Network Analysis in R" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Small World / Weak Ties | Social Network Analysis in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Small World / Weak Ties | Social Network Analysis in R" />
+  
+  
+  
+
+<meta name="author" content="Do Won Kim, Hyowon Kim" />
+
+
+<meta name="date" content="2023-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="중심성-centrality.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">네트워크분석 입문</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 들어가며</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#네트워크-데이터란"><i class="fa fa-check"></i><b>1.1</b> 네트워크 데이터란?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#엣지-리스트-edge-lists"><i class="fa fa-check"></i><b>1.2</b> 엣지 리스트 (Edge lists)</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#인접행렬adjacency-matrices"><i class="fa fa-check"></i><b>1.3</b> 인접행렬(Adjacency matrices)</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#데이터에서-네트워크로-from-data-to-networks"><i class="fa fa-check"></i><b>1.4</b> 데이터에서 네트워크로 (From data to networks)</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#네트워크-탐색하기-exploring-the-network"><i class="fa fa-check"></i><b>1.5</b> 네트워크 탐색하기 (Exploring the network)</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>2</b> 네트워크 시각화 (Network Visualization and Aesthetics)</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#기초-시각화-the-basics"><i class="fa fa-check"></i><b>2.1</b> 기초 시각화 (The Basics)</a></li>
+<li class="chapter" data-level="2.2" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-레이아웃-layouts"><i class="fa fa-check"></i><b>2.2</b> 네트워크 레이아웃 (Layouts)</a></li>
+<li class="chapter" data-level="2.3" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-객체에-특성-추가하기-adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>2.3</b> 네트워크 객체에 특성 추가하기 (Adding attributes to a network object)</a></li>
+<li class="chapter" data-level="2.4" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#특성에-따른-시각화-plotting-based-on-attributes"><i class="fa fa-check"></i><b>2.4</b> 특성에 따른 시각화 (Plotting based on attributes)</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html"><i class="fa fa-check"></i><b>3</b> 에고 네트워크(Ego Networks)</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기"><i class="fa fa-check"></i><b>3.1</b> 에고 네트워크 분석하기</a></li>
+<li class="chapter" data-level="3.2" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density"><i class="fa fa-check"></i><b>3.2</b> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html"><i class="fa fa-check"></i><b>4</b> 소속 관계 다루기(Affiliation Data)</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html#원모드-변환unipartite-projection"><i class="fa fa-check"></i><b>4.1</b> 원모드 변환(Unipartite Projection)</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="중심성-centrality.html"><a href="중심성-centrality.html"><i class="fa fa-check"></i><b>5</b> 중심성 (Centrality)</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="중심성-centrality.html"><a href="중심성-centrality.html#예시-네트워크-불러오기-loading-the-example-network"><i class="fa fa-check"></i><b>5.1</b> 예시 네트워크 불러오기 (Loading the example network)</a></li>
+<li class="chapter" data-level="5.2" data-path="중심성-centrality.html"><a href="중심성-centrality.html#연결중심성degree-centrality"><i class="fa fa-check"></i><b>5.2</b> 연결중심성(Degree Centrality)</a></li>
+<li class="chapter" data-level="5.3" data-path="중심성-centrality.html"><a href="중심성-centrality.html#매개중심성betweenness-centrality"><i class="fa fa-check"></i><b>5.3</b> 매개중심성(Betweenness Centrality)</a></li>
+<li class="chapter" data-level="5.4" data-path="중심성-centrality.html"><a href="중심성-centrality.html#근접중심성closeness-centrality"><i class="fa fa-check"></i><b>5.4</b> 근접중심성(Closeness Centrality)</a></li>
+<li class="chapter" data-level="5.5" data-path="중심성-centrality.html"><a href="중심성-centrality.html#위세중심성eigenvector-centrality"><i class="fa fa-check"></i><b>5.5</b> 위세중심성(Eigenvector Centrality)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html"><i class="fa fa-check"></i><b>6</b> Small World / Weak Ties</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#its-a-small-world"><i class="fa fa-check"></i><b>6.1</b> It’s a small world!</a></li>
+<li class="chapter" data-level="6.2" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#좁은-세상-시뮬레이션"><i class="fa fa-check"></i><b>6.2</b> 좁은 세상 시뮬레이션</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Social Network Analysis in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="small-world-weak-ties" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Small World / Weak Ties<a href="small-world-weak-ties.html#small-world-weak-ties" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="its-a-small-world" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> It’s a small world!<a href="small-world-weak-ties.html#its-a-small-world" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>대통령한테 편지를 전달하고 싶다. 아는 사람들의 연결망을 통해서 전달해야 한다고 할 때, 몇 단계를 거치면 내 편지가 도달할까?</p>
+<p>1950년에 미국의 유명한 사회심리학자 스탠리 밀그램은 “좁은 세상 현상(small world phenomenon)”을 계량하기 위한 실험을 진행했다. 이 실험에서 타겟 노드는 밀그램의 지인인, 보스턴에 거주하는 한 주식 브로커였다. 밀그램은 네브라스카 주에 거주하는 농부들을 모집하였다. 이 농부들은 타겟과 물리적으로도 거리가 멀 뿐만 아니라, 사회적으로도 거리가 있었다. 네브라스카 농부들은 자신들이 잘 아는 지인(=허브)을 통해서 보스턴의 주식 브로커에게 편지를 전달해야 했다. 실험 결과는 아래의 그림과 같다.</p>
+<p><img src="images/41.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>x축은 타겟 노드에 도달하기까지 거쳐간 사람들의 명수를 의미한다. 중위값은 5였다. 즉, 최초의 네브라스카 농부까지 포함하면, 평균적으로 6번의 점프로 보스턴 주식 브로커에 도달할 수 있다는 것이다. 여기서 그 유명한 ’six degrees of separation’이라는 단어가 나왔다.</p>
+<p>이 실험은 small world 네트워크의 특성을 잘 보여준다. Small world 네트워크에서는 길이가 긴 링크(거리가 먼 사람들 간 직접적으로 연결된 링크)는 몇 개 없지만, 비교적 길이가 짧은 경로를 통해 - 주로 hubs 거쳐서 - 서로서로 연결된다.</p>
+<p>흥미로운 지점은 대부분의 real-world complex 네트워크가 이러한 small world 특성을 지니고 있다는 것이다. 던컨 왓츠와 스티븐 스트로가츠는 네이쳐지에 “Collective dynamics of ‘small-world’ networks” 라는 제목의 논문을 출판했다(Watts and Strogatz, 1998).</p>
+<p>그들은 다음 세 가지의 real-world 네트워크에 주목했다:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>영화배우 네트워크: 노드는 영화배우, 만약 배우들끼리 같은 영화에 출현하면 연결됨</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Power grid: 노드는 발전소, 링크는 transmission이 있으면 연결됨</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>C.elegans: C.elegans라는 지렁이의 뇌 뉴런이 노드고, 시냅스로 연결되면 연결됨</li>
+</ol></li>
+</ul>
+<p>이러한 실제 존재하는 복잡한 네트워크들은 어떤 구조를 가지고 있을까? 가장 단순한 구조 두 가지로 생각해 볼 수 있겠다. 첫 번째는 완전히 규칙적인 네트워크(regular network)이다. Regular 네트워크에서는 모든 노드가 각자의 두 이웃 노드들까지 연결되어 있다. 한 노드에서 랜덤한 다른 노드까지 이동하는데 평균 거리가 멀고, 평균적으로 군집화 정도도 높다. 두 번째는 그 반대 편에 있는, 완전히 랜덤한 네트워크(random network)이다. 평균 연결성은 regular 네트워크와 같지만, 서로 무작위로 연결되어 있다. 랜덤 네트워크에서는 평균 거리와 군집화 정도 모두 낮다.</p>
+<p>그렇다면 실제 네트워크들은 (1) regular, (2) random 네트워크 중 어느 것과 비슷한 구조를 가질까? 왓츠와 스트로가츠의 분석에 따르면, 실제 네트워크 구조는 regular와 random 네트워크 둘 다 해당하지 않았다. 대신에, 평균 거리는 낮지만 평균 군집화 정도는 높은 “small world” 네트워크 구조에 가깝웠다. 허브 노드를 통해 서로 몇 단계만 거치면 연결되는 small world 구조는 hubs and spokes 구조라고도 불린다.</p>
+<p><img src="images/43.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>실제로 항공 노선 네트워크, power grid 네트워크, 월드 와이드 웹 인터넷 네트워크 등 실생활에서 볼 수 있는 네트워크들은 거의 다 small world 네트워크 구조에 해당한다. Small world 네트워크의 중요한 속성을 표현하자면, ’최소한의 연결(minimum number of connections)로 최대한의 연결성(maximum connectivity)’이라고 할 수 있다. 따라서 굉장히 효율적이다.</p>
+<p>우리의 뇌도 small world 네트워크를 따른다. 어린 아이들의 뇌는 랜덤 네트워크 형태에 가까운데, 나이가 들수록 효율적인 rewiring을 통해 small world 네트워크에 가까워진다.</p>
+<p><img src="images/44.png" width="80%" style="display: block; margin: auto;" />
+정리하면, 현존하는 많은 네트워크는 small world 네트워크 구조를 따른다.</p>
+<p><img src="images/42.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>이번 장의 실습에서는 Watts와 Strogatz의 small world 시뮬레이션을 따라할 것이다.</p>
+</div>
+<div id="좁은-세상-시뮬레이션" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> 좁은 세상 시뮬레이션<a href="small-world-weak-ties.html#좁은-세상-시뮬레이션" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>실제 존재하는 소셜 네트워크는 small worlds에 가깝다. 좁은 세상에서는 사람들이 그룹으로 clustered 되어 있으면서, 동시에, 평균적으로는 사회적으로 가깝다(socially proximate). 예를 들어, 당신은 랜덤한 인도 거주민과 사회적으로 거리가 멀다고 느낄 수 있지만, 몇 단계를 거치면 해당 거주민에 도달할 수 있다. 그 인도인은 자신의 좁은 세상에 살고, 당신 또한 당신의 좁은 세상에 살지만, 그럼에도 불구하고 서로 도달 가능하다. 이러한 현상을 “좁은 세상”이라고 부른다.
+던칸 와츠(Duncan Watts)는 그의 유명한 페이퍼에서 이 현상에 대해 설명한다. 그는 가장 clustered 된 “caveman” 구조를 가진 네트워크에서 출발한다. Clustered 된 사람들의 집단이 있고, 다른 집단으로 하나 또는 두 개의 연결고리가 있는 상태를 caveman 구조라고 한다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="small-world-weak-ties.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb1-2"><a href="small-world-weak-ties.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="small-world-weak-ties.html#cb1-3" aria-hidden="true" tabindex="-1"></a>simulate_caveman <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">clique_size =</span> <span class="dv">5</span>){</span>
+<span id="cb1-4"><a href="small-world-weak-ties.html#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">require</span>(igraph)</span>
+<span id="cb1-5"><a href="small-world-weak-ties.html#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Groups are all the same size, so I check whether N is divisible by the size of groups</span></span>
+<span id="cb1-6"><a href="small-world-weak-ties.html#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> ( ((n<span class="sc">%/%</span>clique_size) <span class="sc">*</span> clique_size) <span class="sc">!=</span> n){</span>
+<span id="cb1-7"><a href="small-world-weak-ties.html#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stop</span>(<span class="st">&quot;n is not evenly divisible by clique_size&quot;</span>)</span>
+<span id="cb1-8"><a href="small-world-weak-ties.html#cb1-8" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-9"><a href="small-world-weak-ties.html#cb1-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-10"><a href="small-world-weak-ties.html#cb1-10" aria-hidden="true" tabindex="-1"></a>  groups <span class="ot">=</span> n<span class="sc">/</span>clique_size <span class="co"># this determines the number of groups</span></span>
+<span id="cb1-11"><a href="small-world-weak-ties.html#cb1-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-12"><a href="small-world-weak-ties.html#cb1-12" aria-hidden="true" tabindex="-1"></a>  el <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">PersonA =</span> <span class="dv">1</span><span class="sc">:</span>n, <span class="at">Group =</span> <span class="cn">NA</span>) <span class="co"># I create a dataframe which has people and the groups they are in</span></span>
+<span id="cb1-13"><a href="small-world-weak-ties.html#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># I treat it like a person to group edgelist</span></span>
+<span id="cb1-14"><a href="small-world-weak-ties.html#cb1-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-15"><a href="small-world-weak-ties.html#cb1-15" aria-hidden="true" tabindex="-1"></a>  group_vector <span class="ot">=</span> <span class="fu">c</span>()</span>
+<span id="cb1-16"><a href="small-world-weak-ties.html#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>groups){</span>
+<span id="cb1-17"><a href="small-world-weak-ties.html#cb1-17" aria-hidden="true" tabindex="-1"></a>    group_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(group_vector, <span class="fu">rep</span>(i, clique_size))</span>
+<span id="cb1-18"><a href="small-world-weak-ties.html#cb1-18" aria-hidden="true" tabindex="-1"></a>  }  </span>
+<span id="cb1-19"><a href="small-world-weak-ties.html#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="small-world-weak-ties.html#cb1-20" aria-hidden="true" tabindex="-1"></a>  el<span class="sc">$</span>Group <span class="ot">&lt;-</span> group_vector</span>
+<span id="cb1-21"><a href="small-world-weak-ties.html#cb1-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-22"><a href="small-world-weak-ties.html#cb1-22" aria-hidden="true" tabindex="-1"></a>  inc <span class="ot">&lt;-</span> <span class="fu">table</span>(el) <span class="co"># I use the table function to turn the person to group edgelist into an incidence matrix</span></span>
+<span id="cb1-23"><a href="small-world-weak-ties.html#cb1-23" aria-hidden="true" tabindex="-1"></a>  adj <span class="ot">&lt;-</span> inc <span class="sc">%*%</span> <span class="fu">t</span>(inc) <span class="co"># And I use matrix multiplication with the transpose to turn the person to group incidence matrix</span></span>
+<span id="cb1-24"><a href="small-world-weak-ties.html#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># into a person to person adjacency matrix</span></span>
+<span id="cb1-25"><a href="small-world-weak-ties.html#cb1-25" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-26"><a href="small-world-weak-ties.html#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(adj) <span class="ot">&lt;-</span> <span class="dv">0</span> </span>
+<span id="cb1-27"><a href="small-world-weak-ties.html#cb1-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-28"><a href="small-world-weak-ties.html#cb1-28" aria-hidden="true" tabindex="-1"></a>  g <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(adj, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>) <span class="co"># I graph this matrix</span></span>
+<span id="cb1-29"><a href="small-world-weak-ties.html#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="small-world-weak-ties.html#cb1-30" aria-hidden="true" tabindex="-1"></a>  group_connect <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> n, <span class="at">by =</span> clique_size) <span class="co"># I determine the points of connection using a sequence function</span></span>
+<span id="cb1-31"><a href="small-world-weak-ties.html#cb1-31" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-32"><a href="small-world-weak-ties.html#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>( i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(group_connect)<span class="sc">-</span><span class="dv">1</span>)){</span>
+<span id="cb1-33"><a href="small-world-weak-ties.html#cb1-33" aria-hidden="true" tabindex="-1"></a>    p1 <span class="ot">&lt;-</span> group_connect[i] <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1-34"><a href="small-world-weak-ties.html#cb1-34" aria-hidden="true" tabindex="-1"></a>    p2 <span class="ot">&lt;-</span> group_connect[i<span class="sc">+</span><span class="dv">1</span>]</span>
+<span id="cb1-35"><a href="small-world-weak-ties.html#cb1-35" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">add.edges</span>(g, <span class="fu">c</span>(p1,p2)) <span class="co"># And I connect the points of connection using add.edges</span></span>
+<span id="cb1-36"><a href="small-world-weak-ties.html#cb1-36" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-37"><a href="small-world-weak-ties.html#cb1-37" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">&lt;-</span> <span class="fu">add.edges</span>(g, <span class="fu">c</span>(group_connect[<span class="dv">1</span>],(group_connect[groups]<span class="sc">+</span><span class="dv">1</span>))) <span class="co"># finally I connect the ends of the structure so that it forms a circle</span></span>
+<span id="cb1-38"><a href="small-world-weak-ties.html#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-39"><a href="small-world-weak-ties.html#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(g)    </span>
+<span id="cb1-40"><a href="small-world-weak-ties.html#cb1-40" aria-hidden="true" tabindex="-1"></a>} </span></code></pre></div>
+<p>위 함수는 호프만 교수가 직접 짠 함수로, caveman 구조 시뮬레이션을 가능케한다. 다 이해할 필요는 없다. 함수의 인자(arguments)는 두 가지이다: 노드 개수(n)와 집단 규모(clique_size). 집단 규모(clique_size)는 4 또는 10으로 바꿀 수 있다.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="small-world-weak-ties.html#cb2-1" aria-hidden="true" tabindex="-1"></a>caveman_net <span class="ot">&lt;-</span> <span class="fu">simulate_caveman</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">clique_size =</span> <span class="dv">5</span>) </span>
+<span id="cb2-2"><a href="small-world-weak-ties.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb2-3"><a href="small-world-weak-ties.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(caveman_net, <span class="at">layout =</span> <span class="fu">layout.kamada.kawai</span>(caveman_net), <span class="at">vertex.size =</span> <span class="dv">2</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>, <span class="at">vertex.color =</span> <span class="st">&quot;grey80&quot;</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>이것이 바로 caveman 구조이다. 이 네트워크 구조를 분석해보자. 참고로 이행성(transitivity)은 클러스터링 계수를 측정한다. 즉, 네트워크가 전체적으로 얼마나 뭉쳐있는지를 보여주는 값이다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="small-world-weak-ties.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(caveman_net) </span>
+<span id="cb3-2"><a href="small-world-weak-ties.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="small-world-weak-ties.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">average.path.length</span>(caveman_net)</span></code></pre></div>
+<p>caveman 구조 네트워크는 전반적으로 상당히 낮은 밀도(density)를 갖는다. 왜냐하면 대부분의 노드들이 파벌(clique) 내에서만 서로 연결되어 있거나 단 한 개의 연결고리(tie)로 다른 파벌과 연결되어 있기 떄문이다. 반대로 말하면, 파벌 내에서는 밀도가 굉장히 높고 상당히 뭉쳐 있다.</p>
+<p>경로의 길이 또한 매우 크다. 평균적으로 하나의 노드에서 다른 랜덤한 노드로 갈 때 10번의 스텝이 필요하다. 실제 사회에서는 우리가 시뮬레이션을 돌릴 때 설정했던 100명의 사람들과 20개의 파벌(파벌 크기가 5이므로)보다 더 많은 사람들과 파벌이 있기 때문에, 평균 degree of separation 가 6~7이라는 게 더욱 놀랍다. 결론적으로 caveman 구조는 small world가 아니다.</p>
+<p>이 네트워크 구조의 지름도 구할 수 있다. 지름은 가장 긴 최단 경로이다.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="small-world-weak-ties.html#cb4-1" aria-hidden="true" tabindex="-1"></a>nodes_diameter<span class="ot">&lt;-</span><span class="fu">get.diameter</span>(caveman_net)</span>
+<span id="cb4-2"><a href="small-world-weak-ties.html#cb4-2" aria-hidden="true" tabindex="-1"></a>edges_incident <span class="ot">&lt;-</span> <span class="fu">get.edge.ids</span>(caveman_net, nodes_diameter)</span>
+<span id="cb4-3"><a href="small-world-weak-ties.html#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="small-world-weak-ties.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(caveman_net)<span class="sc">$</span>color<span class="ot">&lt;-</span><span class="st">&quot;grey60&quot;</span> <span class="co"># Set default color for nodes</span></span>
+<span id="cb4-5"><a href="small-world-weak-ties.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(caveman_net)[nodes_diameter]<span class="sc">$</span>color<span class="ot">&lt;-</span><span class="st">&quot;green&quot;</span> <span class="co"># Set the nodes on the diameter to be green</span></span>
+<span id="cb4-6"><a href="small-world-weak-ties.html#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="small-world-weak-ties.html#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(caveman_net)<span class="sc">$</span>color<span class="ot">&lt;-</span><span class="st">&quot;grey70&quot;</span> <span class="co"># Set default edge color</span></span>
+<span id="cb4-8"><a href="small-world-weak-ties.html#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(caveman_net)[edges_incident]<span class="sc">$</span>color<span class="ot">&lt;-</span><span class="st">&quot;green&quot;</span> <span class="co"># Set the edges on the diameter to be green</span></span>
+<span id="cb4-9"><a href="small-world-weak-ties.html#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="small-world-weak-ties.html#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(caveman_net, <span class="at">layout =</span> <span class="fu">layout.kamada.kawai</span>(caveman_net), <span class="at">vertex.size =</span> <span class="dv">2</span>, <span class="at">vertex.label =</span> <span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Watts는 이 네트워크 구조에서 시작하여, 평균 경로 길이가 훨씬 작은 네트워크로 이동하고자 했다. 그러기 위해서 네트워크를 랜덤하게 rewire 하여, 점점 (낮은 평균 경로 길이를 갖는) 랜덤 네트워크에 근접하도록 실험하였다.</p>
+<p>따라서 몇 개의 엣지를 rewire하여 네트워크를 가로지르도록 하였다. 이때 <code>rewire()</code> 함수를 사용하면 되고, <code>keeping_degseq()</code> 함수를 통해 연결의 분포(degree distribution)가 바뀌지 않도록 설정한다. 또한 랜덤으로 rewiring할 때 반복 횟수(number of iterations)는1000으로 설정하였다.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="small-world-weak-ties.html#cb5-1" aria-hidden="true" tabindex="-1"></a>caveman_net_rewired <span class="ot">&lt;-</span>  <span class="fu">rewire</span>(caveman_net, <span class="fu">keeping_degseq</span>(<span class="at">niter =</span> <span class="dv">1000</span>))</span></code></pre></div>
+<p>시각화를 하기 위해 rewired된 caveman 네트워크의 엣지와 노드 색상을 구분해준 후 그려보자.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="small-world-weak-ties.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(caveman_net_rewired)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="st">&quot;grey80&quot;</span></span>
+<span id="cb6-2"><a href="small-world-weak-ties.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(caveman_net)<span class="sc">$</span>color <span class="ot">&lt;-</span> <span class="st">&quot;grey60&quot;</span></span>
+<span id="cb6-3"><a href="small-world-weak-ties.html#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="small-world-weak-ties.html#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(caveman_net_rewired, <span class="at">layout =</span> <span class="fu">layout.kamada.kawai</span>(caveman_net), <span class="at">vertex.size =</span> <span class="dv">2</span>, <span class="at">vertex.label=</span><span class="cn">NA</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>대부분의 rewirings이 네트워크 구조를 가로지르도록 되었음을 확인할 수 있다.</p>
+<p>caveman 네트워크와 비교해보자.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="small-world-weak-ties.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.density</span>(caveman_net) </span>
+<span id="cb7-2"><a href="small-world-weak-ties.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(caveman_net) </span>
+<span id="cb7-3"><a href="small-world-weak-ties.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">average.path.length</span>(caveman_net)</span>
+<span id="cb7-4"><a href="small-world-weak-ties.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="small-world-weak-ties.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.density</span>(caveman_net_rewired) </span>
+<span id="cb7-6"><a href="small-world-weak-ties.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(caveman_net_rewired) </span>
+<span id="cb7-7"><a href="small-world-weak-ties.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">average.path.length</span>(caveman_net_rewired)</span></code></pre></div>
+<p>밀도(density)는 바뀌지 않았다. 클러스터링 계수(transitivity)와 평균 경로 길이는 감소하였다.</p>
+<p>Rewirings을 하면서 나타는 변화를 살펴보자.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="small-world-weak-ties.html#cb8-1" aria-hidden="true" tabindex="-1"></a>caveman_net_rewired <span class="ot">&lt;-</span> <span class="fu">simulate_caveman</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">clique_size =</span> <span class="dv">10</span>)</span>
+<span id="cb8-2"><a href="small-world-weak-ties.html#cb8-2" aria-hidden="true" tabindex="-1"></a>avgpathlength <span class="ot">&lt;-</span> <span class="fu">average.path.length</span>(caveman_net_rewired) <span class="co"># These are the first observation</span></span>
+<span id="cb8-3"><a href="small-world-weak-ties.html#cb8-3" aria-hidden="true" tabindex="-1"></a>clusteringcoefficient <span class="ot">&lt;-</span> <span class="fu">transitivity</span>(caveman_net_rewired)</span>
+<span id="cb8-4"><a href="small-world-weak-ties.html#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="small-world-weak-ties.html#cb8-5" aria-hidden="true" tabindex="-1"></a>iter <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb8-6"><a href="small-world-weak-ties.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ( i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>iter){</span>
+<span id="cb8-7"><a href="small-world-weak-ties.html#cb8-7" aria-hidden="true" tabindex="-1"></a>  caveman_net_rewired <span class="ot">&lt;-</span> caveman_net_rewired <span class="sc">%&gt;%</span> <span class="fu">rewire</span>(<span class="fu">keeping_degseq</span>(<span class="at">niter =</span> <span class="dv">1</span>))</span>
+<span id="cb8-8"><a href="small-world-weak-ties.html#cb8-8" aria-hidden="true" tabindex="-1"></a>  avgpathlength <span class="ot">&lt;-</span> <span class="fu">c</span>(avgpathlength, <span class="fu">average.path.length</span>(caveman_net_rewired)) <span class="co"># We are just appending the result to a vector</span></span>
+<span id="cb8-9"><a href="small-world-weak-ties.html#cb8-9" aria-hidden="true" tabindex="-1"></a>  clusteringcoefficient <span class="ot">&lt;-</span> <span class="fu">c</span>(clusteringcoefficient, <span class="fu">transitivity</span>(caveman_net_rewired))</span>
+<span id="cb8-10"><a href="small-world-weak-ties.html#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-11"><a href="small-world-weak-ties.html#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="small-world-weak-ties.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, avgpathlength, <span class="at">xlab =</span> <span class="st">&quot;Numer of Rewirings&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Average Path Length&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Caveman&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb8-13"><a href="small-world-weak-ties.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, clusteringcoefficient)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="small-world-weak-ties.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, clusteringcoefficient, <span class="at">xlab =</span> <span class="st">&quot;Numer of Rewirings&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Clustering Coefficient&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Caveman&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="중심성-centrality.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-summary.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Social_Network_Analysis.pdf", "Social_Network_Analysis.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
