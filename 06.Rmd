@@ -7,7 +7,7 @@
 
 1950년에 미국의 유명한 사회심리학자 스탠리 밀그램은 "좁은 세상 현상(small world phenomenon)"을 계량하기 위한 실험을 진행했다. 이 실험에서 타겟 노드는 밀그램의 지인인, 보스턴에 거주하는 한 주식 브로커였다. 밀그램은 네브라스카 주에 거주하는 농부들을 모집하였다. 이 농부들은 타겟과 물리적으로도 거리가 멀 뿐만 아니라, 사회적으로도 거리가 있었다. 네브라스카 농부들은 자신들이 잘 아는 지인(=허브)을 통해서 보스턴의 주식 브로커에게 편지를 전달해야 했다. 실험 결과는 아래의 그림과 같다. 
 
-```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+```{r , out.width = "80%", fig.align = "center"}
 knitr::include_graphics("images/41.png")
 ```
 
@@ -30,7 +30,7 @@ x축은 타겟 노드에 도달하기까지 거쳐간 사람들의 명수를 의
 그렇다면 실제 네트워크들은 (1) regular, (2) random 네트워크 중 어느 것과 비슷한 구조를 가질까? 왓츠와 스트로가츠의 분석에 따르면, 실제 네트워크 구조는 regular와 random 네트워크 둘 다 해당하지 않았다. 대신에, 평균 거리는 낮지만 평균 군집화 정도는 높은 "small world" 네트워크 구조에 가깝웠다. 허브 노드를 통해 서로 몇 단계만 거치면 연결되는 small world 구조는 hubs and spokes 구조라고도 불린다. 
 
 
-```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+```{r , out.width = "80%", fig.align = "center"}
 knitr::include_graphics("images/43.png")
 ```
 
@@ -38,12 +38,12 @@ knitr::include_graphics("images/43.png")
 
 우리의 뇌도 small world 네트워크를 따른다. 어린 아이들의 뇌는 랜덤 네트워크 형태에 가까운데, 나이가 들수록 효율적인 rewiring을 통해 small world 네트워크에 가까워진다. 
 
-```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+```{r , out.width = "80%", fig.align = "center"}
 knitr::include_graphics("images/44.png")
 ```
 정리하면, 현존하는 많은 네트워크는 small world 네트워크 구조를 따른다. 
 
-```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+```{r , out.width = "80%", fig.align = "center"}
 knitr::include_graphics("images/42.png")
 ```
 
@@ -101,7 +101,7 @@ simulate_caveman <- function(n = 25, clique_size = 5){
 
 위 함수는 호프만 교수가 직접 짠 함수로, caveman 구조 시뮬레이션을 가능케한다. 다 이해할 필요는 없다. 함수의 인자(arguments)는 두 가지이다: 노드 개수(n)와 집단 규모(clique_size). 집단 규모(clique_size)는 4 또는 10으로 바꿀 수 있다. 
 
-```{r, results='hide'}
+```{r}
 caveman_net <- simulate_caveman(n = 100, clique_size = 5) 
 par(mar = c(2,2,2,2))
 plot(caveman_net, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label = NA, vertex.color = "grey80")
@@ -109,7 +109,7 @@ plot(caveman_net, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, ve
 
 이것이 바로 caveman 구조이다. 이 네트워크 구조를 분석해보자. 참고로 이행성(transitivity)은 클러스터링 계수를 측정한다. 즉, 네트워크가 전체적으로 얼마나 뭉쳐있는지를 보여주는 값이다.
 
-```{r, results='hide'}
+```{r}
 transitivity(caveman_net) 
 
 average.path.length(caveman_net)
@@ -121,7 +121,7 @@ caveman 구조 네트워크는 전반적으로 상당히 낮은 밀도(density)�
 
 이 네트워크 구조의 지름도 구할 수 있다. 지름은 가장 긴 최단 경로이다. 
 
-```{r, results='hide', message=FALSE}
+```{r, message=FALSE}
 nodes_diameter<-get.diameter(caveman_net)
 edges_incident <- get.edge.ids(caveman_net, nodes_diameter)
 
@@ -139,7 +139,7 @@ Watts는 이 네트워크 구조에서 시작하여, 평균 경로 길이가 훨
 
 따라서 몇 개의 엣지를 rewire하여 네트워크를 가로지르도록 하였다. 이때 `rewire()` 함수를 사용하면 되고, `keeping_degseq()` 함수를 통해 연결의 분포(degree distribution)가 바뀌지 않도록 설정한다. 또한 랜덤으로 rewiring할 때 반복 횟수(number of iterations)는1000으로 설정하였다. 
 
-```{r, results='hide', message=FALSE}
+```{r, message=FALSE}
 caveman_net_rewired <-  rewire(caveman_net, keeping_degseq(niter = 1000))
 ```
 
@@ -158,7 +158,7 @@ plot(caveman_net_rewired, layout = layout.kamada.kawai(caveman_net), vertex.size
 caveman 네트워크와 비교해보자. 
 
 
-```{r, results='hide'}
+```{r }
 
 graph.density(caveman_net) 
 transitivity(caveman_net) 
@@ -174,7 +174,7 @@ average.path.length(caveman_net_rewired)
 
 Rewirings을 하면서 나타는 변화를 살펴보자. 
 
-```{r, results='hide'}
+```{r}
 caveman_net_rewired <- simulate_caveman(n = 100, clique_size = 10)
 avgpathlength <- average.path.length(caveman_net_rewired) # These are the first observation
 clusteringcoefficient <- transitivity(caveman_net_rewired)
@@ -192,7 +192,7 @@ lines(1:100, clusteringcoefficient)
 
 
 
-```{r, results='hide'}
+```{r}
 plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l", ylim = c(0,1))
 
 ```

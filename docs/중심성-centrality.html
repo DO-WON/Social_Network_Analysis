@@ -215,9 +215,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>인접행렬은 현재 데이터프레임 구조를 갖고 있기 때문에, 우선 행렬로 변환하여 <code>graph.edgelist()</code> 함수를 통해 엣지리스트로 만들어주자. 이제 혼인 네트워크가 생성되었다.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="중심성-centrality.html#cb3-1" aria-hidden="true" tabindex="-1"></a>marriageNet <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(<span class="fu">as.matrix</span>(florentine_edj), <span class="at">directed =</span> T)</span>
 <span id="cb3-2"><a href="중심성-centrality.html#cb3-2" aria-hidden="true" tabindex="-1"></a>marriageNet</span></code></pre></div>
-<pre><code>## IGRAPH 67b7e88 DN-- 96 314 -- 
+<pre><code>## IGRAPH 73fd0b9 DN-- 96 314 -- 
 ## + attr: name (v/c)
-## + edges from 67b7e88 (vertex names):
+## + edges from 73fd0b9 (vertex names):
 ##  [1] Acciaiuoli  -&gt;Guicciardini Acciaiuoli  -&gt;Medici      
 ##  [3] Adimari     -&gt;Arrigucci    Adimari     -&gt;Barbadori   
 ##  [5] Adimari     -&gt;Strozzi      Albizzi     -&gt;Altoviti    
