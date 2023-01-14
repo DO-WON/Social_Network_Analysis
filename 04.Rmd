@@ -67,14 +67,17 @@ classesMatrix
 `graph.incidence()` 함수를 사용하여 근접행렬을 bipartite 네트워크(=two-mode 네트워크)로 바꿔보자.
 
 
-```{r, results='hide'}
+```{r}
 
 classesNet <- graph.incidence(classesMatrix, mode = c("all"))
 plot(classesNet, vertex.label.cex = .6, vertex.label.color = "black")
+
 ```
+
+
 노드 타입에 따라 모양을 구분하여 시각화해보자. classesNet 네트워크 노드(vertex)의 특성(attribute) 변수로 shape 변수를 추가하자. 네트워크 노드의 타입은 `V()$type`으로 확인할 수 있다. 확인해보니 노드 타입이 학생인 경우 FALSE 값을, 수업인 경우 TRUE 값을 갖는다. `ifelse()`함수를 통해 노드 타입이 학생인 경우에는 동그라미 모양을, 수업인 경우 네모 모양을 갖는 shape 변수를 추가한 후에 다시 그려보자. 
 
-```{r, results='hide'}
+```{r}
 
 V(classesNet)$shape <- ifelse(V(classesNet)$type == FALSE, "circle", "square")
 plot(classesNet, 

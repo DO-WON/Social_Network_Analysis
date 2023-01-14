@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="에고-네트워크ego-networks.html"/>
-<link rel="next" href="small-world-weak-ties.html"/>
+<link rel="next" href="중심성-centrality.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -161,10 +161,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html#원모드-변환unipartite-projection"><i class="fa fa-check"></i><b>5.1</b> 원모드 변환(Unipartite Projection)</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html"><i class="fa fa-check"></i><b>6</b> Small World / Weak Ties</a>
+<li class="chapter" data-level="6" data-path="중심성-centrality.html"><a href="중심성-centrality.html"><i class="fa fa-check"></i><b>6</b> 중심성 (Centrality)</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#its-a-small-world"><i class="fa fa-check"></i><b>6.1</b> It’s a small world!</a></li>
-<li class="chapter" data-level="6.2" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#좁은-세상-시뮬레이션"><i class="fa fa-check"></i><b>6.2</b> 좁은 세상 시뮬레이션</a></li>
+<li class="chapter" data-level="6.1" data-path="중심성-centrality.html"><a href="중심성-centrality.html#예시-네트워크-불러오기-loading-the-example-network"><i class="fa fa-check"></i><b>6.1</b> 예시 네트워크 불러오기 (Loading the example network)</a></li>
+<li class="chapter" data-level="6.2" data-path="중심성-centrality.html"><a href="중심성-centrality.html#연결중심성degree-centrality"><i class="fa fa-check"></i><b>6.2</b> 연결중심성(Degree Centrality)</a></li>
+<li class="chapter" data-level="6.3" data-path="중심성-centrality.html"><a href="중심성-centrality.html#매개중심성betweenness-centrality"><i class="fa fa-check"></i><b>6.3</b> 매개중심성(Betweenness Centrality)</a></li>
+<li class="chapter" data-level="6.4" data-path="중심성-centrality.html"><a href="중심성-centrality.html#근접중심성closeness-centrality"><i class="fa fa-check"></i><b>6.4</b> 근접중심성(Closeness Centrality)</a></li>
+<li class="chapter" data-level="6.5" data-path="중심성-centrality.html"><a href="중심성-centrality.html#위세중심성eigenvector-centrality"><i class="fa fa-check"></i><b>6.5</b> 위세중심성(Eigenvector Centrality)</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html"><i class="fa fa-check"></i><b>7</b> Small World / Weak Ties</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#its-a-small-world"><i class="fa fa-check"></i><b>7.1</b> It’s a small world!</a></li>
+<li class="chapter" data-level="7.2" data-path="small-world-weak-ties.html"><a href="small-world-weak-ties.html#좁은-세상-시뮬레이션"><i class="fa fa-check"></i><b>7.2</b> 좁은 세상 시뮬레이션</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -256,8 +264,8 @@ two-mode 네트워크를 만들기 위해서는 데이터를 엣지리스트로,
 <p><code>graph.incidence()</code> 함수를 사용하여 근접행렬을 bipartite 네트워크(=two-mode 네트워크)로 바꿔보자.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="소속-관계-다루기affiliation-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a>classesNet <span class="ot">&lt;-</span> <span class="fu">graph.incidence</span>(classesMatrix, <span class="at">mode =</span> <span class="fu">c</span>(<span class="st">&quot;all&quot;</span>))</span>
 <span id="cb8-2"><a href="소속-관계-다루기affiliation-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(classesNet, <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" />
-노드 타입에 따라 모양을 구분하여 시각화해보자. classesNet 네트워크 노드(vertex)의 특성(attribute) 변수로 shape 변수를 추가하자. 네트워크 노드의 타입은 <code>V()$type</code>으로 확인할 수 있다. 확인해보니 노드 타입이 학생인 경우 FALSE 값을, 수업인 경우 TRUE 값을 갖는다. <code>ifelse()</code>함수를 통해 노드 타입이 학생인 경우에는 동그라미 모양을, 수업인 경우 네모 모양을 갖는 shape 변수를 추가한 후에 다시 그려보자.</p>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>노드 타입에 따라 모양을 구분하여 시각화해보자. classesNet 네트워크 노드(vertex)의 특성(attribute) 변수로 shape 변수를 추가하자. 네트워크 노드의 타입은 <code>V()$type</code>으로 확인할 수 있다. 확인해보니 노드 타입이 학생인 경우 FALSE 값을, 수업인 경우 TRUE 값을 갖는다. <code>ifelse()</code>함수를 통해 노드 타입이 학생인 경우에는 동그라미 모양을, 수업인 경우 네모 모양을 갖는 shape 변수를 추가한 후에 다시 그려보자.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="소속-관계-다루기affiliation-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(classesNet)<span class="sc">$</span>shape <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">V</span>(classesNet)<span class="sc">$</span>type <span class="sc">==</span> <span class="cn">FALSE</span>, <span class="st">&quot;circle&quot;</span>, <span class="st">&quot;square&quot;</span>)</span>
 <span id="cb9-2"><a href="소속-관계-다루기affiliation-data.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(classesNet, </span>
 <span id="cb9-3"><a href="소속-관계-다루기affiliation-data.html#cb9-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
@@ -359,7 +367,7 @@ igraph 패키지의 <code>bipartite.projection()</code> 함수를 사용하거�
         </div>
       </div>
 <a href="에고-네트워크ego-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="small-world-weak-ties.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="중심성-centrality.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -390,7 +398,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-application.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04.Rmd",
 "text": "Edit"
 },
 "history": {
