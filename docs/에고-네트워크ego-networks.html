@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 에고 네트워크(Ego Networks) | Social Network Analysis in R</title>
-  <meta name="description" content="Chapter 3 에고 네트워크(Ego Networks) | Social Network Analysis in R" />
+  <title>Chapter 4 에고 네트워크(Ego Networks) | Social Network Analysis in R</title>
+  <meta name="description" content="Chapter 4 에고 네트워크(Ego Networks) | Social Network Analysis in R" />
   <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 에고 네트워크(Ego Networks) | Social Network Analysis in R" />
+  <meta property="og:title" content="Chapter 4 에고 네트워크(Ego Networks) | Social Network Analysis in R" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 에고 네트워크(Ego Networks) | Social Network Analysis in R" />
+  <meta name="twitter:title" content="Chapter 4 에고 네트워크(Ego Networks) | Social Network Analysis in R" />
   
   
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Do Won Kim, Hyowon Kim" />
 
 
-<meta name="date" content="2023-01-13" />
+<meta name="date" content="2023-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="네트워크-시각화-network-visualization-and-aesthetics.html"/>
-<link rel="next" href="소속-관계-다루기affiliation-data.html"/>
+<link rel="next" href="중심성-centrality.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -136,29 +136,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">네트워크분석 입문</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 들어가며</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> 들어가며</a></li>
+<li class="chapter" data-level="2" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><i class="fa fa-check"></i><b>2</b> 네트워크 데이터 구조 이해하기 (Understanding network data structures)</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#네트워크-데이터란"><i class="fa fa-check"></i><b>1.1</b> 네트워크 데이터란?</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#엣지-리스트-edge-lists"><i class="fa fa-check"></i><b>1.2</b> 엣지 리스트 (Edge lists)</a></li>
-<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#인접행렬adjacency-matrices"><i class="fa fa-check"></i><b>1.3</b> 인접행렬(Adjacency matrices)</a></li>
-<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#데이터에서-네트워크로-from-data-to-networks"><i class="fa fa-check"></i><b>1.4</b> 데이터에서 네트워크로 (From data to networks)</a></li>
-<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#네트워크-탐색하기-exploring-the-network"><i class="fa fa-check"></i><b>1.5</b> 네트워크 탐색하기 (Exploring the network)</a></li>
+<li class="chapter" data-level="2.1" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-데이터란"><i class="fa fa-check"></i><b>2.1</b> 네트워크 데이터란?</a></li>
+<li class="chapter" data-level="2.2" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#엣지-리스트-edge-lists"><i class="fa fa-check"></i><b>2.2</b> 엣지 리스트 (Edge lists)</a></li>
+<li class="chapter" data-level="2.3" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#인접행렬adjacency-matrices"><i class="fa fa-check"></i><b>2.3</b> 인접행렬(Adjacency matrices)</a></li>
+<li class="chapter" data-level="2.4" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#데이터에서-네트워크로-from-data-to-networks"><i class="fa fa-check"></i><b>2.4</b> 데이터에서 네트워크로 (From data to networks)</a></li>
+<li class="chapter" data-level="2.5" data-path="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#네트워크-탐색하기-exploring-the-network"><i class="fa fa-check"></i><b>2.5</b> 네트워크 탐색하기 (Exploring the network)</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>2</b> 네트워크 시각화 (Network Visualization and Aesthetics)</a>
+<li class="chapter" data-level="3" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html"><i class="fa fa-check"></i><b>3</b> 네트워크 시각화 (Network Visualization and Aesthetics)</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#기초-시각화-the-basics"><i class="fa fa-check"></i><b>2.1</b> 기초 시각화 (The Basics)</a></li>
-<li class="chapter" data-level="2.2" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-레이아웃-layouts"><i class="fa fa-check"></i><b>2.2</b> 네트워크 레이아웃 (Layouts)</a></li>
-<li class="chapter" data-level="2.3" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-객체에-특성-추가하기-adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>2.3</b> 네트워크 객체에 특성 추가하기 (Adding attributes to a network object)</a></li>
-<li class="chapter" data-level="2.4" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#특성에-따른-시각화-plotting-based-on-attributes"><i class="fa fa-check"></i><b>2.4</b> 특성에 따른 시각화 (Plotting based on attributes)</a></li>
+<li class="chapter" data-level="3.1" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#기초-시각화-the-basics"><i class="fa fa-check"></i><b>3.1</b> 기초 시각화 (The Basics)</a></li>
+<li class="chapter" data-level="3.2" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-레이아웃-layouts"><i class="fa fa-check"></i><b>3.2</b> 네트워크 레이아웃 (Layouts)</a></li>
+<li class="chapter" data-level="3.3" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#네트워크-객체에-특성-추가하기-adding-attributes-to-a-network-object"><i class="fa fa-check"></i><b>3.3</b> 네트워크 객체에 특성 추가하기 (Adding attributes to a network object)</a></li>
+<li class="chapter" data-level="3.4" data-path="네트워크-시각화-network-visualization-and-aesthetics.html"><a href="네트워크-시각화-network-visualization-and-aesthetics.html#특성에-따른-시각화-plotting-based-on-attributes"><i class="fa fa-check"></i><b>3.4</b> 특성에 따른 시각화 (Plotting based on attributes)</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html"><i class="fa fa-check"></i><b>3</b> 에고 네트워크(Ego Networks)</a>
+<li class="chapter" data-level="4" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html"><i class="fa fa-check"></i><b>4</b> 에고 네트워크(Ego Networks)</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기"><i class="fa fa-check"></i><b>3.1</b> 에고 네트워크 분석하기</a></li>
-<li class="chapter" data-level="3.2" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density"><i class="fa fa-check"></i><b>3.2</b> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html"><i class="fa fa-check"></i><b>4</b> 소속 관계 다루기(Affiliation Data)</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="소속-관계-다루기affiliation-data.html"><a href="소속-관계-다루기affiliation-data.html#원모드-변환unipartite-projection"><i class="fa fa-check"></i><b>4.1</b> 원모드 변환(Unipartite Projection)</a></li>
+<li class="chapter" data-level="4.1" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기"><i class="fa fa-check"></i><b>4.1</b> 에고 네트워크 분석하기</a></li>
+<li class="chapter" data-level="4.2" data-path="에고-네트워크ego-networks.html"><a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density"><i class="fa fa-check"></i><b>4.2</b> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="중심성-centrality.html"><a href="중심성-centrality.html"><i class="fa fa-check"></i><b>5</b> 중심성 (Centrality)</a>
 <ul>
@@ -193,54 +190,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="에고-네트워크ego-networks" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Chapter 3</span> 에고 네트워크(Ego Networks)<a href="에고-네트워크ego-networks.html#에고-네트워크ego-networks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="에고-네트워크ego-networks" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> 에고 네트워크(Ego Networks)<a href="에고-네트워크ego-networks.html#에고-네트워크ego-networks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>에고 네트워크는 에고(ego)라 불리는 하나의 중심이 되는 액터와 그 액터와 연결된 알터(alter)라 불리는 다른 액터들, 그리고 이들 알터들 간의 연결로 구성되는 네트워크를 말한다.
 예를 들어 아래 네트워크 중 0의 에고 네트워크를 찾는다면, 에고인 0와 알터인 1, 2, 3, 4, 5을 포함하는 파란색으로 표시된 노드와 링크가 이에 해당한다.
 <img src="images/ego.png" width="45%" style="display: block; margin: auto;" /></p>
-<div id="에고-네트워크-분석하기" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> 에고 네트워크 분석하기<a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="에고-네트워크-분석하기" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> 에고 네트워크 분석하기<a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>2004년 GSS 서베이 데이터의 네트워크 모듈 데이터를 사용하여 에고 네트워크를 분석해보자.
 데이터는 호프만 교수의 깃헙에서 다운로드 받을 수 있다.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="에고-네트워크ego-networks.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb1-2"><a href="에고-네트워크ego-networks.html#cb1-2" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/gss_local_nets.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p>데이터가 어떻게 생겼는지 살펴보자.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="에고-네트워크ego-networks.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gss)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="에고-네트워크ego-networks.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">##      sex  race age            partyid        relig numgiven close12 close13</span></span>
-<span id="cb3-2"><a href="에고-네트워크ego-networks.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 female other  52        independent     catholic        0      NA      NA</span></span>
-<span id="cb3-3"><a href="에고-네트워크ego-networks.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 female other  43 not str republican     catholic        0      NA      NA</span></span>
-<span id="cb3-4"><a href="에고-네트워크ego-networks.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="do">## 3   male black  52    strong democrat   protestant        4       1       2</span></span>
-<span id="cb3-5"><a href="에고-네트워크ego-networks.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 female other  34       ind,near dem     catholic        4       2       0</span></span>
-<span id="cb3-6"><a href="에고-네트워크ego-networks.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 5   male other  22       ind,near dem moslem/islam        0      NA      NA</span></span>
-<span id="cb3-7"><a href="에고-네트워크ego-networks.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 6   male black  26   not str democrat   protestant        6       0       2</span></span>
-<span id="cb3-8"><a href="에고-네트워크ego-networks.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="do">##   close14 close15 close23 close24 close25 close34 close35 close45 sex1 sex2</span></span>
-<span id="cb3-9"><a href="에고-네트워크ego-networks.html#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 1      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA</span></span>
-<span id="cb3-10"><a href="에고-네트워크ego-networks.html#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 2      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA</span></span>
-<span id="cb3-11"><a href="에고-네트워크ego-networks.html#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       0      NA       2       2      NA       1      NA      NA    1    1</span></span>
-<span id="cb3-12"><a href="에고-네트워크ego-networks.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 4       2      NA       2       2      NA       2      NA      NA    1    0</span></span>
-<span id="cb3-13"><a href="에고-네트워크ego-networks.html#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 5      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA</span></span>
-<span id="cb3-14"><a href="에고-네트워크ego-networks.html#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 6       1       1       1       1       1       2       2       2    1    1</span></span>
-<span id="cb3-15"><a href="에고-네트워크ego-networks.html#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   sex3 sex4 sex5 race1 race2 race3 race4 race5 educ1     educ2     educ3</span></span>
-<span id="cb3-16"><a href="에고-네트워크ego-networks.html#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 1   NA   NA   NA    NA    NA    NA    NA    NA    NA      &lt;NA&gt;      &lt;NA&gt;</span></span>
-<span id="cb3-17"><a href="에고-네트워크ego-networks.html#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="do">## 2   NA   NA   NA    NA    NA    NA    NA    NA    NA      &lt;NA&gt;      &lt;NA&gt;</span></span>
-<span id="cb3-18"><a href="에고-네트워크ego-networks.html#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 3    0    0   NA     1     1     1     1    NA     1 h.s. grad      Grad</span></span>
-<span id="cb3-19"><a href="에고-네트워크ego-networks.html#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 4    1    1   NA     2     2     2     2    NA     1 h.s. grad      Grad</span></span>
-<span id="cb3-20"><a href="에고-네트워크ego-networks.html#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 5   NA   NA   NA    NA    NA    NA    NA    NA    NA      &lt;NA&gt;      &lt;NA&gt;</span></span>
-<span id="cb3-21"><a href="에고-네트워크ego-networks.html#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 6    0    1    1     0     1     1     2     2     1 h.s. grad h.s. grad</span></span>
-<span id="cb3-22"><a href="에고-네트워크ego-networks.html#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="do">##          educ4        educ5 age1 age2 age3 age4 age5     relig1     relig2</span></span>
-<span id="cb3-23"><a href="에고-네트워크ego-networks.html#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1         &lt;NA&gt;         &lt;NA&gt;   NA   NA   NA   NA   NA       &lt;NA&gt;       &lt;NA&gt;</span></span>
-<span id="cb3-24"><a href="에고-네트워크ego-networks.html#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2         &lt;NA&gt;         &lt;NA&gt;   NA   NA   NA   NA   NA       &lt;NA&gt;       &lt;NA&gt;</span></span>
-<span id="cb3-25"><a href="에고-네트워크ego-networks.html#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3    Bachelors         &lt;NA&gt;   56   40   58   59   NA protestant protestant</span></span>
-<span id="cb3-26"><a href="에고-네트워크ego-networks.html#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4         Grad         &lt;NA&gt;   63   36   34   36   NA   catholic   catholic</span></span>
-<span id="cb3-27"><a href="에고-네트워크ego-networks.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 5         &lt;NA&gt;         &lt;NA&gt;   NA   NA   NA   NA   NA       &lt;NA&gt;       &lt;NA&gt;</span></span>
-<span id="cb3-28"><a href="에고-네트워크ego-networks.html#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Some College Some College   25   25   39   33   30      other      other</span></span>
-<span id="cb3-29"><a href="에고-네트워크ego-networks.html#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="do">##       relig3     relig4   relig5</span></span>
-<span id="cb3-30"><a href="에고-네트워크ego-networks.html#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 1       &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;</span></span>
-<span id="cb3-31"><a href="에고-네트워크ego-networks.html#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 2       &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;</span></span>
-<span id="cb3-32"><a href="에고-네트워크ego-networks.html#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 protestant protestant     &lt;NA&gt;</span></span>
-<span id="cb3-33"><a href="에고-네트워크ego-networks.html#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="do">## 4   catholic   catholic     &lt;NA&gt;</span></span>
-<span id="cb3-34"><a href="에고-네트워크ego-networks.html#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="do">## 5       &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;</span></span>
-<span id="cb3-35"><a href="에고-네트워크ego-networks.html#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="do">## 6   catholic   catholic catholic</span></span></code></pre></div>
+<pre><code>##      sex  race age            partyid        relig numgiven close12 close13
+## 1 female other  52        independent     catholic        0      NA      NA
+## 2 female other  43 not str republican     catholic        0      NA      NA
+## 3   male black  52    strong democrat   protestant        4       1       2
+## 4 female other  34       ind,near dem     catholic        4       2       0
+## 5   male other  22       ind,near dem moslem/islam        0      NA      NA
+## 6   male black  26   not str democrat   protestant        6       0       2
+##   close14 close15 close23 close24 close25 close34 close35 close45 sex1 sex2
+## 1      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
+## 2      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
+## 3       0      NA       2       2      NA       1      NA      NA    1    1
+## 4       2      NA       2       2      NA       2      NA      NA    1    0
+## 5      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
+## 6       1       1       1       1       1       2       2       2    1    1
+##   sex3 sex4 sex5 race1 race2 race3 race4 race5 educ1     educ2     educ3
+## 1   NA   NA   NA    NA    NA    NA    NA    NA    NA      &lt;NA&gt;      &lt;NA&gt;
+## 2   NA   NA   NA    NA    NA    NA    NA    NA    NA      &lt;NA&gt;      &lt;NA&gt;
+## 3    0    0   NA     1     1     1     1    NA     1 h.s. grad      Grad
+## 4    1    1   NA     2     2     2     2    NA     1 h.s. grad      Grad
+## 5   NA   NA   NA    NA    NA    NA    NA    NA    NA      &lt;NA&gt;      &lt;NA&gt;
+## 6    0    1    1     0     1     1     2     2     1 h.s. grad h.s. grad
+##          educ4        educ5 age1 age2 age3 age4 age5     relig1     relig2
+## 1         &lt;NA&gt;         &lt;NA&gt;   NA   NA   NA   NA   NA       &lt;NA&gt;       &lt;NA&gt;
+## 2         &lt;NA&gt;         &lt;NA&gt;   NA   NA   NA   NA   NA       &lt;NA&gt;       &lt;NA&gt;
+## 3    Bachelors         &lt;NA&gt;   56   40   58   59   NA protestant protestant
+## 4         Grad         &lt;NA&gt;   63   36   34   36   NA   catholic   catholic
+## 5         &lt;NA&gt;         &lt;NA&gt;   NA   NA   NA   NA   NA       &lt;NA&gt;       &lt;NA&gt;
+## 6 Some College Some College   25   25   39   33   30      other      other
+##       relig3     relig4   relig5
+## 1       &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
+## 2       &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
+## 3 protestant protestant     &lt;NA&gt;
+## 4   catholic   catholic     &lt;NA&gt;
+## 5       &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;
+## 6   catholic   catholic catholic</code></pre>
 <p>변수는 총 42개이다. 처음 다섯 개 변수(sex, race, age, partyid, relig)는 각 응답자의 특성을 의미한다. 나머지는 네트워크를 구성하는 변수들이다. GSS 데이터 네트워크 모듈에서는 각 응답자에게 “중요한 이슈”에 대해 함께 논의한 최대 5명의 타인에 대해서 물어본다. numgiven 변수는 응답자가 중요한 이슈를 몇 명과 함께 논의했는지를 나타낸다. 또한 응답자들은 이 타인들 간의 관계에 대해 구체적으로 답한다. 예를 들어, 이들이 특별히 가까운지, 서로 아는지, 아예 모르는 사이인지 등에 대해 밝힌다. 따라서 close12 변수는 타인1과 타인2 간 가까운 정도를 의미한다. 마지막으로, 이 각각의 타인들의 특성(sex, race, age) 변수들도 수집되었다.</p>
 <p>왜 이 변수들이 에고 네트워크를 구성하는지 살펴보자. 먼저 각 응답자마다 close12부터 close45까지의 관계 변수들을 엣지 리스트로 바꾸어 주어야 한다.</p>
 <p>우선, grepl 함수를 사용하여 우리가 원하는 관계 변수들만을 추출하여 ties라는 데이터프레임으로 저장하자.</p>
@@ -293,7 +290,7 @@ NA가 있는 행의 개수를 합한 값이 행렬의 행 개수보다 적은 �
 <p>자 이런 방식으로 인접행렬을 만들어서 3번째 응답자의 네트워크를 만들 수 있다.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="에고-네트워크ego-networks.html#cb14-1" aria-hidden="true" tabindex="-1"></a>ego_net <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(mat, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="at">weighted =</span> T)</span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="에고-네트워크ego-networks.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ego_net, <span class="at">vertex.size =</span> <span class="dv">30</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.label.cex =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>문제는 3번째 응답자 뿐만 아니라 데이터의 모든 응답자에 대해서 위의 작업을 해야 한다는 것이다.
 따라서 위의 작업을 각 행마다 자동화해주는 함수를 만들어 사용하자.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="에고-네트워크ego-networks.html#cb16-1" aria-hidden="true" tabindex="-1"></a>make_ego_nets <span class="ot">&lt;-</span> <span class="cf">function</span>(tie){</span>
@@ -326,41 +323,41 @@ NA가 있는 행의 개수를 합한 값이 행렬의 행 개수보다 적은 �
 <span id="cb17-3"><a href="에고-네트워크ego-networks.html#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="에고-네트워크ego-networks.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ego_nets)</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 25815e2 U--- 0 0 -- 
-## + edges from 25815e2:
+## IGRAPH 96bf60b U--- 0 0 -- 
+## + edges from 96bf60b:
 ## 
 ## [[2]]
-## IGRAPH 2581b04 U--- 0 0 -- 
-## + edges from 2581b04:
+## IGRAPH 96c0130 U--- 0 0 -- 
+## + edges from 96c0130:
 ## 
 ## [[3]]
-## IGRAPH 2581c28 U-W- 4 5 -- 
+## IGRAPH 96c038c U-W- 4 5 -- 
 ## + attr: weight (e/n)
-## + edges from 2581c28:
+## + edges from 96c038c:
 ## [1] 1--2 1--3 2--3 2--4 3--4
 ## 
 ## [[4]]
-## IGRAPH 2581d24 U-W- 4 5 -- 
+## IGRAPH 96c05d4 U-W- 4 5 -- 
 ## + attr: weight (e/n)
-## + edges from 2581d24:
+## + edges from 96c05d4:
 ## [1] 1--2 1--4 2--3 2--4 3--4
 ## 
 ## [[5]]
-## IGRAPH 2581e13 U--- 0 0 -- 
-## + edges from 2581e13:
+## IGRAPH 96c07b3 U--- 0 0 -- 
+## + edges from 96c07b3:
 ## 
 ## [[6]]
-## IGRAPH 2581f11 U-W- 5 9 -- 
+## IGRAPH 96c09ad U-W- 5 9 -- 
 ## + attr: weight (e/n)
-## + edges from 2581f11:
+## + edges from 96c09ad:
 ## [1] 1--3 1--4 1--5 2--3 2--4 2--5 3--4 3--5 4--5</code></pre>
 <p>에고 네트워크의 리스트가 잘 만들어졌다. 그럼 랜덤으로 1021번째 응답자의 에고 네트워크를 추출해서 그려보자.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="에고-네트워크ego-networks.html#cb19-1" aria-hidden="true" tabindex="-1"></a>random_ego_net <span class="ot">&lt;-</span> ego_nets[[<span class="dv">1021</span>]]</span>
 <span id="cb19-2"><a href="에고-네트워크ego-networks.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(random_ego_net)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
-<div id="네트워크-크기와-밀도-계산하기-calculating-network-size-and-density" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)<a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="네트워크-크기와-밀도-계산하기-calculating-network-size-and-density" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)<a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>네트워크의 리스트가 있으므로 lapply 함수를 써서 여러 가지를 계산할 수 있다.
 vcount() 함수로 네트워크 크기(=노드의 개수)를 계산하거나, ecount() 함수로 엣지의 개수를 계산할 수 있다.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="에고-네트워크ego-networks.html#cb20-1" aria-hidden="true" tabindex="-1"></a>network_sizes <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, vcount)</span>
@@ -391,11 +388,11 @@ vcount() 함수로 네트워크 크기(=노드의 개수)를 계산하거나, ec
 <p>평균 네트워크는 약 1.8 정도의 크기(=노드 개수)를 가지고 있다. 네트워크 크기의 분포를 시각화할 수도 있겠다.
 The average network has a little over one and a half people in it. We could similarly plot the distribution.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="에고-네트워크ego-networks.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(network_sizes, <span class="at">main =</span> <span class="st">&quot;Histogram of Ego Network Sizes&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Network Size&quot;</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>엣지에 대해서도 똑같이 해볼 수 있다.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="에고-네트워크ego-networks.html#cb25-1" aria-hidden="true" tabindex="-1"></a>network_edge_counts <span class="ot">&lt;-</span> <span class="fu">unlist</span>(network_edge_counts)</span>
 <span id="cb25-2"><a href="에고-네트워크ego-networks.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(network_edge_counts, <span class="at">main =</span> <span class="st">&quot;Histogram of Ego Network Edge Counts&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;# of Edges&quot;</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>다음은 밀도를 계산해보자. 네트워크 밀도는 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값이다. 예를 들어 방향성이 없는 네트워크에서는 노드가 총 N개 있다면(=size of N), 모두가 서로 연결됐다고 가정할 때 최대로 가능한 엣지 개수는 (N*(N-1))/2이다.</p>
 <p>밀도(Density)
 - 실제로 존재하는 링크의 비율(가능성에 비해)
@@ -409,7 +406,7 @@ The average network has a little over one and a half people in it. We could simi
 <span id="cb28-2"><a href="에고-네트워크ego-networks.html#cb28-2" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">unlist</span>(densities)</span></code></pre></div>
 <p>마지막으로 이 네트워크 밀도의 분포를 히스토그램으로 시각화할 수 있다.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="에고-네트워크ego-networks.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(densities)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -419,7 +416,7 @@ The average network has a little over one and a half people in it. We could simi
         </div>
       </div>
 <a href="네트워크-시각화-network-visualization-and-aesthetics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="소속-관계-다루기affiliation-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="중심성-centrality.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -450,7 +447,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-literature.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-method.Rmd",
 "text": "Edit"
 },
 "history": {

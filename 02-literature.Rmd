@@ -1,288 +1,254 @@
-# 에고 네트워크(Ego Networks)
-에고 네트워크는 에고(ego)라 불리는 하나의 중심이 되는 액터와 그 액터와 연결된 알터(alter)라 불리는 다른 액터들, 그리고 이들 알터들 간의 연결로 구성되는 네트워크를 말한다.
-예를 들어 아래 네트워크 중 0의 에고 네트워크를 찾는다면, 에고인 0와 알터인 1, 2, 3, 4, 5을 포함하는 파란색으로 표시된 노드와 링크가 이에 해당한다.
-```{r , echo=FALSE, out.width = "45%", fig.align = "center"}
-knitr::include_graphics("images/ego.png")
+# 네트워크 시각화 (Network Visualization and Aesthetics)
+
+이 장에서는 네트워크 시각화에 대해 배울 것이다. 구체적으로는 네트워크의 여러 구성 요소들을 변경함으로써 더 예쁜 네트워크를 그리는 방법을 연습할 것이다. 노드의 색상, 크기, 모양, 라벨을 변경하거나, 엣지의 색상, 너비, 휜 정도, 모양을 변경할 수 있다. 또한 네트워크 내의 다양한 집단의 위치를 표시할 수도 있다. 마지막으로 네트워크의 전반적인 레이아웃을 바꿀 수도 있다.  
+
+## 기초 시각화 (The Basics)
+
+1장에서 만든 `moneyNetwork`를 가지고 시각화 연습을 해보자. 바로 직전에 그렸던 디폴트 플랏은 아래와 같이 생겼었다. 
+
+```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/2.png")
+```
+
+이 그래프에서 가장 간단하게 바꿀 수 있는 것들은 노드의 크기와 색상이다. 특히 네트워크 규모가 큰 경우에, 노드들은 너무 크고 서로 뭉쳐져 보일 것이다. 이때 `vertex.size` 인자(argument)를 통해 노드의 크기를 조정해주면 된다. 
+
+```{r, results='hide', eval=FALSE}
+
+plot(moneyNetwork, vertex.size = 10)
+
+```
+
+```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/3.png")
+```
+
+이번에는 `vertex.color` 인자를 사용하여 노드 색상을 바꿔보자. `vertex.frame.color` 인자를 NA로 설정하여 노드의 검정 테두리를 없앨 수도 있다. 
+
+```{r, results='hide', eval=FALSE}
+
+plot(moneyNetwork, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA)
+
+```
+
+```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/4.png")
+
+```
+
+라벨이 너무 크고 파랗다. `vertex.label.cex` 인자를 통해 라벨 크기를 조절하고, `vertex.label.color`를 통해 라벨의 색상을 바꿔주자. 
+
+```{r, results='hide', eval=FALSE}
+
+plot(moneyNetwork, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA, vertex.label.cex = .7, vertex.label.color = "black")
+```
+
+```{r echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/5.png")
+
+```
+
+만약 라벨을 아예 없애고 싶다면 `vertex.label` 인자의 값을 NA로 설정해주면 된다. 
+
+```{r, results='hide', eval=FALSE}
+
+plot(moneyNetwork, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA, vertex.label = NA)
+
+```
+
+```{r echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/6.png")
+
+```
+
+엣지의 경우에도 더 작고 더 휘게 만들어보자. 
+
+```{r, results='hide', eval=FALSE}
+
+plot(moneyNetwork, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA, vertex.label.cex = .7,  vertex.label = NA, edge.curved = .1, edge.arrow.size = .3, edge.width = .7)
+
+```
+
+```{r echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/7.png")
+
 ```
 
 
+주의: `edge.curved`를 .1보다 더 크게 설정하면 오히려 더 이상해진다...따라서 적당한 값을 설정해야 한다. 
 
-## 에고 네트워크 분석하기 
-2004년 GSS 서베이 데이터의 네트워크 모듈 데이터를 사용하여 에고 네트워크를 분석해보자. 
-데이터는 호프만 교수의 깃헙에서 다운로드 받을 수 있다. 
+```{r, results='hide', eval=FALSE}
 
-```{r message=FALSE, warning=FALSE, results='hide'}
+plot(moneyNetwork, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA, vertex.label.cex = .7,  vertex.label = NA, edge.curved = 1.7, edge.arrow.size = .3, edge.width = .7)
 
+```
+
+```{r echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/8.png")
+
+```
+
+## 네트워크 레이아웃 (Layouts)
+
+네트워크 시각화의 중요한 요소는 레이아웃이다. 레이아웃에 따라 그래프 내에서 노드의 위치가 달라진다. 다양한 레이아웃 알고리즘이 존재하며, 이들의 공통점은 서로 교차하는 엣지의 개수를 최소화하는 것을 목표로 한다는 것이다. 가장 대표적인 알고리즘 두 가지를 소개하겠다: (1) Kamada Kawai, (2) Fruchterman Reingold 알고리즘.
+
+레이아웃 알고리즘을 적용하기 위해서는 (1) 먼저 `layout.알고리즘명()` 함수 안에 네트워크를 넣어주어 레이아웃을 R 객체로 정의해야 한다. (2) 그 다음에는 `plot()` 안의 layout 인자 값으로 정의한 레이아웃을 입력하여 시각화를 해주면 된다. 연습해보자. 
+
+***Kamada Kawai***
+```{r, results='hide', eval=FALSE}
+
+kamadaLayout <- layout.kamada.kawai(moneyNetwork)
+
+plot(moneyNetwork, layout = kamadaLayout, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA, vertex.label.cex = .7,  vertex.label = NA, edge.curved = .1, edge.arrow.size = .3, edge.width = .7)
+```
+
+```{r echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/9.png")
+
+```
+
+***Frucherman-Reingold***
+```{r, results='hide', eval=FALSE}
+
+fruchtermanLayout <- layout.fruchterman.reingold(moneyNetwork)
+
+plot(moneyNetwork, layout = fruchtermanLayout, vertex.size = 10, vertex.color = "tomato", vertex.frame.color = NA, vertex.label.cex = .7, vertex.label = NA, edge.curved = .1, edge.arrow.size = .3, edge.width = .7)
+```
+
+```{r , echo=FALSE, out.width = "80%", fig.align = "center"}
+knitr::include_graphics("images/10.png")
+
+```
+
+
+## 네트워크 객체에 특성 추가하기 (Adding attributes to a network object)
+
+네트워크에서 특성/속성(attributes)들이 어떻게 분포해 있는지가 궁금할 수 있다. 예를 들어, 정치 커뮤니케이션 네트워크에서 노드들의 색상을 지지 정당에 따라 다르게 표시할 수 있겠다. 민주당 지지자는 파란색으로, 공화당 지지자는 빨간색으로 칠하여 네트워크에서 다르게 표현할 수 있는 것이다. 이러한 특성 분포를 표시하기 위해서는 별도의 데이터가 필요하다. 아래의 코드를 실행하여 각 행은 사람을, 각 열은 특성을 담고있는 attributes 데이터프레임을 만들어주자. 이 특성 데이터를 igraph에서 사용하기 위해서는 igraph 객체인 `moneyNetwork`의 노드들에 이 특성들을 할당해주어야 한다. 
+
+```{r include=FALSE}
 library(igraph)
-gss <- read.csv("https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/gss_local_nets.csv", stringsAsFactors = TRUE) 
+library(tidyverse)
+money_edgelist <- data.frame(
+  Ego = c("Greg","Greg","Greg","Greg","Greg","Maria","Maria","Maria","Maria","Mark","Lexi"),
+  Alter = c("Maria","Mark","Lexi","Grace","Nick","Mark","Lexi","Grace","Nick","Nick","Nick")
+  )
+
+money_edgelist = as.matrix(money_edgelist)
+
+moneyNetwork <- graph.edgelist(money_edgelist, directed=TRUE)
+
 
 ```
-
-데이터가 어떻게 생겼는지 살펴보자. 
-
-```{r, results='hide', eval=FALSE}
-
-head(gss)
-
-```
-
-
-```{r, results='hide', eval=FALSE}
-
-##      sex  race age            partyid        relig numgiven close12 close13
-## 1 female other  52        independent     catholic        0      NA      NA
-## 2 female other  43 not str republican     catholic        0      NA      NA
-## 3   male black  52    strong democrat   protestant        4       1       2
-## 4 female other  34       ind,near dem     catholic        4       2       0
-## 5   male other  22       ind,near dem moslem/islam        0      NA      NA
-## 6   male black  26   not str democrat   protestant        6       0       2
-##   close14 close15 close23 close24 close25 close34 close35 close45 sex1 sex2
-## 1      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
-## 2      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
-## 3       0      NA       2       2      NA       1      NA      NA    1    1
-## 4       2      NA       2       2      NA       2      NA      NA    1    0
-## 5      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
-## 6       1       1       1       1       1       2       2       2    1    1
-##   sex3 sex4 sex5 race1 race2 race3 race4 race5 educ1     educ2     educ3
-## 1   NA   NA   NA    NA    NA    NA    NA    NA    NA      <NA>      <NA>
-## 2   NA   NA   NA    NA    NA    NA    NA    NA    NA      <NA>      <NA>
-## 3    0    0   NA     1     1     1     1    NA     1 h.s. grad      Grad
-## 4    1    1   NA     2     2     2     2    NA     1 h.s. grad      Grad
-## 5   NA   NA   NA    NA    NA    NA    NA    NA    NA      <NA>      <NA>
-## 6    0    1    1     0     1     1     2     2     1 h.s. grad h.s. grad
-##          educ4        educ5 age1 age2 age3 age4 age5     relig1     relig2
-## 1         <NA>         <NA>   NA   NA   NA   NA   NA       <NA>       <NA>
-## 2         <NA>         <NA>   NA   NA   NA   NA   NA       <NA>       <NA>
-## 3    Bachelors         <NA>   56   40   58   59   NA protestant protestant
-## 4         Grad         <NA>   63   36   34   36   NA   catholic   catholic
-## 5         <NA>         <NA>   NA   NA   NA   NA   NA       <NA>       <NA>
-## 6 Some College Some College   25   25   39   33   30      other      other
-##       relig3     relig4   relig5
-## 1       <NA>       <NA>     <NA>
-## 2       <NA>       <NA>     <NA>
-## 3 protestant protestant     <NA>
-## 4   catholic   catholic     <NA>
-## 5       <NA>       <NA>     <NA>
-## 6   catholic   catholic catholic
-
-```
-
-변수는 총 42개이다. 처음 다섯 개 변수(sex, race, age, partyid, relig)는 각 응답자의 특성을 의미한다. 나머지는 네트워크를 구성하는 변수들이다. GSS 데이터 네트워크 모듈에서는 각 응답자에게 "중요한 이슈"에 대해 함께 논의한 최대 5명의 타인에 대해서 물어본다. numgiven 변수는 응답자가 중요한 이슈를 몇 명과 함께 논의했는지를 나타낸다. 또한 응답자들은 이 타인들 간의 관계에 대해 구체적으로 답한다. 예를 들어, 이들이 특별히 가까운지, 서로 아는지, 아예 모르는 사이인지 등에 대해 밝힌다. 따라서 close12 변수는 타인1과 타인2 간 가까운 정도를 의미한다. 마지막으로, 이 각각의 타인들의 특성(sex, race, age) 변수들도 수집되었다.   
-
-왜 이 변수들이 에고 네트워크를 구성하는지 살펴보자. 먼저 각 응답자마다 close12부터 close45까지의 관계 변수들을 엣지 리스트로 바꾸어 주어야 한다. 
-
-우선, grepl 함수를 사용하여 우리가 원하는 관계 변수들만을 추출하여 ties라는 데이터프레임으로 저장하자. 
-
 
 ```{r}
 
-ties <- gss[,grepl("close", colnames(gss))]
-head(ties)
-```
-
-각 응답자마다 다음의 작업을 진행할 것이다: 5 x 5 행렬을 만들어서 각 응답자마다 closeness 값을 채워 넣는다. 
-
-```{r, results='hide'}
-
-mat = matrix(nrow = 5, ncol = 5)
+attributes <- data.frame(
+  Name = c("Greg","Maria","Mark","Lexi","Grace","Nick"),
+  Age = c(53,52,25,23,19,14),
+  Gender = c("Male","Female","Male","Female","Female","Male"),
+  Role = c("Father","Mother","Son","Daughter","Daughter","Son")
+)
+head(attributes)
 
 ```
 
-각 응답자의 close 값들을 행렬의 대각성분 아래쪽(lower triangle)에 할당할 수 있다. 
-예를 들어 3번째 응답자의 close 값들을 넣어보자. 
+다시 리마인드 하자면, `V()`함수를 통해 노드에 접근할 수 있고, `E()`함수를 통해 엣지에 접근 가능하다. 특성은 `$`를 이용하여 지정할 수 있다. 일단 `moneyNetwork` 기존 특성이었던 name을 변경해보자. 
 
-```{r, results='hide'}
+```{r echo=TRUE, results='hide'}
+# moneyNetwork 노드들의 이름 변경 
+V(moneyNetwork)$name = c("Bob", "Linda", "Elias", "Catherine", "Eloise", "Pumpkin")
 
-mat[lower.tri(mat)] <- as.numeric(ties[3,])
-
-```
-
-방향성이 없는 네트워크에서는 대각성분을 기준으로 대칭이기 때문에, 대각성분 위쪽(upper triangle)에도 값을 대칭적으로 넣어주면 된다. 
-
-```{r, results='hide'}
-
-mat[upper.tri(mat)] = t(mat)[upper.tri(mat)]
-mat
+# 확인 
+print(V(moneyNetwork)$name)
 ```
 
 ```{r, results='hide', eval=FALSE}
 
-##      [,1] [,2] [,3] [,4] [,5]
-## [1,]   NA    1    2    0   NA
-## [2,]    1   NA    2    2   NA
-## [3,]    2    2   NA    1   NA
-## [4,]    0    2    1   NA   NA
-## [5,]   NA   NA   NA   NA   NA
+## [1] "Bob"       "Linda"     "Elias"     "Catherine" "Eloise"    "Pumpkin"
 
 ```
 
-
-이제 결측행(missing rows)을 지워주자. 
-NA가 있는 행의 개수를 합한 값이 행렬의 행 개수보다 적은 경우, 결측행이 없다는 것을 의미한다. 
-즉, 5 X 5 행렬에서 해당 응답자의 모든 응답이 NA인 경우, NA가 있는 행의 개수의 총합은 5이다. 
-따라서 이 경우는 rowSums(is.na(mat))가 nrow(mat)와 같게 되는 결측행이다. 
+현재 우리의 네트워크에는 name 외의 다른 특성이 없는 상태이다. 따라서 네트워크 관계를 표현해주는 엣지리스트(행렬 형태) 뿐만 아니라 특성까지 한번에 포함시켜 네트워크 객체를 만들어야 한다. 이때 igraph 패키지의 `graph_from_data_frame()` 함수를 이용하면 된다. 
 
 ```{r, results='hide'}
 
-na_vals <- is.na(mat)
-non_missing_rows <- rowSums(na_vals) < nrow(mat)
-mat <- mat[non_missing_rows,non_missing_rows]
+# 엣지리스트와 특성을 둘 다 포함시키기 
+moneyNetwork <- graph_from_data_frame(money_edgelist, directed = T, vertices = attributes)
+
 ```
 
-igraph 패키지는 NA를 처리하지 못하므로, 대각성분을 모두 0으로 바꿔주자. 
+확인해보자. 
 
 ```{r, results='hide'}
 
-diag(mat) <- 0
-```
+moneyNetwork
 
-어떻게 생겼는지 확인해보자. 
-
-```{r, results='hide', eval=FALSE}
-mat
 ```
 
 ```{r, results='hide', eval=FALSE}
-##      [,1] [,2] [,3] [,4]
-## [1,]    0    1    2    0
-## [2,]    1    0    2    2
-## [3,]    2    2    0    1
-## [4,]    0    2    1    0
+
+## IGRAPH 061b667 DN-- 6 11 -- 
+## + attr: name (v/c), Age (v/n), Gender (v/c), Role (v/c)
+## + edges from 061b667 (vertex names):
+##  [1] Greg ->Maria Greg ->Mark  Greg ->Lexi  Greg ->Grace Greg ->Nick 
+##  [6] Maria->Mark  Maria->Lexi  Maria->Grace Maria->Nick  Mark ->Nick 
+## [11] Lexi ->Nick
+
 ```
 
-자 이런 방식으로 인접행렬을 만들어서 3번째 응답자의 네트워크를 만들 수 있다. 
+이제 `V()$` 명령어를 통해 네트워크에서 각각의 특성을 구체적으로 확인해 볼 수 있다. 젠더를 확인해보자. 
 
 ```{r, results='hide'}
-ego_net <- graph.adjacency(mat, mode = "undirected", weighted = T)
-```
 
-
-```{r}
-plot(ego_net, vertex.size = 30, vertex.label.color = "black", vertex.label.cex = 1)
-```
-
-
-문제는 3번째 응답자 뿐만 아니라 데이터의 모든 응답자에 대해서 위의 작업을 해야 한다는 것이다. 
-따라서 위의 작업을 각 행마다 자동화해주는 함수를 만들어 사용하자. 
-
-```{r, results='hide'}
-make_ego_nets <- function(tie){
-  # make the matrix
-  mat = matrix(nrow = 5, ncol = 5)
-  
-  # assign the tie values to the lower triangle
-  mat[lower.tri(mat)] <- as.numeric(tie)
-  
-  # symmetrize
-  mat[upper.tri(mat)] = t(mat)[upper.tri(mat)]
-  
-  # identify missing values
-  na_vals <- is.na(mat)
-  
-  # identify rows where all values are missing
-  non_missing_rows <- rowSums(na_vals) < nrow(mat)
-  
-  # if any rows 
-  if(sum(!non_missing_rows) > 0){
-    mat <- mat[non_missing_rows,non_missing_rows]
-  }
-  diag(mat) <- 0
-  ego_net <- graph.adjacency(mat, mode = "undirected", weighted = T)
-  return(ego_net)
-}
-```
-
-그 다음에는 lapply 함수[list+apply]를 사용해서 위에 정의한 함수를 데이터의 각 행에 적용해주면 된다. ties 데이터의 각 행은 각 응답자를 의미한다. 따라서 ties 데이터의 행 개수와 동일한 사이즈의 리스트가 결과로 출력될 것이고, 각 리스트 안에는 각 응답자의 에고 네트워크가 포함될 것이다. 
-
-```{r}
-
-ego_nets <- lapply(1:nrow(ties), 
-                   FUN = function(x) make_ego_nets(ties[x,]))
-
-head(ego_nets)
-
-```
-
-에고 네트워크의 리스트가 잘 만들어졌다. 그럼 랜덤으로 1021번째 응답자의 에고 네트워크를 추출해서 그려보자. 
-
-```{r}
-random_ego_net <- ego_nets[[1021]]
-plot(random_ego_net)
+V(moneyNetwork)$Gender 
 
 ```
 
 
-## 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)
+```{r, results='hide', eval=FALSE}
 
-네트워크의 리스트가 있으므로 lapply 함수를 써서 여러 가지를 계산할 수 있다. 
-vcount() 함수로 네트워크 크기(=노드의 개수)를 계산하거나, ecount() 함수로 엣지의 개수를 계산할 수 있다. 
-
-```{r}
-
-network_sizes <- lapply(ego_nets, vcount)
-network_edge_counts <- lapply(ego_nets, ecount)
-
-head(network_sizes)
-
-```
-이 리스트를 벡터로 바꾼 후 mean() 안에 input으로 넣으면 평균도 계산 가능하다. 
-
-```{r}
-
-network_sizes <- unlist(network_sizes)
-mean(network_sizes, na.rm = T)
-
-```
-
-평균 네트워크는 약 1.8 정도의 크기(=노드 개수)를 가지고 있다. 네트워크 크기의 분포를 시각화할 수도 있겠다. 
-The average network has a little over one and a half people in it. We could similarly plot the distribution.
-
-```{r}
-
-hist(network_sizes, main = "Histogram of Ego Network Sizes", xlab = "Network Size")
-
-```
- 
-엣지에 대해서도 똑같이 해볼 수 있다. 
-
-```{r}
-
-network_edge_counts <- unlist(network_edge_counts)
-hist(network_edge_counts, main = "Histogram of Ego Network Edge Counts", xlab = "# of Edges")
+## [1] "Male"   "Female" "Male"   "Female" "Female" "Male"
 
 ```
 
 
-다음은 밀도를 계산해보자. 네트워크 밀도는 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값이다. 예를 들어 방향성이 없는 네트워크에서는 노드가 총 N개 있다면(=size of N), 모두가 서로 연결됐다고 가정할 때 최대로 가능한 엣지 개수는 (N*(N-1))/2이다. 
 
-밀도(Density)
-- 실제로 존재하는 링크의 비율(가능성에 비해)
-- 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값
-- 평균 디그리/노드 숫자
+## 특성에 따른 시각화 (Plotting based on attributes)
 
+이번에는 젠더에 따라 색상을 달리 해보자. 이를 위해서는 젠더 특성에 따라 color를 다르게 지정해 주어야 한다. `ifelse()` 함수를 이용하여 네트워크의 색상을 지정해보자. 
 
-앞서 랜덤으로 1021번째 응답자의 네트워크를 골랐던 것처럼, 이번에도 이 랜덤 네트워크의 밀도를 계산해보자. 
+```{r , echo=TRUE, results='hide'}
 
-```{r}
-
-ecount(random_ego_net)/((vcount(random_ego_net) * (vcount(random_ego_net) - 1))/2)
+V(moneyNetwork)$color <- ifelse(V(moneyNetwork)$Gender == "Male", "dodgerblue3","seagreen")
 
 ```
 
+자 이제 네트워크를 다시 그리면 젠더에 따라 노드 색상이 다르게 나타날 것이다. 이때 주의할 점은 `vertex.colors` 옵션을 설정하는 경우 override 된다는 것이다. 따라서 이 옵션은 반드시 제거해주자.   
 
-이렇게 계산해볼 수 있지만, 우리는 네트워크 리스트에 적용을 해야 한다. igraph 패키지의 graph.density 함수를 리스트의 각 요소에 적용한 후, 벡터로 만들어주자. 
+```{r , echo=TRUE, results='hide'}
 
-```{r }
-
-densities <- lapply(ego_nets, graph.density)
-densities <- unlist(densities)
+plot(moneyNetwork, vertex.size = 11)
 
 ```
 
-마지막으로 이 네트워크 밀도의 분포를 히스토그램으로 시각화할 수 있다. 
+다른 특성에 따라 노드 색상을 달리 해보자. 먼저 color를 리셋해야 한다. Role 특성 - Father, Mother, Son, Daughter - 에 따라서 색상을 달리 설정하는 코드는 아래와 같다. 
 
-```{r}
+```{r echo=TRUE, results='hide'}
 
-hist(densities)
+V(moneyNetwork)$color <- NA 
+V(moneyNetwork)$color <- ifelse(V(moneyNetwork)$Role == "Father", "burlywood1","tomato")
+V(moneyNetwork)$color <- ifelse(V(moneyNetwork)$Role == "Mother", "seagreen", V(moneyNetwork)$color)
+V(moneyNetwork)$color <- ifelse(V(moneyNetwork)$Role == "Son", "grey70", V(moneyNetwork)$color)
+
+plot(moneyNetwork, vertex.size = 12)
+
+```
+
+이번에는 나이에 따라 노드 크기를 달리 표시해보자. 노드 크기를 나이의 1/5에 비례하도록 세팅할 수 있다. 
+
+```{r , echo=TRUE}
+
+V(moneyNetwork)$size = V(moneyNetwork)$Age/5
+
+plot(moneyNetwork, vertex.label.cex = .7,  edge.curved = .1, vertex.frame.color = NA, edge.arrow.size = .3, edge.width = .7, edge.color = "grey30")
 
 ```
