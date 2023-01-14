@@ -1,0 +1,1981 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\usepackage{amsthm}
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=8pt plus 2pt minus 4pt
+  \thm@postskip=\thm@preskip
+}
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{apalike}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Social Network Analysis in R},
+  pdfauthor={Do Won Kim, Hyowon Kim},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Social Network Analysis in R}
+\author{Do Won Kim, Hyowon Kim}
+\date{2023-01-14}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{uxb4e4uxc5b4uxac00uxba70}{%
+\chapter{들어가며}\label{uxb4e4uxc5b4uxac00uxba70}}
+
+이 튜토리얼은 서울대학교 정치커뮤니케이션센터 2023년 겨울방학 Social Network Analysis 워크샵을 위한 기초 수업 자료입니다. Mark Hoffman의 \href{https://bookdown.org/markhoff/social_network_analysis/}{Methods for Network Analysis} 튜토리얼에 기반하여 제작되었습니다.
+
+This is the tutorial for \textbf{Social Network Analysis} Winter Methods Workshop (Center for Political Communication, Seoul National University). This tutorial is primarily based on the `\href{https://bookdown.org/markhoff/social_network_analysis/}{Methods for Network Analysis}' by Mark Hoffman, with some modification.
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxb370uxc774uxd130-uxad6cuxc870-uxc774uxd574uxd558uxae30-understanding-network-data-structures}{%
+\chapter{네트워크 데이터 구조 이해하기 (Understanding network data structures)}\label{uxb124uxd2b8uxc6ccuxd06c-uxb370uxc774uxd130-uxad6cuxc870-uxc774uxd574uxd558uxae30-understanding-network-data-structures}}
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxb370uxc774uxd130uxb780}{%
+\section{네트워크 데이터란?}\label{uxb124uxd2b8uxc6ccuxd06c-uxb370uxc774uxd130uxb780}}
+
+점과 선으로 이어진 구조
+
+\begin{itemize}
+\tightlist
+\item
+  점: node, vertex, point, actor
+\item
+  선: link, edge, line, tie
+\end{itemize}
+
+모든 네트워크는 '관계'에 관한 것이다. 네트워크는 여려 영향을 만들어 낸다.
+
+네트워크 자료와 그에 대한 분석은 이제까지 개체의 속성에 주목한 데이터와 그에 대한 분석이 놓친 영역을 탐구할 수 있다.
+
+ex) 행복 결정 요인 연구
+
+\begin{itemize}
+\tightlist
+\item
+  기존: 소득, 교육 수준, 자기 효능감 등 개인에게 귀속되는 속성으로 분석\\
+\item
+  네트워크 분석: 행복이 네트워크를 따라 전파되며, 네트워크를 통해 연결된 타인의 행복이 나의 행복의 영향을 미침(ex. 친구의 친구가 행복하면, 나도 행복할 가능성이 커짐)
+\end{itemize}
+
+두 가지 네트워크 효과: 관계적 접근(relational approach) vs 위치적 접근(positional approach)
+
+\begin{itemize}
+\tightlist
+\item
+  관계적 접근: 직접 연결이 미치는 영향에 주목
+\item
+  위치적 접근: 네트워크 구조에서 지위가 만들어내는 역할 주목
+\end{itemize}
+
+네트워크 정보를 파악하는 관점 세 가지
+
+\begin{itemize}
+\tightlist
+\item
+  전체 네트워크 수준: 밀도, 디그리 분포, 이행성, 글로벌 클러스터링 계수 등
+\item
+  노드 수준: 중심성, 지위와 관련된 측정치들(isolate, bridge 등)
+\item
+  링크 수준 혹은 두 개의 노드쌍 수준: 링크 가중치 등
+\end{itemize}
+
+\strut \\
+기본적으로 네트워크 분석에서 관계는 edge lists(엣지 리스트) 또는 adjacency matrices(인접행렬) 형태로 표현할 수 있다.
+
+\hypertarget{uxc5e3uxc9c0-uxb9acuxc2a4uxd2b8-edge-lists}{%
+\section{엣지 리스트 (Edge lists)}\label{uxc5e3uxc9c0-uxb9acuxc2a4uxd2b8-edge-lists}}
+
+네트워크 표현법 1. 에지 리스트 - edges 를 나열하여 표현
+
+Edge lists는 컴퓨터에게 각 edge로 연결되어 있는 행위자들이 누군지를 알려준다.
+방향성이 있는 네트워크(directed graph)에서는 A 열의 행위자들이 연결을 주는 주체이며, B 열의 행위자들은 연결 받는 대상이다. 한편, 방향성이 없는 네트워크(undirected graph)에서 열의 순서는 상관 없다.
+
+R에서 edge lists를 만들어 보자. 먼저 열 벡터(column vectors)를 정의하고, 정의한 열 벡터들을 데이터 프레임의 변수로 만들어 주면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{personA }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Mark"}\NormalTok{, }\StringTok{"Mark"}\NormalTok{, }\StringTok{"Peter"}\NormalTok{, }\StringTok{"Peter"}\NormalTok{, }\StringTok{"Bob"}\NormalTok{, }\StringTok{"Jill"}\NormalTok{)}
+\NormalTok{personB }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Peter"}\NormalTok{, }\StringTok{"Jill"}\NormalTok{, }\StringTok{"Bob"}\NormalTok{, }\StringTok{"Aaron"}\NormalTok{, }\StringTok{"Jill"}\NormalTok{, }\StringTok{"Aaron"}\NormalTok{)}
+
+\NormalTok{edgelist }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{PersonA =}\NormalTok{ personA, }\AttributeTok{PersonB =}\NormalTok{ personB, }\AttributeTok{stringsAsFactors =}\NormalTok{ F)}
+
+\FunctionTok{print}\NormalTok{(edgelist)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   PersonA PersonB
+## 1    Mark   Peter
+## 2    Mark    Jill
+## 3   Peter     Bob
+## 4   Peter   Aaron
+## 5     Bob    Jill
+## 6    Jill   Aaron
+\end{verbatim}
+
+Edge list는 네트워크를 표현하는 아주 간단한 방법이지만, 두 가지 단점이 있다.\\
+첫 번째, edge lists로는 어디에도 연결되지 않은 노드(고립노드/isolates)를 표현할 수 없다.\\
+두 번째, 수학적 계산에 용이한 데이터 형태가 아니다. 따라서 네트워크 분석을 위해서는 edge list를 인접행렬(adjacency matrix) 또는 네트워크 객체(network object)로 변환해야 한다.
+
+\hypertarget{uxc778uxc811uxd589uxb82cadjacency-matrices}{%
+\section{인접행렬(Adjacency matrices)}\label{uxc778uxc811uxd589uxb82cadjacency-matrices}}
+
+인접행렬의 각 행과 각 열은 노드(행위자)를 의미하며, 각 요소는 0 또는 1 이상의 정수 값을 갖는다. 예를 들어, 인접행렬의 1번째 행과 1번째 열에 해당하는 (1,1) 자리의 요소가 0이라면, 두 행위자가 네트워크에서 연결되지 않았음을 의미한다.
+
+먼저, 5 X 5 인접행렬을 만들어 보자. 이때 행(row)과 열(column) 차원의 이름(row names, column names)을 2차원 리스트로 지정해주자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{adjacency }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{nrow =} \DecValTok{5}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{5}\NormalTok{, }\AttributeTok{dimnames =} \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Mark"}\NormalTok{, }\StringTok{"Peter"}\NormalTok{, }\StringTok{"Bob"}\NormalTok{, }\StringTok{"Jill"}\NormalTok{, }\StringTok{"Aaron"}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\StringTok{"Mark"}\NormalTok{, }\StringTok{"Peter"}\NormalTok{, }\StringTok{"Bob"}\NormalTok{, }\StringTok{"Jill"}\NormalTok{, }\StringTok{"Aaron"}\NormalTok{)))}
+
+\FunctionTok{print}\NormalTok{(adjacency)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Mark Peter Bob Jill Aaron
+## Mark     0     1   0    1     0
+## Peter    1     0   1    0     1
+## Bob      0     1   0    1     0
+## Jill     1     0   1    0     1
+## Aaron    0     1   0    1     0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  밀도(Density): 실제로 존재하는 링크의 비율(가능성에 비해)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값
+  \item
+    평균 디그리/노드 숫자\\
+  \end{itemize}
+\item
+  디그리(Degree): 어떤 노드가 다른 노드에 대해 가지는 링크의 숫자
+
+  \begin{itemize}
+  \tightlist
+  \item
+    방향이 있는 그래프에서는 in-degree와 out-degree가 나뉨\\
+  \item
+    모든 노드의 디그리를 합치면, 링크 숫자의 두 배가 됨\\
+  \end{itemize}
+\item
+  Weighted Networks(Valued Networks)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    링크가 있고 없고를 넘어서, 링크가 강도를 가질 수 있음\\
+  \item
+    소셜 네트워크에서 행위자 간 접촉 빈도 등을 가중치로 설정할 수 있음
+  \item
+    앞서 존재한 인접행렬 매트릭스(Adjacency Matrix)로 표현 가능함. 입력 값이 0/1 두 개의 값이 아니라 다양한 값으로 표현됨(음수를 활용하는 경우도 있음)\\
+  \end{itemize}
+\item
+  Directed Networks
+
+  \begin{itemize}
+  \tightlist
+  \item
+    링크에 방향이 존재할 수 있음\\
+  \item
+    앞선 네트워크들에서는 인접 매트릭스가 대칭 행렬이었음(방향이 없기 때문)
+  \item
+    방향을 가정할 때에는, A(i,j)와 A(j,i)가 다른 의미를 가짐. A(i,j)는 j로부터 i로 향하는 링크의 존재를 의미함(해석 주의!)
+  \item
+    약간 반직관적 설정이나, 여러 지표 계산에 최적화된 세팅임
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{uxb370uxc774uxd130uxc5d0uxc11c-uxb124uxd2b8uxc6ccuxd06cuxb85c-from-data-to-networks}{%
+\section{데이터에서 네트워크로 (From data to networks)}\label{uxb370uxc774uxd130uxc5d0uxc11c-uxb124uxd2b8uxc6ccuxd06cuxb85c-from-data-to-networks}}
+
+R의 igraph 패키지는 네트워크를 시각화하는데 사용된다. 우선 igraph 패키지를 설치하고, igraph를 작업 공간에 불러오자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages("igraph", repos=\textquotesingle{}http://cran.us.r{-}project.org\textquotesingle{})}
+\FunctionTok{library}\NormalTok{(igraph)}
+\end{Highlighting}
+\end{Shaded}
+
+먼저 실습에 필요한 edge list를 만들어 보자.
+
+채무 관계를 표현하는 edge list를 만들 것이다. Ego는 돈을 꿔준 사람, Alter는 돈을 받은 사람으로 하겠다. Ego 열 벡터와 Alter 열 벡터를 각각 만든 후, data.frame() 함수를 통해 데이터프레임 형태로 만든다. Ego와 Alter는 따라서 데이터프레임의 변수 명이 된다. 이렇게 만든 데이터프레임을 money\_edgelist라는 이름으로 저장하자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{money\_edgelist }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Ego =} \FunctionTok{c}\NormalTok{(}\StringTok{"Greg"}\NormalTok{,}\StringTok{"Greg"}\NormalTok{,}\StringTok{"Greg"}\NormalTok{,}\StringTok{"Greg"}\NormalTok{,}\StringTok{"Greg"}\NormalTok{,}\StringTok{"Maria"}\NormalTok{,}\StringTok{"Maria"}\NormalTok{,}\StringTok{"Maria"}\NormalTok{,}\StringTok{"Maria"}\NormalTok{,}\StringTok{"Mark"}\NormalTok{,}\StringTok{"Lexi"}\NormalTok{),}
+  \AttributeTok{Alter =} \FunctionTok{c}\NormalTok{(}\StringTok{"Maria"}\NormalTok{,}\StringTok{"Mark"}\NormalTok{,}\StringTok{"Lexi"}\NormalTok{,}\StringTok{"Grace"}\NormalTok{,}\StringTok{"Nick"}\NormalTok{,}\StringTok{"Mark"}\NormalTok{,}\StringTok{"Lexi"}\NormalTok{,}\StringTok{"Grace"}\NormalTok{,}\StringTok{"Nick"}\NormalTok{,}\StringTok{"Nick"}\NormalTok{,}\StringTok{"Nick"}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{money\_edgelist}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Ego Alter
+## 1   Greg Maria
+## 2   Greg  Mark
+## 3   Greg  Lexi
+## 4   Greg Grace
+## 5   Greg  Nick
+## 6  Maria  Mark
+## 7  Maria  Lexi
+## 8  Maria Grace
+## 9  Maria  Nick
+## 10  Mark  Nick
+## 11  Lexi  Nick
+\end{verbatim}
+
+이제 igraph 패키지를 사용하여 간단한 네트워크 분석을 해보자. igraph 패키지는 행렬만을 input으로 받는다. 따라서 데이터프레임을 행렬로 바꿔주어야 한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{money\_edgelist }\OtherTok{\textless{}{-}} \FunctionTok{as.matrix}\NormalTok{(money\_edgelist)}
+
+\NormalTok{money\_edgelist}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Ego     Alter  
+##  [1,] "Greg"  "Maria"
+##  [2,] "Greg"  "Mark" 
+##  [3,] "Greg"  "Lexi" 
+##  [4,] "Greg"  "Grace"
+##  [5,] "Greg"  "Nick" 
+##  [6,] "Maria" "Mark" 
+##  [7,] "Maria" "Lexi" 
+##  [8,] "Maria" "Grace"
+##  [9,] "Maria" "Nick" 
+## [10,] "Mark"  "Nick" 
+## [11,] "Lexi"  "Nick"
+\end{verbatim}
+
+igraph 패키지의 \texttt{graph.edgelist()} 함수를 통해 edge list를 네트워크 객체(network object)로 바꿀 수 있다. 이 함수에는 네트워크 데이터(=edge list)와 이 네트워크가 방향성이 있는지 없는지 여부가 인자(argument)로 들어간다. 우리의 채무 네트워크의 경우 Ego에서 Alter로의 방향성이 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  moneyNetwork }\OtherTok{\textless{}{-}} \FunctionTok{graph.edgelist}\NormalTok{(money\_edgelist, }\AttributeTok{directed=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+igraph 패키지를 통해 modey\_edgelist 데이터를 moneyNetwork라는 네트워크 객체로 바꿔주었다.
+
+그렇다면 인접행렬의 경우는 어떻게 네트워크 객체로 바꿀 수 있을까? 인접행렬은 igraph 패키지의 \texttt{graph.adjacency()} 함수를 통해 네트워크로 바꿔주면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \CommentTok{\# 참고 }
+  \FunctionTok{graph.adjacency}\NormalTok{(adjacency, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## IGRAPH 3fc180e UN-- 5 6 -- 
+## + attr: name (v/c)
+## + edges from 3fc180e (vertex names):
+## [1] Mark --Peter Mark --Jill  Peter--Bob   Peter--Aaron Bob  --Jill 
+## [6] Jill --Aaron
+\end{verbatim}
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxd0d0uxc0c9uxd558uxae30-exploring-the-network}{%
+\section{네트워크 탐색하기 (Exploring the network)}\label{uxb124uxd2b8uxc6ccuxd06c-uxd0d0uxc0c9uxd558uxae30-exploring-the-network}}
+
+이제 네트워크의 각각의 요소들이 무엇을 의미하는지 알아보자.
+아까 만든 moneyNetwork를 입력하면 네트워크의 summary가 출력된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{  moneyNetwork}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## IGRAPH 3fbd449 DN-- 6 11 -- 
+## + attr: name (v/c)
+## + edges from 3fbd449 (vertex names):
+##  [1] Greg ->Maria Greg ->Mark  Greg ->Lexi  Greg ->Grace Greg ->Nick 
+##  [6] Maria->Mark  Maria->Lexi  Maria->Grace Maria->Nick  Mark ->Nick 
+## [11] Lexi ->Nick
+\end{verbatim}
+
+IGRAPH DN 으로 시작하는 맨 첫 줄은 moneyNetwork가 igraph object이고, 방향성이 있는 네트워크 (directed network)이며, 6개의 노드와 11개의 에지로 구성되었음을 알려준다.
+
+두 번째 줄은 moneyNetwork가 노드(vertices, v/c)의 이름(name)을 특성(attribute)으로 가지고 있음을 알려준다. 따라서 우리는 네트워크의 name 특성을 따로 뽑아낼 수 있다. 네트워크의 특성을 뽑아낼 때에는 \texttt{V()\$} 를 사용한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{name}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Greg"  "Maria" "Mark"  "Lexi"  "Grace" "Nick"
+\end{verbatim}
+
+summary의 첫 번째 줄에서 봤듯이, 이 네트워크의 노드는 총 6개가 있었고, 각 노드의 이름이 특성으로 저장되어 있다.
+
+다음으로, 세 번째 줄은 네트워크의 edges의 snapshot을 보여준다.
+
+plot() 함수를 사용하면 전체 네트워크를 시각화할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/1} \end{center}
+
+디폴트 그래프는 못 생겼다\ldots 다음 장에서 네트워크 시각화에 대해 더 배워보자.
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxc2dcuxac01uxd654-network-visualization-and-aesthetics}{%
+\chapter{네트워크 시각화 (Network Visualization and Aesthetics)}\label{uxb124uxd2b8uxc6ccuxd06c-uxc2dcuxac01uxd654-network-visualization-and-aesthetics}}
+
+이 장에서는 네트워크 시각화에 대해 배울 것이다. 구체적으로는 네트워크의 여러 구성 요소들을 변경함으로써 더 예쁜 네트워크를 그리는 방법을 연습할 것이다. 노드의 색상, 크기, 모양, 라벨을 변경하거나, 엣지의 색상, 너비, 휜 정도, 모양을 변경할 수 있다. 또한 네트워크 내의 다양한 집단의 위치를 표시할 수도 있다. 마지막으로 네트워크의 전반적인 레이아웃을 바꿀 수도 있다.
+
+\hypertarget{uxae30uxcd08-uxc2dcuxac01uxd654-the-basics}{%
+\section{기초 시각화 (The Basics)}\label{uxae30uxcd08-uxc2dcuxac01uxd654-the-basics}}
+
+1장에서 만든 \texttt{moneyNetwork}를 가지고 시각화 연습을 해보자. 바로 직전에 그렸던 디폴트 플랏은 아래와 같이 생겼었다.
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/2} \end{center}
+
+이 그래프에서 가장 간단하게 바꿀 수 있는 것들은 노드의 크기와 색상이다. 특히 네트워크 규모가 큰 경우에, 노드들은 너무 크고 서로 뭉쳐져 보일 것이다. 이때 \texttt{vertex.size} 인자(argument)를 통해 노드의 크기를 조정해주면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/3} \end{center}
+
+이번에는 \texttt{vertex.color} 인자를 사용하여 노드 색상을 바꿔보자. \texttt{vertex.frame.color} 인자를 NA로 설정하여 노드의 검정 테두리를 없앨 수도 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/4} \end{center}
+
+라벨이 너무 크고 파랗다. \texttt{vertex.label.cex} 인자를 통해 라벨 크기를 조절하고, \texttt{vertex.label.color}를 통해 라벨의 색상을 바꿔주자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{7}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/5} \end{center}
+
+만약 라벨을 아예 없애고 싶다면 \texttt{vertex.label} 인자의 값을 NA로 설정해주면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/6} \end{center}
+
+엣지의 경우에도 더 작고 더 휘게 만들어보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{7}\NormalTok{,  }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{edge.curved =}\NormalTok{ .}\DecValTok{1}\NormalTok{, }\AttributeTok{edge.arrow.size =}\NormalTok{ .}\DecValTok{3}\NormalTok{, }\AttributeTok{edge.width =}\NormalTok{ .}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/7} \end{center}
+
+주의: \texttt{edge.curved}를 .1보다 더 크게 설정하면 오히려 더 이상해진다\ldots 따라서 적당한 값을 설정해야 한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{7}\NormalTok{,  }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{edge.curved =} \FloatTok{1.7}\NormalTok{, }\AttributeTok{edge.arrow.size =}\NormalTok{ .}\DecValTok{3}\NormalTok{, }\AttributeTok{edge.width =}\NormalTok{ .}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/8} \end{center}
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxb808uxc774uxc544uxc6c3-layouts}{%
+\section{네트워크 레이아웃 (Layouts)}\label{uxb124uxd2b8uxc6ccuxd06c-uxb808uxc774uxc544uxc6c3-layouts}}
+
+네트워크 시각화의 중요한 요소는 레이아웃이다. 레이아웃에 따라 그래프 내에서 노드의 위치가 달라진다. 다양한 레이아웃 알고리즘이 존재하며, 이들의 공통점은 서로 교차하는 엣지의 개수를 최소화하는 것을 목표로 한다는 것이다. 가장 대표적인 알고리즘 두 가지를 소개하겠다: (1) Kamada Kawai, (2) Fruchterman Reingold 알고리즘.
+
+레이아웃 알고리즘을 적용하기 위해서는 (1) 먼저 \texttt{layout.알고리즘명()} 함수 안에 네트워크를 넣어주어 레이아웃을 R 객체로 정의해야 한다. (2) 그 다음에는 \texttt{plot()} 안의 layout 인자 값으로 정의한 레이아웃을 입력하여 시각화를 해주면 된다. 연습해보자.
+
+\textbf{\emph{Kamada Kawai}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kamadaLayout }\OtherTok{\textless{}{-}} \FunctionTok{layout.kamada.kawai}\NormalTok{(moneyNetwork)}
+
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{layout =}\NormalTok{ kamadaLayout, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{7}\NormalTok{,  }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{edge.curved =}\NormalTok{ .}\DecValTok{1}\NormalTok{, }\AttributeTok{edge.arrow.size =}\NormalTok{ .}\DecValTok{3}\NormalTok{, }\AttributeTok{edge.width =}\NormalTok{ .}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/9} \end{center}
+
+\textbf{\emph{Frucherman-Reingold}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fruchtermanLayout }\OtherTok{\textless{}{-}} \FunctionTok{layout.fruchterman.reingold}\NormalTok{(moneyNetwork)}
+
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{layout =}\NormalTok{ fruchtermanLayout, }\AttributeTok{vertex.size =} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{7}\NormalTok{, }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{edge.curved =}\NormalTok{ .}\DecValTok{1}\NormalTok{, }\AttributeTok{edge.arrow.size =}\NormalTok{ .}\DecValTok{3}\NormalTok{, }\AttributeTok{edge.width =}\NormalTok{ .}\DecValTok{7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/10} \end{center}
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxac1duxccb4uxc5d0-uxd2b9uxc131-uxcd94uxac00uxd558uxae30-adding-attributes-to-a-network-object}{%
+\section{네트워크 객체에 특성 추가하기 (Adding attributes to a network object)}\label{uxb124uxd2b8uxc6ccuxd06c-uxac1duxccb4uxc5d0-uxd2b9uxc131-uxcd94uxac00uxd558uxae30-adding-attributes-to-a-network-object}}
+
+네트워크에서 특성/속성(attributes)들이 어떻게 분포해 있는지가 궁금할 수 있다. 예를 들어, 정치 커뮤니케이션 네트워크에서 노드들의 색상을 지지 정당에 따라 다르게 표시할 수 있겠다. 민주당 지지자는 파란색으로, 공화당 지지자는 빨간색으로 칠하여 네트워크에서 다르게 표현할 수 있는 것이다. 이러한 특성 분포를 표시하기 위해서는 별도의 데이터가 필요하다. 아래의 코드를 실행하여 각 행은 사람을, 각 열은 특성을 담고있는 attributes 데이터프레임을 만들어주자. 이 특성 데이터를 igraph에서 사용하기 위해서는 igraph 객체인 \texttt{moneyNetwork}의 노드들에 이 특성들을 할당해주어야 한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{attributes }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Name =} \FunctionTok{c}\NormalTok{(}\StringTok{"Greg"}\NormalTok{,}\StringTok{"Maria"}\NormalTok{,}\StringTok{"Mark"}\NormalTok{,}\StringTok{"Lexi"}\NormalTok{,}\StringTok{"Grace"}\NormalTok{,}\StringTok{"Nick"}\NormalTok{),}
+  \AttributeTok{Age =} \FunctionTok{c}\NormalTok{(}\DecValTok{53}\NormalTok{,}\DecValTok{52}\NormalTok{,}\DecValTok{25}\NormalTok{,}\DecValTok{23}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{14}\NormalTok{),}
+  \AttributeTok{Gender =} \FunctionTok{c}\NormalTok{(}\StringTok{"Male"}\NormalTok{,}\StringTok{"Female"}\NormalTok{,}\StringTok{"Male"}\NormalTok{,}\StringTok{"Female"}\NormalTok{,}\StringTok{"Female"}\NormalTok{,}\StringTok{"Male"}\NormalTok{),}
+  \AttributeTok{Role =} \FunctionTok{c}\NormalTok{(}\StringTok{"Father"}\NormalTok{,}\StringTok{"Mother"}\NormalTok{,}\StringTok{"Son"}\NormalTok{,}\StringTok{"Daughter"}\NormalTok{,}\StringTok{"Daughter"}\NormalTok{,}\StringTok{"Son"}\NormalTok{)}
+\NormalTok{)}
+\FunctionTok{head}\NormalTok{(attributes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Name Age Gender     Role
+## 1  Greg  53   Male   Father
+## 2 Maria  52 Female   Mother
+## 3  Mark  25   Male      Son
+## 4  Lexi  23 Female Daughter
+## 5 Grace  19 Female Daughter
+## 6  Nick  14   Male      Son
+\end{verbatim}
+
+다시 리마인드 하자면, \texttt{V()}함수를 통해 노드에 접근할 수 있고, \texttt{E()}함수를 통해 엣지에 접근 가능하다. 특성은 \texttt{\$}를 이용하여 지정할 수 있다. 일단 \texttt{moneyNetwork} 기존 특성이었던 name을 변경해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# moneyNetwork 노드들의 이름 변경 }
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{name }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"Bob"}\NormalTok{, }\StringTok{"Linda"}\NormalTok{, }\StringTok{"Elias"}\NormalTok{, }\StringTok{"Catherine"}\NormalTok{, }\StringTok{"Eloise"}\NormalTok{, }\StringTok{"Pumpkin"}\NormalTok{)}
+
+\CommentTok{\# 확인 }
+\FunctionTok{print}\NormalTok{(}\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{name)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# [1] "Bob"       "Linda"     "Elias"     "Catherine" "Eloise"    "Pumpkin"}
+\end{Highlighting}
+\end{Shaded}
+
+현재 우리의 네트워크에는 name 외의 다른 특성이 없는 상태이다. 따라서 네트워크 관계를 표현해주는 엣지리스트(행렬 형태) 뿐만 아니라 특성까지 한번에 포함시켜 네트워크 객체를 만들어야 한다. 이때 igraph 패키지의 \texttt{graph\_from\_data\_frame()} 함수를 이용하면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 엣지리스트와 특성을 둘 다 포함시키기 }
+\NormalTok{moneyNetwork }\OtherTok{\textless{}{-}} \FunctionTok{graph\_from\_data\_frame}\NormalTok{(money\_edgelist, }\AttributeTok{directed =}\NormalTok{ T, }\AttributeTok{vertices =}\NormalTok{ attributes)}
+\end{Highlighting}
+\end{Shaded}
+
+확인해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{moneyNetwork}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# IGRAPH 061b667 DN{-}{-} 6 11 {-}{-} }
+\DocumentationTok{\#\# + attr: name (v/c), Age (v/n), Gender (v/c), Role (v/c)}
+\DocumentationTok{\#\# + edges from 061b667 (vertex names):}
+\DocumentationTok{\#\#  [1] Greg {-}\textgreater{}Maria Greg {-}\textgreater{}Mark  Greg {-}\textgreater{}Lexi  Greg {-}\textgreater{}Grace Greg {-}\textgreater{}Nick }
+\DocumentationTok{\#\#  [6] Maria{-}\textgreater{}Mark  Maria{-}\textgreater{}Lexi  Maria{-}\textgreater{}Grace Maria{-}\textgreater{}Nick  Mark {-}\textgreater{}Nick }
+\DocumentationTok{\#\# [11] Lexi {-}\textgreater{}Nick}
+\end{Highlighting}
+\end{Shaded}
+
+이제 \texttt{V()\$} 명령어를 통해 네트워크에서 각각의 특성을 구체적으로 확인해 볼 수 있다. 젠더를 확인해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{Gender }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# [1] "Male"   "Female" "Male"   "Female" "Female" "Male"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{uxd2b9uxc131uxc5d0-uxb530uxb978-uxc2dcuxac01uxd654-plotting-based-on-attributes}{%
+\section{특성에 따른 시각화 (Plotting based on attributes)}\label{uxd2b9uxc131uxc5d0-uxb530uxb978-uxc2dcuxac01uxd654-plotting-based-on-attributes}}
+
+이번에는 젠더에 따라 색상을 달리 해보자. 이를 위해서는 젠더 특성에 따라 color를 다르게 지정해 주어야 한다. \texttt{ifelse()} 함수를 이용하여 네트워크의 색상을 지정해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{Gender }\SpecialCharTok{==} \StringTok{"Male"}\NormalTok{, }\StringTok{"dodgerblue3"}\NormalTok{,}\StringTok{"seagreen"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+자 이제 네트워크를 다시 그리면 젠더에 따라 노드 색상이 다르게 나타날 것이다. 이때 주의할 점은 \texttt{vertex.colors} 옵션을 설정하는 경우 override 된다는 것이다. 따라서 이 옵션은 반드시 제거해주자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{11}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+다른 특성에 따라 노드 색상을 달리 해보자. 먼저 color를 리셋해야 한다. Role 특성 - Father, Mother, Son, Daughter - 에 따라서 색상을 달리 설정하는 코드는 아래와 같다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \ConstantTok{NA} 
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{Role }\SpecialCharTok{==} \StringTok{"Father"}\NormalTok{, }\StringTok{"burlywood1"}\NormalTok{,}\StringTok{"tomato"}\NormalTok{)}
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{Role }\SpecialCharTok{==} \StringTok{"Mother"}\NormalTok{, }\StringTok{"seagreen"}\NormalTok{, }\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color)}
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{Role }\SpecialCharTok{==} \StringTok{"Son"}\NormalTok{, }\StringTok{"grey70"}\NormalTok{, }\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{color)}
+
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.size =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+이번에는 나이에 따라 노드 크기를 달리 표시해보자. 노드 크기를 나이의 1/5에 비례하도록 세팅할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{size }\OtherTok{=} \FunctionTok{V}\NormalTok{(moneyNetwork)}\SpecialCharTok{$}\NormalTok{Age}\SpecialCharTok{/}\DecValTok{5}
+
+\FunctionTok{plot}\NormalTok{(moneyNetwork, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{7}\NormalTok{,  }\AttributeTok{edge.curved =}\NormalTok{ .}\DecValTok{1}\NormalTok{, }\AttributeTok{vertex.frame.color =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{edge.arrow.size =}\NormalTok{ .}\DecValTok{3}\NormalTok{, }\AttributeTok{edge.width =}\NormalTok{ .}\DecValTok{7}\NormalTok{, }\AttributeTok{edge.color =} \StringTok{"grey30"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-41-1.pdf}
+
+\hypertarget{uxc5d0uxace0-uxb124uxd2b8uxc6ccuxd06cego-networks}{%
+\chapter{에고 네트워크(Ego Networks)}\label{uxc5d0uxace0-uxb124uxd2b8uxc6ccuxd06cego-networks}}
+
+에고 네트워크는 에고(ego)라 불리는 하나의 중심이 되는 액터와 그 액터와 연결된 알터(alter)라 불리는 다른 액터들, 그리고 이들 알터들 간의 연결로 구성되는 네트워크를 말한다.
+예를 들어 아래 네트워크 중 0의 에고 네트워크를 찾는다면, 에고인 0와 알터인 1, 2, 3, 4, 5을 포함하는 파란색으로 표시된 노드와 링크가 이에 해당한다.
+
+\begin{center}\includegraphics[width=0.45\linewidth]{images/ego} \end{center}
+
+\hypertarget{uxc5d0uxace0-uxb124uxd2b8uxc6ccuxd06c-uxbd84uxc11duxd558uxae30}{%
+\section{에고 네트워크 분석하기}\label{uxc5d0uxace0-uxb124uxd2b8uxc6ccuxd06c-uxbd84uxc11duxd558uxae30}}
+
+2004년 GSS 서베이 데이터의 네트워크 모듈 데이터를 사용하여 에고 네트워크를 분석해보자.
+데이터는 호프만 교수의 깃헙에서 다운로드 받을 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(igraph)}
+\NormalTok{gss }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/mahoffman/stanford\_networks/main/data/gss\_local\_nets.csv"}\NormalTok{, }\AttributeTok{stringsAsFactors =} \ConstantTok{TRUE}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+데이터가 어떻게 생겼는지 살펴보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(gss)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      sex  race age            partyid        relig numgiven close12 close13
+## 1 female other  52        independent     catholic        0      NA      NA
+## 2 female other  43 not str republican     catholic        0      NA      NA
+## 3   male black  52    strong democrat   protestant        4       1       2
+## 4 female other  34       ind,near dem     catholic        4       2       0
+## 5   male other  22       ind,near dem moslem/islam        0      NA      NA
+## 6   male black  26   not str democrat   protestant        6       0       2
+##   close14 close15 close23 close24 close25 close34 close35 close45 sex1 sex2
+## 1      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
+## 2      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
+## 3       0      NA       2       2      NA       1      NA      NA    1    1
+## 4       2      NA       2       2      NA       2      NA      NA    1    0
+## 5      NA      NA      NA      NA      NA      NA      NA      NA   NA   NA
+## 6       1       1       1       1       1       2       2       2    1    1
+##   sex3 sex4 sex5 race1 race2 race3 race4 race5 educ1     educ2     educ3
+## 1   NA   NA   NA    NA    NA    NA    NA    NA    NA      <NA>      <NA>
+## 2   NA   NA   NA    NA    NA    NA    NA    NA    NA      <NA>      <NA>
+## 3    0    0   NA     1     1     1     1    NA     1 h.s. grad      Grad
+## 4    1    1   NA     2     2     2     2    NA     1 h.s. grad      Grad
+## 5   NA   NA   NA    NA    NA    NA    NA    NA    NA      <NA>      <NA>
+## 6    0    1    1     0     1     1     2     2     1 h.s. grad h.s. grad
+##          educ4        educ5 age1 age2 age3 age4 age5     relig1     relig2
+## 1         <NA>         <NA>   NA   NA   NA   NA   NA       <NA>       <NA>
+## 2         <NA>         <NA>   NA   NA   NA   NA   NA       <NA>       <NA>
+## 3    Bachelors         <NA>   56   40   58   59   NA protestant protestant
+## 4         Grad         <NA>   63   36   34   36   NA   catholic   catholic
+## 5         <NA>         <NA>   NA   NA   NA   NA   NA       <NA>       <NA>
+## 6 Some College Some College   25   25   39   33   30      other      other
+##       relig3     relig4   relig5
+## 1       <NA>       <NA>     <NA>
+## 2       <NA>       <NA>     <NA>
+## 3 protestant protestant     <NA>
+## 4   catholic   catholic     <NA>
+## 5       <NA>       <NA>     <NA>
+## 6   catholic   catholic catholic
+\end{verbatim}
+
+변수는 총 42개이다. 처음 다섯 개 변수(sex, race, age, partyid, relig)는 각 응답자의 특성을 의미한다. 나머지는 네트워크를 구성하는 변수들이다. GSS 데이터 네트워크 모듈에서는 각 응답자에게 ``중요한 이슈''에 대해 함께 논의한 최대 5명의 타인에 대해서 물어본다. numgiven 변수는 응답자가 중요한 이슈를 몇 명과 함께 논의했는지를 나타낸다. 또한 응답자들은 이 타인들 간의 관계에 대해 구체적으로 답한다. 예를 들어, 이들이 특별히 가까운지, 서로 아는지, 아예 모르는 사이인지 등에 대해 밝힌다. 따라서 close12 변수는 타인1과 타인2 간 가까운 정도를 의미한다. 마지막으로, 이 각각의 타인들의 특성(sex, race, age) 변수들도 수집되었다.
+
+왜 이 변수들이 에고 네트워크를 구성하는지 살펴보자. 먼저 각 응답자마다 close12부터 close45까지의 관계 변수들을 엣지 리스트로 바꾸어 주어야 한다.
+
+우선, grepl 함수를 사용하여 우리가 원하는 관계 변수들만을 추출하여 ties라는 데이터프레임으로 저장하자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ties }\OtherTok{\textless{}{-}}\NormalTok{ gss[,}\FunctionTok{grepl}\NormalTok{(}\StringTok{"close"}\NormalTok{, }\FunctionTok{colnames}\NormalTok{(gss))]}
+\FunctionTok{head}\NormalTok{(ties)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   close12 close13 close14 close15 close23 close24 close25 close34 close35
+## 1      NA      NA      NA      NA      NA      NA      NA      NA      NA
+## 2      NA      NA      NA      NA      NA      NA      NA      NA      NA
+## 3       1       2       0      NA       2       2      NA       1      NA
+## 4       2       0       2      NA       2       2      NA       2      NA
+## 5      NA      NA      NA      NA      NA      NA      NA      NA      NA
+## 6       0       2       1       1       1       1       1       2       2
+##   close45
+## 1      NA
+## 2      NA
+## 3      NA
+## 4      NA
+## 5      NA
+## 6       2
+\end{verbatim}
+
+각 응답자마다 다음의 작업을 진행할 것이다: 5 x 5 행렬을 만들어서 각 응답자마다 closeness 값을 채워 넣는다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{5}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+각 응답자의 close 값들을 행렬의 대각성분 아래쪽(lower triangle)에 할당할 수 있다.
+예를 들어 3번째 응답자의 close 값들을 넣어보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat[}\FunctionTok{lower.tri}\NormalTok{(mat)] }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(ties[}\DecValTok{3}\NormalTok{,])}
+\end{Highlighting}
+\end{Shaded}
+
+방향성이 없는 네트워크에서는 대각성분을 기준으로 대칭이기 때문에, 대각성분 위쪽(upper triangle)에도 값을 대칭적으로 넣어주면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat[}\FunctionTok{upper.tri}\NormalTok{(mat)] }\OtherTok{=} \FunctionTok{t}\NormalTok{(mat)[}\FunctionTok{upper.tri}\NormalTok{(mat)]}
+\NormalTok{mat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#      [,1] [,2] [,3] [,4] [,5]}
+\DocumentationTok{\#\# [1,]   NA    1    2    0   NA}
+\DocumentationTok{\#\# [2,]    1   NA    2    2   NA}
+\DocumentationTok{\#\# [3,]    2    2   NA    1   NA}
+\DocumentationTok{\#\# [4,]    0    2    1   NA   NA}
+\DocumentationTok{\#\# [5,]   NA   NA   NA   NA   NA}
+\end{Highlighting}
+\end{Shaded}
+
+이제 결측행(missing rows)을 지워주자.
+NA가 있는 행의 개수를 합한 값이 행렬의 행 개수보다 적은 경우, 결측행이 없다는 것을 의미한다.
+즉, 5 X 5 행렬에서 해당 응답자의 모든 응답이 NA인 경우, NA가 있는 행의 개수의 총합은 5이다.
+따라서 이 경우는 rowSums(is.na(mat))가 nrow(mat)와 같게 되는 결측행이다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{na\_vals }\OtherTok{\textless{}{-}} \FunctionTok{is.na}\NormalTok{(mat)}
+\NormalTok{non\_missing\_rows }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{(na\_vals) }\SpecialCharTok{\textless{}} \FunctionTok{nrow}\NormalTok{(mat)}
+\NormalTok{mat }\OtherTok{\textless{}{-}}\NormalTok{ mat[non\_missing\_rows,non\_missing\_rows]}
+\end{Highlighting}
+\end{Shaded}
+
+igraph 패키지는 NA를 처리하지 못하므로, 대각성분을 모두 0으로 바꿔주자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{diag}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \DecValTok{0}
+\end{Highlighting}
+\end{Shaded}
+
+어떻게 생겼는지 확인해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mat}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#      [,1] [,2] [,3] [,4]}
+\DocumentationTok{\#\# [1,]    0    1    2    0}
+\DocumentationTok{\#\# [2,]    1    0    2    2}
+\DocumentationTok{\#\# [3,]    2    2    0    1}
+\DocumentationTok{\#\# [4,]    0    2    1    0}
+\end{Highlighting}
+\end{Shaded}
+
+자 이런 방식으로 인접행렬을 만들어서 3번째 응답자의 네트워크를 만들 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ego\_net }\OtherTok{\textless{}{-}} \FunctionTok{graph.adjacency}\NormalTok{(mat, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{, }\AttributeTok{weighted =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(ego\_net, }\AttributeTok{vertex.size =} \DecValTok{30}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{vertex.label.cex =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-55-1.pdf}
+
+문제는 3번째 응답자 뿐만 아니라 데이터의 모든 응답자에 대해서 위의 작업을 해야 한다는 것이다.
+따라서 위의 작업을 각 행마다 자동화해주는 함수를 만들어 사용하자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{make\_ego\_nets }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(tie)\{}
+  \CommentTok{\# make the matrix}
+\NormalTok{  mat }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\AttributeTok{nrow =} \DecValTok{5}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{5}\NormalTok{)}
+  
+  \CommentTok{\# assign the tie values to the lower triangle}
+\NormalTok{  mat[}\FunctionTok{lower.tri}\NormalTok{(mat)] }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(tie)}
+  
+  \CommentTok{\# symmetrize}
+\NormalTok{  mat[}\FunctionTok{upper.tri}\NormalTok{(mat)] }\OtherTok{=} \FunctionTok{t}\NormalTok{(mat)[}\FunctionTok{upper.tri}\NormalTok{(mat)]}
+  
+  \CommentTok{\# identify missing values}
+\NormalTok{  na\_vals }\OtherTok{\textless{}{-}} \FunctionTok{is.na}\NormalTok{(mat)}
+  
+  \CommentTok{\# identify rows where all values are missing}
+\NormalTok{  non\_missing\_rows }\OtherTok{\textless{}{-}} \FunctionTok{rowSums}\NormalTok{(na\_vals) }\SpecialCharTok{\textless{}} \FunctionTok{nrow}\NormalTok{(mat)}
+  
+  \CommentTok{\# if any rows }
+  \ControlFlowTok{if}\NormalTok{(}\FunctionTok{sum}\NormalTok{(}\SpecialCharTok{!}\NormalTok{non\_missing\_rows) }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)\{}
+\NormalTok{    mat }\OtherTok{\textless{}{-}}\NormalTok{ mat[non\_missing\_rows,non\_missing\_rows]}
+\NormalTok{  \}}
+  \FunctionTok{diag}\NormalTok{(mat) }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{  ego\_net }\OtherTok{\textless{}{-}} \FunctionTok{graph.adjacency}\NormalTok{(mat, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{, }\AttributeTok{weighted =}\NormalTok{ T)}
+  \FunctionTok{return}\NormalTok{(ego\_net)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+그 다음에는 lapply 함수{[}list+apply{]}를 사용해서 위에 정의한 함수를 데이터의 각 행에 적용해주면 된다. ties 데이터의 각 행은 각 응답자를 의미한다. 따라서 ties 데이터의 행 개수와 동일한 사이즈의 리스트가 결과로 출력될 것이고, 각 리스트 안에는 각 응답자의 에고 네트워크가 포함될 것이다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ego\_nets }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(ties), }
+                   \AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{make\_ego\_nets}\NormalTok{(ties[x,]))}
+
+\FunctionTok{head}\NormalTok{(ego\_nets)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## IGRAPH 45a0d0e U--- 0 0 -- 
+## + edges from 45a0d0e:
+## 
+## [[2]]
+## IGRAPH 45a1d95 U--- 0 0 -- 
+## + edges from 45a1d95:
+## 
+## [[3]]
+## IGRAPH 45a29e2 U-W- 4 5 -- 
+## + attr: weight (e/n)
+## + edges from 45a29e2:
+## [1] 1--2 1--3 2--3 2--4 3--4
+## 
+## [[4]]
+## IGRAPH 45a2d27 U-W- 4 5 -- 
+## + attr: weight (e/n)
+## + edges from 45a2d27:
+## [1] 1--2 1--4 2--3 2--4 3--4
+## 
+## [[5]]
+## IGRAPH 45a320d U--- 0 0 -- 
+## + edges from 45a320d:
+## 
+## [[6]]
+## IGRAPH 45a3502 U-W- 5 9 -- 
+## + attr: weight (e/n)
+## + edges from 45a3502:
+## [1] 1--3 1--4 1--5 2--3 2--4 2--5 3--4 3--5 4--5
+\end{verbatim}
+
+에고 네트워크의 리스트가 잘 만들어졌다. 그럼 랜덤으로 1021번째 응답자의 에고 네트워크를 추출해서 그려보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{random\_ego\_net }\OtherTok{\textless{}{-}}\NormalTok{ ego\_nets[[}\DecValTok{1021}\NormalTok{]]}
+\FunctionTok{plot}\NormalTok{(random\_ego\_net)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-58-1.pdf}
+
+\hypertarget{uxb124uxd2b8uxc6ccuxd06c-uxd06cuxae30uxc640-uxbc00uxb3c4-uxacc4uxc0b0uxd558uxae30-calculating-network-size-and-density}{%
+\section{네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)}\label{uxb124uxd2b8uxc6ccuxd06c-uxd06cuxae30uxc640-uxbc00uxb3c4-uxacc4uxc0b0uxd558uxae30-calculating-network-size-and-density}}
+
+네트워크의 리스트가 있으므로 lapply 함수를 써서 여러 가지를 계산할 수 있다.
+vcount() 함수로 네트워크 크기(=노드의 개수)를 계산하거나, ecount() 함수로 엣지의 개수를 계산할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{network\_sizes }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(ego\_nets, vcount)}
+\NormalTok{network\_edge\_counts }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(ego\_nets, ecount)}
+
+\FunctionTok{head}\NormalTok{(network\_sizes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [[1]]
+## [1] 0
+## 
+## [[2]]
+## [1] 0
+## 
+## [[3]]
+## [1] 4
+## 
+## [[4]]
+## [1] 4
+## 
+## [[5]]
+## [1] 0
+## 
+## [[6]]
+## [1] 5
+\end{verbatim}
+
+이 리스트를 벡터로 바꾼 후 mean() 안에 input으로 넣으면 평균도 계산 가능하다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{network\_sizes }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(network\_sizes)}
+\FunctionTok{mean}\NormalTok{(network\_sizes, }\AttributeTok{na.rm =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.796634
+\end{verbatim}
+
+평균 네트워크는 약 1.8 정도의 크기(=노드 개수)를 가지고 있다. 네트워크 크기의 분포를 시각화할 수도 있겠다.
+The average network has a little over one and a half people in it. We could similarly plot the distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(network\_sizes, }\AttributeTok{main =} \StringTok{"Histogram of Ego Network Sizes"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Network Size"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-61-1.pdf}
+
+엣지에 대해서도 똑같이 해볼 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{network\_edge\_counts }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(network\_edge\_counts)}
+\FunctionTok{hist}\NormalTok{(network\_edge\_counts, }\AttributeTok{main =} \StringTok{"Histogram of Ego Network Edge Counts"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"\# of Edges"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-62-1.pdf}
+
+다음은 밀도를 계산해보자. 네트워크 밀도는 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값이다. 예를 들어 방향성이 없는 네트워크에서는 노드가 총 N개 있다면(=size of N), 모두가 서로 연결됐다고 가정할 때 최대로 가능한 엣지 개수는 (N*(N-1))/2이다.
+
+밀도(Density)
+- 실제로 존재하는 링크의 비율(가능성에 비해)
+- 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값
+- 평균 디그리/노드 숫자
+
+앞서 랜덤으로 1021번째 응답자의 네트워크를 골랐던 것처럼, 이번에도 이 랜덤 네트워크의 밀도를 계산해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ecount}\NormalTok{(random\_ego\_net)}\SpecialCharTok{/}\NormalTok{((}\FunctionTok{vcount}\NormalTok{(random\_ego\_net) }\SpecialCharTok{*}\NormalTok{ (}\FunctionTok{vcount}\NormalTok{(random\_ego\_net) }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}\SpecialCharTok{/}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6
+\end{verbatim}
+
+이렇게 계산해볼 수 있지만, 우리는 네트워크 리스트에 적용을 해야 한다. igraph 패키지의 graph.density 함수를 리스트의 각 요소에 적용한 후, 벡터로 만들어주자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{densities }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(ego\_nets, graph.density)}
+\NormalTok{densities }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(densities)}
+\end{Highlighting}
+\end{Shaded}
+
+마지막으로 이 네트워크 밀도의 분포를 히스토그램으로 시각화할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(densities)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-65-1.pdf}
+
+\hypertarget{uxc18cuxc18d-uxad00uxacc4-uxb2e4uxb8e8uxae30affiliation-data}{%
+\chapter{소속 관계 다루기(Affiliation Data)}\label{uxc18cuxc18d-uxad00uxacc4-uxb2e4uxb8e8uxae30affiliation-data}}
+
+이제까지 직접적인 one-mode 네트워크를 다뤘다. 이 장에서는 개인들이 affiliations를 통해 연결된 상황을 살펴본다. 예를 들어, 학생들은 서로 함께 수강한 수업들로 연결될 수 있다. 이러한 네트워크에서는 노드가 두 개의 타입으로 구분된다: 첫 번째 노드 타입은 학생들이고, 두 번째 노드 타입은 수업(classes)이 되겠다. 이 네트워크에서 학생들은 직접적으로 서로에게 연결되는 대신에, 수업 노드에 동시에 연결(co-affiliated)된다. 따라서 모든 연결고리(ties)는 다른 타입의 노드 간에 생성된다.
+
+\begin{itemize}
+\item
+  Two-mode Network(Bipartite Network)
+
+  \begin{itemize}
+  \item
+    두 가지 종류의 노드가 있고, 한 종류의 노드는 다른 종류의 노드 사이에만 링크를 형성할 수 있는 네트워크
+  \item
+    소속을 표현할 때 많이 활용(사람-클럽/단어-문서)
+  \item
+    이 네트워크를 표현하는 행렬은 incidence matrix(근접 행렬)라고 부름
+  \item
+    B(i,j)가 1이면, j가 i가 속한다는 말/0이면 속하지 않음
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/twomode} \end{center}
+
+\strut \\
+two-mode 네트워크를 만들기 위해서는 데이터를 엣지리스트로, 엣지리스트를 다시 행렬로 바꾼 후 igraph 패키지를 사용하여 시각화하면 된다. 실습 데이터는 아래와 같다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(igraph)}
+
+\NormalTok{classes\_data }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{name =} \FunctionTok{c}\NormalTok{(}\StringTok{"Leo"}\NormalTok{, }\StringTok{"Clement"}\NormalTok{, }\StringTok{"Palla"}\NormalTok{, }\StringTok{"Filippo"}\NormalTok{), }
+                           \AttributeTok{class1 =} \FunctionTok{c}\NormalTok{(}\StringTok{"Biostatistics"}\NormalTok{,}\StringTok{"Islamic Civ"}\NormalTok{, }\StringTok{"Calc 1"}\NormalTok{, }\StringTok{"Linear Algebra"}\NormalTok{), }
+                           \AttributeTok{class2 =} \FunctionTok{c}\NormalTok{(}\StringTok{"Chemistry"}\NormalTok{, }\StringTok{"The Modern World{-}System"}\NormalTok{, }\StringTok{"Calc 2"}\NormalTok{, }\StringTok{"Social Networks"}\NormalTok{), }
+                           \AttributeTok{class3 =} \FunctionTok{c}\NormalTok{(}\StringTok{"Linear Algebra"}\NormalTok{, }\StringTok{"Exile and Diaspora"}\NormalTok{, }\StringTok{"Linear Algebra"}\NormalTok{, }\StringTok{"The Modern World{-}System"}\NormalTok{), }
+                           \AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}\NormalTok{)}
+
+\NormalTok{classes\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      name         class1                  class2                  class3
+## 1     Leo  Biostatistics               Chemistry          Linear Algebra
+## 2 Clement    Islamic Civ The Modern World-System      Exile and Diaspora
+## 3   Palla         Calc 1                  Calc 2          Linear Algebra
+## 4 Filippo Linear Algebra         Social Networks The Modern World-System
+\end{verbatim}
+
+이 데이터프레임을 엣지리스트로 바꾸기 위해서 \texttt{reshape2} 패키지를 설치하고 R에 불러와주자. \texttt{reshape2} 패키지의 \texttt{melt()} 함수는 소위 wide form의 데이터를 long form으로 바꿔준다. classes\_data 형태가 현재에는 class1, class2, class3의 변수가 옆으로 나열된 wide form인데, 엣지리스트는 name과 class변수가 아래로 쭉 나열된 long form이다. 따라서 \texttt{melt()}함수를 통해 데이터프레임을 long form으로 변환해주고, 필요한 변수들만 취하면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# install.packages("reshape2")}
+\FunctionTok{library}\NormalTok{(reshape2)}
+\NormalTok{classes\_data }\OtherTok{\textless{}{-}} \FunctionTok{melt}\NormalTok{(classes\_data, }\AttributeTok{measure.vars =} \FunctionTok{c}\NormalTok{(}\StringTok{"class1"}\NormalTok{, }\StringTok{"class2"}\NormalTok{,}\StringTok{"class3"}\NormalTok{), }\AttributeTok{value.name =} \StringTok{"classes"}\NormalTok{, }\AttributeTok{variable.name =} \StringTok{"order"}\NormalTok{)}
+\NormalTok{classes\_data}
+\end{Highlighting}
+\end{Shaded}
+
+order 변수는 필요 없으니 name과 classes 변수만 선택해서 데이터를 갱신하면 다음과 같다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{classes\_data }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(classes\_data, }\AttributeTok{select =} \FunctionTok{c}\NormalTok{(}\StringTok{"name"}\NormalTok{, }\StringTok{"classes"}\NormalTok{))}
+\NormalTok{classes\_data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       name                 classes
+## 1      Leo           Biostatistics
+## 2  Clement             Islamic Civ
+## 3    Palla                  Calc 1
+## 4  Filippo          Linear Algebra
+## 5      Leo               Chemistry
+## 6  Clement The Modern World-System
+## 7    Palla                  Calc 2
+## 8  Filippo         Social Networks
+## 9      Leo          Linear Algebra
+## 10 Clement      Exile and Diaspora
+## 11   Palla          Linear Algebra
+## 12 Filippo The Modern World-System
+\end{verbatim}
+
+이제 데이터가 엣지리스트 형태로 되었다. 학생은 첫 번째 열에, 소속된 수업(affiliation)은 두 번째 열에 나열되어 있다. 소속 관계에 대한 엣지리스트가 완성되었다면, 그 다음은 igraph 객체, 즉 근접행렬로 만들어 주면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{classesMatrix }\OtherTok{=} \FunctionTok{table}\NormalTok{(classes\_data)}
+\FunctionTok{class}\NormalTok{(classesMatrix) }\OtherTok{\textless{}{-}} \StringTok{"matrix"} \CommentTok{\# And we convert it from a table to a matrix}
+
+\NormalTok{classesMatrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          classes
+## name      Biostatistics Calc 1 Calc 2 Chemistry Exile and Diaspora Islamic Civ
+##   Clement             0      0      0         0                  1           1
+##   Filippo             0      0      0         0                  0           0
+##   Leo                 1      0      0         1                  0           0
+##   Palla               0      1      1         0                  0           0
+##          classes
+## name      Linear Algebra Social Networks The Modern World-System
+##   Clement              0               0                       1
+##   Filippo              1               1                       1
+##   Leo                  1               0                       0
+##   Palla                1               0                       0
+\end{verbatim}
+
+\texttt{graph.incidence()} 함수를 사용하여 근접행렬을 bipartite 네트워크(=two-mode 네트워크)로 바꿔보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{classesNet }\OtherTok{\textless{}{-}} \FunctionTok{graph.incidence}\NormalTok{(classesMatrix, }\AttributeTok{mode =} \FunctionTok{c}\NormalTok{(}\StringTok{"all"}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(classesNet, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-71-1.pdf}
+
+노드 타입에 따라 모양을 구분하여 시각화해보자. classesNet 네트워크 노드(vertex)의 특성(attribute) 변수로 shape 변수를 추가하자. 네트워크 노드의 타입은 \texttt{V()\$type}으로 확인할 수 있다. 확인해보니 노드 타입이 학생인 경우 FALSE 값을, 수업인 경우 TRUE 값을 갖는다. \texttt{ifelse()}함수를 통해 노드 타입이 학생인 경우에는 동그라미 모양을, 수업인 경우 네모 모양을 갖는 shape 변수를 추가한 후에 다시 그려보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(classesNet)}\SpecialCharTok{$}\NormalTok{shape }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{V}\NormalTok{(classesNet)}\SpecialCharTok{$}\NormalTok{type }\SpecialCharTok{==} \ConstantTok{FALSE}\NormalTok{, }\StringTok{"circle"}\NormalTok{, }\StringTok{"square"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(classesNet, }
+     \AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }
+     \AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-72-1.pdf}
+
+\hypertarget{uxc6d0uxbaa8uxb4dc-uxbcc0uxd658unipartite-projection}{%
+\section{원모드 변환(Unipartite Projection)}\label{uxc6d0uxbaa8uxb4dc-uxbcc0uxd658unipartite-projection}}
+
+투모드 네트워크(bipartitie network)는 원모드 네트워크(unipartite network)로 변환될(projected) 수 있다. 이 경우, 두 개의 노드 타입 중에서 하나만이 표시된다. 예를 들어, 동일한 수업을 함께 들었던 학생들끼리 연결되는 원모드 네트워크를 그리거나, 동일한 학생이 여러 개 수업을 들었을 때 이 소속 관계를 공유하는 수업들끼리 연결되는 원모드 네트워크를 그릴 수 있다.
+
+\begin{itemize}
+\item
+  One-mode projection: 이런 투모드 네트워크를 어느 한 종류의 노드 사이의 관계로 전환하는 것
+
+  \begin{itemize}
+  \item
+    예를 들어 학생-수업 네트워크가 있다고 하면, 학생들의 네트워크/수업들의 네트워크 가능
+  \item
+    같은 수업을 들었으면 학생 연결
+  \item
+    같은 학생이 수강하면 수업 연결
+  \item
+    근접행렬끼리 곱하는 식으로 도출 가능
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/projection} \end{center}
+
+igraph 패키지의 \texttt{bipartite.projection()} 함수를 사용하거나, 근접행렬에다가 그것의 전치행렬(transpose)을 곱하여 변환 작업을 할 수 있다. 먼저 classesMatrix 근접접행렬에 전치행렬을 곱한 행렬을 만들어보자. 행렬 간 곱할 때에는 \%*\% 연산자를 사용한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{personMatrix }\OtherTok{=}\NormalTok{ classesMatrix }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(classesMatrix) }
+\NormalTok{personMatrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          name
+## name      Clement Filippo Leo Palla
+##   Clement       3       1   0     0
+##   Filippo       1       3   1     1
+##   Leo           0       1   3     1
+##   Palla         0       1   1     3
+\end{verbatim}
+
+이 행렬에서 대각성분은 각 학생이 소속된 집단(이 경우 수업)의 개수를 의미한다. 일단 이걸 따로 저장해주고, \texttt{diag()} 함수를 통해 이 행렬의 대각성분을 0으로 만들어주자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{number\_of\_classes\_taken }\OtherTok{=} \FunctionTok{diag}\NormalTok{(personMatrix)}
+\FunctionTok{diag}\NormalTok{(personMatrix) }\OtherTok{\textless{}{-}} \DecValTok{0} 
+\NormalTok{personMatrix}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          name
+## name      Clement Filippo Leo Palla
+##   Clement       0       1   0     0
+##   Filippo       1       0   1     1
+##   Leo           0       1   0     1
+##   Palla         0       1   1     0
+\end{verbatim}
+
+이 근접행렬은 학생들 간 같이 들은 수업이 있다면 1, 없다면 0의 값을 갖는다. 시각화해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{personNet }\OtherTok{\textless{}{-}} \FunctionTok{graph.adjacency}\NormalTok{(personMatrix, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(personNet, }\AttributeTok{vertex.size =} \DecValTok{8}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{8}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-76-1.pdf}
+
+이번에는 그룹(수업) 간 연결이 된 원모드 네트워크를 그려보자. 방법은 간단하다. 근접행렬과 전치행렬끼리 곱해줄 때 그 순서를 바꿔서 곱하면 된다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groupMatrix }\OtherTok{=} \FunctionTok{t}\NormalTok{(classesMatrix) }\SpecialCharTok{\%*\%}\NormalTok{ classesMatrix}
+\NormalTok{groupMatrix }\CommentTok{\# The diagonal details the number of people in each class}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                          classes
+## classes                   Biostatistics Calc 1 Calc 2 Chemistry
+##   Biostatistics                       1      0      0         1
+##   Calc 1                              0      1      1         0
+##   Calc 2                              0      1      1         0
+##   Chemistry                           1      0      0         1
+##   Exile and Diaspora                  0      0      0         0
+##   Islamic Civ                         0      0      0         0
+##   Linear Algebra                      1      1      1         1
+##   Social Networks                     0      0      0         0
+##   The Modern World-System             0      0      0         0
+##                          classes
+## classes                   Exile and Diaspora Islamic Civ Linear Algebra
+##   Biostatistics                            0           0              1
+##   Calc 1                                   0           0              1
+##   Calc 2                                   0           0              1
+##   Chemistry                                0           0              1
+##   Exile and Diaspora                       1           1              0
+##   Islamic Civ                              1           1              0
+##   Linear Algebra                           0           0              3
+##   Social Networks                          0           0              1
+##   The Modern World-System                  1           1              1
+##                          classes
+## classes                   Social Networks The Modern World-System
+##   Biostatistics                         0                       0
+##   Calc 1                                0                       0
+##   Calc 2                                0                       0
+##   Chemistry                             0                       0
+##   Exile and Diaspora                    0                       1
+##   Islamic Civ                           0                       1
+##   Linear Algebra                        1                       1
+##   Social Networks                       1                       1
+##   The Modern World-System               1                       2
+\end{verbatim}
+
+마찬가지로 대각성분은 따로 저장해주고, 근접행렬의 대각성분을 0으로 바꿔준다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{number\_of\_students }\OtherTok{\textless{}{-}} \FunctionTok{diag}\NormalTok{(groupMatrix)}
+
+\FunctionTok{diag}\NormalTok{(groupMatrix) }\OtherTok{\textless{}{-}} \DecValTok{0} \CommentTok{\# we again set it to 0}
+\end{Highlighting}
+\end{Shaded}
+
+이제 네트워크를 그려보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{personNet }\OtherTok{\textless{}{-}} \FunctionTok{graph.adjacency}\NormalTok{(personMatrix, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{)}
+\NormalTok{groupNet }\OtherTok{\textless{}{-}} \FunctionTok{graph.adjacency}\NormalTok{(groupMatrix, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(personNet, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-79-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(groupNet, }\AttributeTok{vertex.size =} \FunctionTok{betweenness}\NormalTok{(groupNet)}\SpecialCharTok{/}\FunctionTok{max}\NormalTok{(}\FunctionTok{betweenness}\NormalTok{(groupNet)) }\SpecialCharTok{*} \DecValTok{10}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-80-1.pdf}
+
+이렇게 투모드 네트워크를 원모드 네트워크로 변환한 후에 노드 타입이 하나일 때 했던 것처럼 다양한 네트워크 분석 기법을 적용할 수 있다.
+
+\hypertarget{uxc911uxc2ecuxc131-centrality}{%
+\chapter{중심성 (Centrality)}\label{uxc911uxc2ecuxc131-centrality}}
+
+중심성이란, 네트워크 구조 안에서 행위자가 얼마나 중심적인 위치를 차지하고 있는지를 나타내는 지표이다. 즉, 네트워크 내에서 행위자의 중요도를 측정할 때 사용한다. 중심성 또는 중요도를 정의하는 방식이 다양한 것만큼, 중심성 지표의 조작화 방식 또한 매우 다양하다. 이 튜토리얼에서는 네 가지 대표적인 중심성 척도를 다룬다: 연결중심성(degree), 매개중심성(betweenness), 근접중심성(closeness), 그리고 위세 또는 아이겐벡터(eigenvector). 각각의 중심성 척도마다 장단이 있어서 맥락에 따라 적합한 척도를 선택하는 것이 중요하다.
+
+중심성 척도는 주어진 네트워크의 연결(ties)이 얼마나 특정 노드에 집중되어 있는지를 측정한다. 연결 분포(degree distribution)를 통해서 네트워크가 얼마나 불균등(unequal)한지도 살펴볼 수 있다.
+
+\hypertarget{uxc608uxc2dc-uxb124uxd2b8uxc6ccuxd06c-uxbd88uxb7ecuxc624uxae30-loading-the-example-network}{%
+\section{예시 네트워크 불러오기 (Loading the example network)}\label{uxc608uxc2dc-uxb124uxd2b8uxc6ccuxd06c-uxbd88uxb7ecuxc624uxae30-loading-the-example-network}}
+
+우선 필요한 패키지를 R에 불러와라.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(igraph)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(reshape2)}
+\end{Highlighting}
+\end{Shaded}
+
+데이터는 John Padgett의 Florentine Families 데이터셋을 사용할 것이다. 이 데이터는 15세기 이탈리아에서 메디치가가 어떻게 정치 권력을 축적해 나갔는지를 살펴보기 위한 데이터이다. 메디치가 사람들의 여러 관계 중에서도 우리는 특히 혼인 관계에 집중할 것이다. 가족 간 연결(tie)은 한 가족의 딸이 다른 가족의 아들과의 혼인을 위해 보내졌을 때 그려진다고 하자(즉, 방향성이 있는 네트워크).
+
+데이터는 Hoffman 교수의 깃헙에서 바로 불러오자. 결혼 관계를 나타내는 인접행렬과, 특성(attirbutes) 관련 데이터를 각각 저장하라.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# prepare the marriage adjacency matrix}
+\NormalTok{florentine\_edj }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/mahoffman/stanford\_networks/main/data/florentine\_marriage\_edgelist.csv"}\NormalTok{)}
+\NormalTok{florentine\_edj }\OtherTok{\textless{}{-}}\NormalTok{ florentine\_edj[,}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{]}
+
+\CommentTok{\# prepare the attributes file}
+\NormalTok{florentine\_attributes }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"https://raw.githubusercontent.com/mahoffman/stanford\_networks/main/data/florentine\_attributes.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+인접행렬은 현재 데이터프레임 구조를 갖고 있기 때문에, 우선 행렬로 변환하여 \texttt{graph.edgelist()} 함수를 통해 엣지리스트로 만들어주자. 이제 혼인 네트워크가 생성되었다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{marriageNet }\OtherTok{\textless{}{-}} \FunctionTok{graph.edgelist}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(florentine\_edj), }\AttributeTok{directed =}\NormalTok{ T)}
+\NormalTok{marriageNet}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## IGRAPH 478ca68 DN-- 96 314 -- 
+## + attr: name (v/c)
+## + edges from 478ca68 (vertex names):
+##  [1] Acciaiuoli  ->Guicciardini Acciaiuoli  ->Medici      
+##  [3] Adimari     ->Arrigucci    Adimari     ->Barbadori   
+##  [5] Adimari     ->Strozzi      Albizzi     ->Altoviti    
+##  [7] Albizzi     ->Della_Casa   Albizzi     ->Corsi       
+##  [9] Albizzi     ->Davanzati    Albizzi     ->Frescobaldi 
+## [11] Albizzi     ->Ginori       Albizzi     ->Guadagni    
+## [13] Albizzi     ->Guasconi     Albizzi     ->Guicciardini
+## [15] Albizzi     ->Medici       Albizzi     ->Nerli       
+## + ... omitted several edges
+\end{verbatim}
+
+이 네트워크에 특성 변수들을 추가해보자. 먼저, 노드(가문)의 부(Wealth) 변수를 만들기 위해 네트워크 노드의 이름(가문 명)과 특성 데이터(florentine\_attributes)의 가문(Family) 변수 값이 일치하는 경우의 총 부(GWealth) 변수 값을 추출한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth }\OtherTok{\textless{}{-}}\NormalTok{ florentine\_attributes}\SpecialCharTok{$}\NormalTok{Gwealth[}\FunctionTok{match}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{name, florentine\_attributes}\SpecialCharTok{$}\NormalTok{Family)]}
+
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+##     148   12884   27394   41683   54724  296250      18
+\end{verbatim}
+
+NA 값이 있으므로 결측치는 평균 값으로 대체(simple mean imputation)하자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth), }\FunctionTok{mean}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth, }\AttributeTok{na.rm =}\NormalTok{ T), }\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth)}
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Wealth)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     148   17014   35505   41683   46610  296250
+\end{verbatim}
+
+다음은 당시에 피렌체를 통치했던 시의회(The Priorate) 소속 멤버(Priors)가 몇 명인지 알려주는 \texttt{Priorates} 변수를 추가하자. 1282년부터 1344년까지 기간 동안 각 가문에서 총 몇 명이 시의원이었는지 계산함으로써, 장기적/집합 수준에서 가문의 정치적 영향력을 측정할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{Priorates }\OtherTok{\textless{}{-}}\NormalTok{ florentine\_attributes}\SpecialCharTok{$}\NormalTok{Npriors[}\FunctionTok{match}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{name, florentine\_attributes}\SpecialCharTok{$}\NormalTok{Family)]}
+\end{Highlighting}
+\end{Shaded}
+
+시각화 해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(marriageNet, }\AttributeTok{vertex.size =} \DecValTok{8}\NormalTok{, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{4}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{edge.arrow.size =} \FloatTok{0.4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-87-1.pdf}
+
+\hypertarget{uxc5f0uxacb0uxc911uxc2ecuxc131degree-centrality}{%
+\section{연결중심성(Degree Centrality)}\label{uxc5f0uxacb0uxc911uxc2ecuxc131degree-centrality}}
+
+연결중심성은 가장 단순한 중심성 척도로, 각 노드가 얼마나 많은 엣지를 갖는지를 계산한 값이다. 즉, 가장 중심성이 높은 노드는 가장 많은 연결(ties)을 가지고 있는 노드다.
+
+\textbf{\emph{주의}}: 방향성이 있는 네트워크에서는 in 또는 out ties 중 어느 것을 계산에 포함할지 명시해야 한다. 만약 in-degree, out-degree 둘 다 계산에 포함한다면, 그냥 degree라고 부른다.
+연결중심성은 R의 \texttt{degree()}함수를 통해 계산할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{degree}\NormalTok{(marriageNet) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Acciaiuoli  Guicciardini        Medici       Adimari     Arrigucci 
+##             4            14            40             6             2 
+##     Barbadori       Strozzi       Albizzi      Altoviti    Della_Casa 
+##            14            50            28            12             4 
+##         Corsi     Davanzati   Frescobaldi        Ginori      Guadagni 
+##             2             6            12             8            20 
+##      Guasconi         Nerli   Del_Palagio   Panciatichi       Scolari 
+##            24             2             4            14             6 
+##  Aldobrandini    Alessandri       Tanagli    Bencivenni Gianfigliazzi 
+##             4             2             4             2            20 
+##         Spini  Dall'Antella      Martelli    Rondinelli   Ardinghelli 
+##             8             6             4            10            10 
+##       Peruzzi         Rossi       Arrighi  Baldovinetti     Ciampegli 
+##            30             4             2             8             2 
+##       Manelli      Carducci    Castellani      Ricasoli         Bardi 
+##             4             4            14            20            14 
+##       Bucelli      Serragli     Da_Uzzano    Baroncelli         Raugi 
+##             4             4             4             2             2 
+##       Baronci     Manovelli       Bartoli      Solosmei     Bartolini 
+##             2             4             2             2             2 
+##   Belfradelli    Del_Benino        Donati       Benizzi      Bischeri 
+##             2             2             4             2             8 
+##     Brancacci       Capponi       Nasi(?)     Sacchetti       Vettori 
+##             4             8             2             6             2 
+##         Doffi          Pepi    Cavalcanti          Ciai    Corbinelli 
+##             2             2             6             2             2 
+##          Lapi     Orlandini    Dietisalvi        Valori     Federighi 
+##             2             4             2             8             2 
+##  Dello_Scarfa    Fioravanti      Salviati        Giugni    Pandolfini 
+##             2             4             6             6             4 
+##  Lamberteschi    Tornabuoni       Mancini  Di_Ser_Segna      Macinghi 
+##             2             8             2             2             2 
+##          Masi        Pecori         Pitti    Popoleschi     Portinari 
+##             2             2             4             4             2 
+##       Ridolfi    Serristori    Vecchietti    Minerbetti         Pucci 
+##             8             2             2             2             2 
+##    Da_Panzano       Parenti         Pazzi      Rucellai    Scambrilla 
+##             4             2             4             2             2 
+##      Soderini 
+##             2
+\end{verbatim}
+
+어떤 가문이 가장 연결중심성이 높은가?
+
+이 연결중심성 값들을 새로운 변수로 추가하여, 노드의 크기를 연결중심성에 비례하도록 표시할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{degree }\OtherTok{\textless{}{-}} \FunctionTok{degree}\NormalTok{(marriageNet) }\CommentTok{\# assignment}
+
+\FunctionTok{plot}\NormalTok{(marriageNet, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }\AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{vertex.size =} \FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{degree, }\AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{2}\NormalTok{) }\CommentTok{\# sized by degree}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-89-1.pdf}
+
+이때 문제는 연결중심성 값들이 너무 작아서 시각화하는데 어려움이 있다는 것이다. 따라서 비율은 그대로 유지하되 값을 좀 키워 다시 시각화해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(marriageNet, }
+     \AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }
+     \AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }
+     \AttributeTok{vertex.size =} \FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{degree}\SpecialCharTok{*}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-90-1.pdf}
+
+\hypertarget{uxb9e4uxac1cuxc911uxc2ecuxc131betweenness-centrality}{%
+\section{매개중심성(Betweenness Centrality)}\label{uxb9e4uxac1cuxc911uxc2ecuxc131betweenness-centrality}}
+
+매개중심성은 네트워크 흐름 상 어떤 노드들이 중요한지를 측정한다. 이때 네트워크에서 가장 짧은 경로(shortest paths)를 이용한다. 경로란 인접한 노드들의 나열을 의미한다. 어떤 두 노드가 있을 때 가장 짧은 경로를 찾을 수 있다. 만약 노드 C가 A와 B 사이의 가장 짧은 경로에 놓여 있다면, 노드 C는 노드 A와 B사이의 효율적인 흐름 상 중요한 위치를 차지한다. 달리 말하면, C가 없을 경우 A에서 B로 가는 길이 더 멀어진다는 것이다.
+
+그러므로, 매개중심성은 각 노드가 얼마나 많은 최단 경로 위에 놓여 있는지를 보여준다. 어떤 노드의 매개중심성이 높을수록 네트워크 내 효율적인 흐름 상 중요하다고 볼 수 있다.
+
+매개중심성은 igraph 의 \texttt{betweenness()} 함수를 사용하여 계산할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(}\FunctionTok{betweenness}\NormalTok{(marriageNet, }\AttributeTok{directed =} \ConstantTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Acciaiuoli Guicciardini       Medici      Adimari    Arrigucci    Barbadori 
+##      0.00000    327.85031   1029.60929     93.00952      0.00000    162.69734
+\end{verbatim}
+
+이 매개중심성 값들을 네트워크 노드의 새로운 변수로 추가하여 노드의 크기를 비례하게 표시할 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{betweenness }\OtherTok{\textless{}{-}} \FunctionTok{betweenness}\NormalTok{(marriageNet, }\AttributeTok{directed =}\NormalTok{ F) }\CommentTok{\# assignment}
+
+\FunctionTok{plot}\NormalTok{(marriageNet, }
+     \AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }
+     \AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }
+     \AttributeTok{vertex.size =} \FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{betweenness) }\CommentTok{\# sized by betweenness}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/cha1-1.pdf}
+
+매개중심성 값은 매우 크다. 따라서 매개중심성 값에 비례하여 노드 크기를 설정할 때에는 정규화(normalize)해주는 것이 유용하다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(marriageNet,}
+     \AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }
+     \AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }
+     \AttributeTok{vertex.size =} \FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{betweenness}\SpecialCharTok{/}\FunctionTok{max}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{betweenness) }\SpecialCharTok{*} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/cha2-1.pdf}
+
+\hypertarget{uxadfcuxc811uxc911uxc2ecuxc131closeness-centrality}{%
+\section{근접중심성(Closeness Centrality)}\label{uxadfcuxc811uxc911uxc2ecuxc131closeness-centrality}}
+
+근접중심성 척도 또한 노드 간 최단 경로에 기반한 척도이다. 두 노드 간 거리를 최단 경로의 길이(length)로 측정한다. 어떤 노드의 farness는 해당 노드에서 다른 노드들까지의 평균 거리를 의미한다. 따라서 closeness는 farness의 역수이다 (1/farness). 근접중심성은 \texttt{closeness()}함수를 통해 계산 가능하다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(}\FunctionTok{closeness}\NormalTok{(marriageNet))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Acciaiuoli Guicciardini       Medici      Adimari    Arrigucci    Barbadori 
+##  0.003610108  0.004424779  0.004926108  0.003846154  0.002873563  0.004115226
+\end{verbatim}
+
+마찬가지로 네트워크 노드의 새로운 변수로 추가한 후 시각화를 해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{closeness }\OtherTok{\textless{}{-}} \FunctionTok{closeness}\NormalTok{(marriageNet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(marriageNet,}
+     \AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }
+     \AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }
+     \AttributeTok{vertex.size =}  \FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{closeness}\SpecialCharTok{/}\FunctionTok{max}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{closeness) }\SpecialCharTok{*} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/cha3-1.pdf}
+
+\hypertarget{uxc704uxc138uxc911uxc2ecuxc131eigenvector-centrality}{%
+\section{위세중심성(Eigenvector Centrality)}\label{uxc704uxc138uxc911uxc2ecuxc131eigenvector-centrality}}
+
+연결중심성은 각 노드의 엣지의 개수를 고려할 뿐, 에고의 alters(연결된 타인)에 대한 정보는 고려하지 않는다. 하지만 만약 어떤 사람이 권력 있는 사람들과 연결되어 있다면, 엣지의 개수가 같더라도 차이가 있기 마련이다. 예컨대, 노드 A와 B가 동일한 연결중심성을 가지고 있더라도, A가 연결중심성이 높은 이들과 더 많이 연결되어 있는 반면, B가 연결중심성이 낮은 이들과 주로 연결되어 있다고 가정해보자. 이 경우, A의 중심성이 B보다는 더 높아야 하는 것이 직관적이다.
+
+아이겐벡터 또는 위세중심성은 alters의 권력 또한 고려한다. \texttt{evcent()} 함수를 통해 계산할 수 있는데, 특이하게도 이 함수는 리스트 객체를 반환한다. 우리는 이 리스트에서 벡터만 필요하기 때문에 벡터를 추출하겠다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(}\FunctionTok{evcent}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{vector)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Acciaiuoli Guicciardini       Medici      Adimari    Arrigucci    Barbadori 
+##   0.13996990   0.38307521   0.67071597   0.18318118   0.02433106   0.35478486
+\end{verbatim}
+
+위세중심성 값들을 네트워크 노드의 새로운 변수로 추가한 후 시각화해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{eigenvector }\OtherTok{\textless{}{-}} \FunctionTok{evcent}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{vector}
+
+\FunctionTok{plot}\NormalTok{(marriageNet,}
+     \AttributeTok{vertex.label.cex =}\NormalTok{ .}\DecValTok{6}\NormalTok{, }
+     \AttributeTok{vertex.label.color =} \StringTok{"black"}\NormalTok{, }
+     \AttributeTok{vertex.size =} \FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{eigenvector}\SpecialCharTok{/}\FunctionTok{max}\NormalTok{(}\FunctionTok{V}\NormalTok{(marriageNet)}\SpecialCharTok{$}\NormalTok{eigenvector) }\SpecialCharTok{*} \DecValTok{20}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/cha5-1.pdf}
+
+\hypertarget{small-world-weak-ties}{%
+\chapter{Small World / Weak Ties}\label{small-world-weak-ties}}
+
+\hypertarget{its-a-small-world}{%
+\section{It's a small world!}\label{its-a-small-world}}
+
+대통령한테 편지를 전달하고 싶다. 아는 사람들의 연결망을 통해서 전달해야 한다고 할 때, 몇 단계를 거치면 내 편지가 도달할까?
+
+1950년에 미국의 유명한 사회심리학자 스탠리 밀그램은 ``좁은 세상 현상(small world phenomenon)''을 계량하기 위한 실험을 진행했다. 이 실험에서 타겟 노드는 밀그램의 지인인, 보스턴에 거주하는 한 주식 브로커였다. 밀그램은 네브라스카 주에 거주하는 농부들을 모집하였다. 이 농부들은 타겟과 물리적으로도 거리가 멀 뿐만 아니라, 사회적으로도 거리가 있었다. 네브라스카 농부들은 자신들이 잘 아는 지인(=허브)을 통해서 보스턴의 주식 브로커에게 편지를 전달해야 했다. 실험 결과는 아래의 그림과 같다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"images/41.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/41} \end{center}
+
+x축은 타겟 노드에 도달하기까지 거쳐간 사람들의 명수를 의미한다. 중위값은 5였다. 즉, 최초의 네브라스카 농부까지 포함하면, 평균적으로 6번의 점프로 보스턴 주식 브로커에 도달할 수 있다는 것이다. 여기서 그 유명한 'six degrees of separation'이라는 단어가 나왔다.
+
+이 실험은 small world 네트워크의 특성을 잘 보여준다. Small world 네트워크에서는 길이가 긴 링크(거리가 먼 사람들 간 직접적으로 연결된 링크)는 몇 개 없지만, 비교적 길이가 짧은 경로를 통해 - 주로 hubs 거쳐서 - 서로서로 연결된다.
+
+흥미로운 지점은 대부분의 real-world complex 네트워크가 이러한 small world 특성을 지니고 있다는 것이다. 던컨 왓츠와 스티븐 스트로가츠는 네이쳐지에 ``Collective dynamics of `small-world' networks'' 라는 제목의 논문을 출판했다(Watts and Strogatz, 1998).
+
+그들은 다음 세 가지의 real-world 네트워크에 주목했다:
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\arabic{enumi})}
+  \tightlist
+  \item
+    영화배우 네트워크: 노드는 영화배우, 만약 배우들끼리 같은 영화에 출현하면 연결됨
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\arabic{enumi})}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Power grid: 노드는 발전소, 링크는 transmission이 있으면 연결됨
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\arabic{enumi})}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    C.elegans: C.elegans라는 지렁이의 뇌 뉴런이 노드고, 시냅스로 연결되면 연결됨
+  \end{enumerate}
+\end{itemize}
+
+이러한 실제 존재하는 복잡한 네트워크들은 어떤 구조를 가지고 있을까? 가장 단순한 구조 두 가지로 생각해 볼 수 있겠다. 첫 번째는 완전히 규칙적인 네트워크(regular network)이다. Regular 네트워크에서는 모든 노드가 각자의 두 이웃 노드들까지 연결되어 있다. 한 노드에서 랜덤한 다른 노드까지 이동하는데 평균 거리가 멀고, 평균적으로 군집화 정도도 높다. 두 번째는 그 반대 편에 있는, 완전히 랜덤한 네트워크(random network)이다. 평균 연결성은 regular 네트워크와 같지만, 서로 무작위로 연결되어 있다. 랜덤 네트워크에서는 평균 거리와 군집화 정도 모두 낮다.
+
+그렇다면 실제 네트워크들은 (1) regular, (2) random 네트워크 중 어느 것과 비슷한 구조를 가질까? 왓츠와 스트로가츠의 분석에 따르면, 실제 네트워크 구조는 regular와 random 네트워크 둘 다 해당하지 않았다. 대신에, 평균 거리는 낮지만 평균 군집화 정도는 높은 ``small world'' 네트워크 구조에 가깝웠다. 허브 노드를 통해 서로 몇 단계만 거치면 연결되는 small world 구조는 hubs and spokes 구조라고도 불린다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"images/43.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/43} \end{center}
+
+실제로 항공 노선 네트워크, power grid 네트워크, 월드 와이드 웹 인터넷 네트워크 등 실생활에서 볼 수 있는 네트워크들은 거의 다 small world 네트워크 구조에 해당한다. Small world 네트워크의 중요한 속성을 표현하자면, '최소한의 연결(minimum number of connections)로 최대한의 연결성(maximum connectivity)'이라고 할 수 있다. 따라서 굉장히 효율적이다.
+
+우리의 뇌도 small world 네트워크를 따른다. 어린 아이들의 뇌는 랜덤 네트워크 형태에 가까운데, 나이가 들수록 효율적인 rewiring을 통해 small world 네트워크에 가까워진다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"images/44.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/44} \end{center}
+
+정리하면, 현존하는 많은 네트워크는 small world 네트워크 구조를 따른다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"images/42.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{images/42} \end{center}
+
+이번 장의 실습에서는 Watts와 Strogatz의 small world 시뮬레이션을 따라할 것이다.
+
+\hypertarget{uxc881uxc740-uxc138uxc0c1-uxc2dcuxbbacuxb808uxc774uxc158}{%
+\section{좁은 세상 시뮬레이션}\label{uxc881uxc740-uxc138uxc0c1-uxc2dcuxbbacuxb808uxc774uxc158}}
+
+실제 존재하는 소셜 네트워크는 small worlds에 가깝다. 좁은 세상에서는 사람들이 그룹으로 clustered 되어 있으면서, 동시에, 평균적으로는 사회적으로 가깝다(socially proximate). 예를 들어, 당신은 랜덤한 인도 거주민과 사회적으로 거리가 멀다고 느낄 수 있지만, 몇 단계를 거치면 해당 거주민에 도달할 수 있다. 그 인도인은 자신의 좁은 세상에 살고, 당신 또한 당신의 좁은 세상에 살지만, 그럼에도 불구하고 서로 도달 가능하다. 이러한 현상을 ``좁은 세상''이라고 부른다.
+던칸 와츠(Duncan Watts)는 그의 유명한 페이퍼에서 이 현상에 대해 설명한다. 그는 가장 clustered 된 ``caveman'' 구조를 가진 네트워크에서 출발한다. Clustered 된 사람들의 집단이 있고, 다른 집단으로 하나 또는 두 개의 연결고리가 있는 상태를 caveman 구조라고 한다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{simulate\_caveman }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{n =} \DecValTok{25}\NormalTok{, }\AttributeTok{clique\_size =} \DecValTok{5}\NormalTok{)\{}
+  \FunctionTok{require}\NormalTok{(igraph)}
+  \CommentTok{\# Groups are all the same size, so I check whether N is divisible by the size of groups}
+  \ControlFlowTok{if}\NormalTok{ ( ((n}\SpecialCharTok{\%/\%}\NormalTok{clique\_size) }\SpecialCharTok{*}\NormalTok{ clique\_size) }\SpecialCharTok{!=}\NormalTok{ n)\{}
+    \FunctionTok{stop}\NormalTok{(}\StringTok{"n is not evenly divisible by clique\_size"}\NormalTok{)}
+\NormalTok{  \}}
+  
+\NormalTok{  groups }\OtherTok{=}\NormalTok{ n}\SpecialCharTok{/}\NormalTok{clique\_size }\CommentTok{\# this determines the number of groups}
+  
+\NormalTok{  el }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{PersonA =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n, }\AttributeTok{Group =} \ConstantTok{NA}\NormalTok{) }\CommentTok{\# I create a dataframe which has people and the groups they are in}
+  \CommentTok{\# I treat it like a person to group edgelist}
+  
+\NormalTok{  group\_vector }\OtherTok{=} \FunctionTok{c}\NormalTok{()}
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{groups)\{}
+\NormalTok{    group\_vector }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(group\_vector, }\FunctionTok{rep}\NormalTok{(i, clique\_size))}
+\NormalTok{  \}  }
+
+\NormalTok{  el}\SpecialCharTok{$}\NormalTok{Group }\OtherTok{\textless{}{-}}\NormalTok{ group\_vector}
+  
+\NormalTok{  inc }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(el) }\CommentTok{\# I use the table function to turn the person to group edgelist into an incidence matrix}
+\NormalTok{  adj }\OtherTok{\textless{}{-}}\NormalTok{ inc }\SpecialCharTok{\%*\%} \FunctionTok{t}\NormalTok{(inc) }\CommentTok{\# And I use matrix multiplication with the transpose to turn the person to group incidence matrix}
+  \CommentTok{\# into a person to person adjacency matrix}
+  
+  \FunctionTok{diag}\NormalTok{(adj) }\OtherTok{\textless{}{-}} \DecValTok{0} 
+  
+\NormalTok{  g }\OtherTok{\textless{}{-}} \FunctionTok{graph.adjacency}\NormalTok{(adj, }\AttributeTok{mode =} \StringTok{"undirected"}\NormalTok{) }\CommentTok{\# I graph this matrix}
+
+\NormalTok{  group\_connect }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{1}\NormalTok{, }\AttributeTok{to =}\NormalTok{ n, }\AttributeTok{by =}\NormalTok{ clique\_size) }\CommentTok{\# I determine the points of connection using a sequence function}
+  
+  \ControlFlowTok{for}\NormalTok{( i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(}\FunctionTok{length}\NormalTok{(group\_connect)}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{))\{}
+\NormalTok{    p1 }\OtherTok{\textless{}{-}}\NormalTok{ group\_connect[i] }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{    p2 }\OtherTok{\textless{}{-}}\NormalTok{ group\_connect[i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]}
+\NormalTok{    g }\OtherTok{\textless{}{-}} \FunctionTok{add.edges}\NormalTok{(g, }\FunctionTok{c}\NormalTok{(p1,p2)) }\CommentTok{\# And I connect the points of connection using add.edges}
+\NormalTok{  \}}
+\NormalTok{    g }\OtherTok{\textless{}{-}} \FunctionTok{add.edges}\NormalTok{(g, }\FunctionTok{c}\NormalTok{(group\_connect[}\DecValTok{1}\NormalTok{],(group\_connect[groups]}\SpecialCharTok{+}\DecValTok{1}\NormalTok{))) }\CommentTok{\# finally I connect the ends of the structure so that it forms a circle}
+
+    \FunctionTok{return}\NormalTok{(g)    }
+\NormalTok{\} }
+\end{Highlighting}
+\end{Shaded}
+
+위 함수는 호프만 교수가 직접 짠 함수로, caveman 구조 시뮬레이션을 가능케한다. 다 이해할 필요는 없다. 함수의 인자(arguments)는 두 가지이다: 노드 개수(n)와 집단 규모(clique\_size). 집단 규모(clique\_size)는 4 또는 10으로 바꿀 수 있다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caveman\_net }\OtherTok{\textless{}{-}} \FunctionTok{simulate\_caveman}\NormalTok{(}\AttributeTok{n =} \DecValTok{100}\NormalTok{, }\AttributeTok{clique\_size =} \DecValTok{5}\NormalTok{) }
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(caveman\_net, }\AttributeTok{layout =} \FunctionTok{layout.kamada.kawai}\NormalTok{(caveman\_net), }\AttributeTok{vertex.size =} \DecValTok{2}\NormalTok{, }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{vertex.color =} \StringTok{"grey80"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-100-1.pdf}
+
+이것이 바로 caveman 구조이다. 이 네트워크 구조를 분석해보자. 참고로 이행성(transitivity)은 클러스터링 계수를 측정한다. 즉, 네트워크가 전체적으로 얼마나 뭉쳐있는지를 보여주는 값이다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{transitivity}\NormalTok{(caveman\_net) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7894737
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{average.path.length}\NormalTok{(caveman\_net)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.70101
+\end{verbatim}
+
+caveman 구조 네트워크는 전반적으로 상당히 낮은 밀도(density)를 갖는다. 왜냐하면 대부분의 노드들이 파벌(clique) 내에서만 서로 연결되어 있거나 단 한 개의 연결고리(tie)로 다른 파벌과 연결되어 있기 떄문이다. 반대로 말하면, 파벌 내에서는 밀도가 굉장히 높고 상당히 뭉쳐 있다.
+
+경로의 길이 또한 매우 크다. 평균적으로 하나의 노드에서 다른 랜덤한 노드로 갈 때 10번의 스텝이 필요하다. 실제 사회에서는 우리가 시뮬레이션을 돌릴 때 설정했던 100명의 사람들과 20개의 파벌(파벌 크기가 5이므로)보다 더 많은 사람들과 파벌이 있기 때문에, 평균 degree of separation 가 6\textasciitilde7이라는 게 더욱 놀랍다. 결론적으로 caveman 구조는 small world가 아니다.
+
+이 네트워크 구조의 지름도 구할 수 있다. 지름은 가장 긴 최단 경로이다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nodes\_diameter}\OtherTok{\textless{}{-}}\FunctionTok{get.diameter}\NormalTok{(caveman\_net)}
+\NormalTok{edges\_incident }\OtherTok{\textless{}{-}} \FunctionTok{get.edge.ids}\NormalTok{(caveman\_net, nodes\_diameter)}
+
+\FunctionTok{V}\NormalTok{(caveman\_net)}\SpecialCharTok{$}\NormalTok{color}\OtherTok{\textless{}{-}}\StringTok{"grey60"} \CommentTok{\# Set default color for nodes}
+\FunctionTok{V}\NormalTok{(caveman\_net)[nodes\_diameter]}\SpecialCharTok{$}\NormalTok{color}\OtherTok{\textless{}{-}}\StringTok{"green"} \CommentTok{\# Set the nodes on the diameter to be green}
+
+\FunctionTok{E}\NormalTok{(caveman\_net)}\SpecialCharTok{$}\NormalTok{color}\OtherTok{\textless{}{-}}\StringTok{"grey70"} \CommentTok{\# Set default edge color}
+\FunctionTok{E}\NormalTok{(caveman\_net)[edges\_incident]}\SpecialCharTok{$}\NormalTok{color}\OtherTok{\textless{}{-}}\StringTok{"green"} \CommentTok{\# Set the edges on the diameter to be green}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(caveman\_net, }\AttributeTok{layout =} \FunctionTok{layout.kamada.kawai}\NormalTok{(caveman\_net), }\AttributeTok{vertex.size =} \DecValTok{2}\NormalTok{, }\AttributeTok{vertex.label =} \ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/new-1.pdf}
+Watts는 이 네트워크 구조에서 시작하여, 평균 경로 길이가 훨씬 작은 네트워크로 이동하고자 했다. 그러기 위해서 네트워크를 랜덤하게 rewire 하여, 점점 (낮은 평균 경로 길이를 갖는) 랜덤 네트워크에 근접하도록 실험하였다.
+
+따라서 몇 개의 엣지를 rewire하여 네트워크를 가로지르도록 하였다. 이때 \texttt{rewire()} 함수를 사용하면 되고, \texttt{keeping\_degseq()} 함수를 통해 연결의 분포(degree distribution)가 바뀌지 않도록 설정한다. 또한 랜덤으로 rewiring할 때 반복 횟수(number of iterations)는1000으로 설정하였다.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caveman\_net\_rewired }\OtherTok{\textless{}{-}}  \FunctionTok{rewire}\NormalTok{(caveman\_net, }\FunctionTok{keeping\_degseq}\NormalTok{(}\AttributeTok{niter =} \DecValTok{1000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+시각화를 하기 위해 rewired된 caveman 네트워크의 엣지와 노드 색상을 구분해준 후 그려보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{E}\NormalTok{(caveman\_net\_rewired)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \StringTok{"grey80"}
+\FunctionTok{V}\NormalTok{(caveman\_net)}\SpecialCharTok{$}\NormalTok{color }\OtherTok{\textless{}{-}} \StringTok{"grey60"}
+
+\FunctionTok{plot}\NormalTok{(caveman\_net\_rewired, }\AttributeTok{layout =} \FunctionTok{layout.kamada.kawai}\NormalTok{(caveman\_net), }\AttributeTok{vertex.size =} \DecValTok{2}\NormalTok{, }\AttributeTok{vertex.label=}\ConstantTok{NA}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-104-1.pdf}
+
+대부분의 rewirings이 네트워크 구조를 가로지르도록 되었음을 확인할 수 있다.
+
+caveman 네트워크와 비교해보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{graph.density}\NormalTok{(caveman\_net) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.04444444
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{transitivity}\NormalTok{(caveman\_net) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7894737
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{average.path.length}\NormalTok{(caveman\_net)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.70101
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{graph.density}\NormalTok{(caveman\_net\_rewired) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.04444444
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{transitivity}\NormalTok{(caveman\_net\_rewired) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01578947
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{average.path.length}\NormalTok{(caveman\_net\_rewired)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3.329293
+\end{verbatim}
+
+밀도(density)는 바뀌지 않았다. 클러스터링 계수(transitivity)와 평균 경로 길이는 감소하였다.
+
+Rewirings을 하면서 나타는 변화를 살펴보자.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{caveman\_net\_rewired }\OtherTok{\textless{}{-}} \FunctionTok{simulate\_caveman}\NormalTok{(}\AttributeTok{n =} \DecValTok{100}\NormalTok{, }\AttributeTok{clique\_size =} \DecValTok{10}\NormalTok{)}
+\NormalTok{avgpathlength }\OtherTok{\textless{}{-}} \FunctionTok{average.path.length}\NormalTok{(caveman\_net\_rewired) }\CommentTok{\# These are the first observation}
+\NormalTok{clusteringcoefficient }\OtherTok{\textless{}{-}} \FunctionTok{transitivity}\NormalTok{(caveman\_net\_rewired)}
+
+\NormalTok{iter }\OtherTok{=} \DecValTok{100}
+\ControlFlowTok{for}\NormalTok{ ( i }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{iter)\{}
+\NormalTok{  caveman\_net\_rewired }\OtherTok{\textless{}{-}}\NormalTok{ caveman\_net\_rewired }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{rewire}\NormalTok{(}\FunctionTok{keeping\_degseq}\NormalTok{(}\AttributeTok{niter =} \DecValTok{1}\NormalTok{))}
+\NormalTok{  avgpathlength }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(avgpathlength, }\FunctionTok{average.path.length}\NormalTok{(caveman\_net\_rewired)) }\CommentTok{\# We are just appending the result to a vector}
+\NormalTok{  clusteringcoefficient }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(clusteringcoefficient, }\FunctionTok{transitivity}\NormalTok{(caveman\_net\_rewired))}
+\NormalTok{\}}
+
+\FunctionTok{plot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, avgpathlength, }\AttributeTok{xlab =} \StringTok{"Numer of Rewirings"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Average Path Length"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Caveman"}\NormalTok{, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, clusteringcoefficient)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-106-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{100}\NormalTok{, clusteringcoefficient, }\AttributeTok{xlab =} \StringTok{"Numer of Rewirings"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Clustering Coefficient"}\NormalTok{, }\AttributeTok{main =} \StringTok{"Caveman"}\NormalTok{, }\AttributeTok{type =} \StringTok{"l"}\NormalTok{, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Social_Network_Analysis_files/figure-latex/unnamed-chunk-107-1.pdf}
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}

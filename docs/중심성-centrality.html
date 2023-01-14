@@ -201,23 +201,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="예시-네트워크-불러오기-loading-the-example-network" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> 예시 네트워크 불러오기 (Loading the example network)<a href="중심성-centrality.html#예시-네트워크-불러오기-loading-the-example-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>우선 필요한 패키지를 R에 불러와라.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="중심성-centrality.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb1-2"><a href="중심성-centrality.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="중심성-centrality.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="중심성-centrality.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb87-2"><a href="중심성-centrality.html#cb87-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb87-3"><a href="중심성-centrality.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span></code></pre></div>
 <p>데이터는 John Padgett의 Florentine Families 데이터셋을 사용할 것이다. 이 데이터는 15세기 이탈리아에서 메디치가가 어떻게 정치 권력을 축적해 나갔는지를 살펴보기 위한 데이터이다. 메디치가 사람들의 여러 관계 중에서도 우리는 특히 혼인 관계에 집중할 것이다. 가족 간 연결(tie)은 한 가족의 딸이 다른 가족의 아들과의 혼인을 위해 보내졌을 때 그려진다고 하자(즉, 방향성이 있는 네트워크).</p>
 <p>데이터는 Hoffman 교수의 깃헙에서 바로 불러오자. 결혼 관계를 나타내는 인접행렬과, 특성(attirbutes) 관련 데이터를 각각 저장하라.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="중심성-centrality.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the marriage adjacency matrix</span></span>
-<span id="cb2-2"><a href="중심성-centrality.html#cb2-2" aria-hidden="true" tabindex="-1"></a>florentine_edj <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_marriage_edgelist.csv&quot;</span>)</span>
-<span id="cb2-3"><a href="중심성-centrality.html#cb2-3" aria-hidden="true" tabindex="-1"></a>florentine_edj <span class="ot">&lt;-</span> florentine_edj[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span>
-<span id="cb2-4"><a href="중심성-centrality.html#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="중심성-centrality.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the attributes file</span></span>
-<span id="cb2-6"><a href="중심성-centrality.html#cb2-6" aria-hidden="true" tabindex="-1"></a>florentine_attributes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_attributes.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="중심성-centrality.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the marriage adjacency matrix</span></span>
+<span id="cb88-2"><a href="중심성-centrality.html#cb88-2" aria-hidden="true" tabindex="-1"></a>florentine_edj <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_marriage_edgelist.csv&quot;</span>)</span>
+<span id="cb88-3"><a href="중심성-centrality.html#cb88-3" aria-hidden="true" tabindex="-1"></a>florentine_edj <span class="ot">&lt;-</span> florentine_edj[,<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb88-4"><a href="중심성-centrality.html#cb88-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="중심성-centrality.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the attributes file</span></span>
+<span id="cb88-6"><a href="중심성-centrality.html#cb88-6" aria-hidden="true" tabindex="-1"></a>florentine_attributes <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/florentine_attributes.csv&quot;</span>)</span></code></pre></div>
 <p>인접행렬은 현재 데이터프레임 구조를 갖고 있기 때문에, 우선 행렬로 변환하여 <code>graph.edgelist()</code> 함수를 통해 엣지리스트로 만들어주자. 이제 혼인 네트워크가 생성되었다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="중심성-centrality.html#cb3-1" aria-hidden="true" tabindex="-1"></a>marriageNet <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(<span class="fu">as.matrix</span>(florentine_edj), <span class="at">directed =</span> T)</span>
-<span id="cb3-2"><a href="중심성-centrality.html#cb3-2" aria-hidden="true" tabindex="-1"></a>marriageNet</span></code></pre></div>
-<pre><code>## IGRAPH 73fd0b9 DN-- 96 314 -- 
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="중심성-centrality.html#cb89-1" aria-hidden="true" tabindex="-1"></a>marriageNet <span class="ot">&lt;-</span> <span class="fu">graph.edgelist</span>(<span class="fu">as.matrix</span>(florentine_edj), <span class="at">directed =</span> T)</span>
+<span id="cb89-2"><a href="중심성-centrality.html#cb89-2" aria-hidden="true" tabindex="-1"></a>marriageNet</span></code></pre></div>
+<pre><code>## IGRAPH 33b3fd0 DN-- 96 314 -- 
 ## + attr: name (v/c)
-## + edges from 73fd0b9 (vertex names):
+## + edges from 33b3fd0 (vertex names):
 ##  [1] Acciaiuoli  -&gt;Guicciardini Acciaiuoli  -&gt;Medici      
 ##  [3] Adimari     -&gt;Arrigucci    Adimari     -&gt;Barbadori   
 ##  [5] Adimari     -&gt;Strozzi      Albizzi     -&gt;Altoviti    
@@ -228,28 +228,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [15] Albizzi     -&gt;Medici       Albizzi     -&gt;Nerli       
 ## + ... omitted several edges</code></pre>
 <p>이 네트워크에 특성 변수들을 추가해보자. 먼저, 노드(가문)의 부(Wealth) 변수를 만들기 위해 네트워크 노드의 이름(가문 명)과 특성 데이터(florentine_attributes)의 가문(Family) 변수 값이 일치하는 경우의 총 부(GWealth) 변수 값을 추출한다.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="중심성-centrality.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth <span class="ot">&lt;-</span> florentine_attributes<span class="sc">$</span>Gwealth[<span class="fu">match</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>name, florentine_attributes<span class="sc">$</span>Family)]</span>
-<span id="cb5-2"><a href="중심성-centrality.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="중심성-centrality.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="중심성-centrality.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth <span class="ot">&lt;-</span> florentine_attributes<span class="sc">$</span>Gwealth[<span class="fu">match</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>name, florentine_attributes<span class="sc">$</span>Family)]</span>
+<span id="cb91-2"><a href="중심성-centrality.html#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="중심성-centrality.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
 ##     148   12884   27394   41683   54724  296250      18</code></pre>
 <p>NA 값이 있으므로 결측치는 평균 값으로 대체(simple mean imputation)하자.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="중심성-centrality.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth), <span class="fu">mean</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth, <span class="at">na.rm =</span> T), <span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth)</span>
-<span id="cb7-2"><a href="중심성-centrality.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="중심성-centrality.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth), <span class="fu">mean</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth, <span class="at">na.rm =</span> T), <span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth)</span>
+<span id="cb93-2"><a href="중심성-centrality.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>Wealth)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##     148   17014   35505   41683   46610  296250</code></pre>
 <p>다음은 당시에 피렌체를 통치했던 시의회(The Priorate) 소속 멤버(Priors)가 몇 명인지 알려주는 <code>Priorates</code> 변수를 추가하자. 1282년부터 1344년까지 기간 동안 각 가문에서 총 몇 명이 시의원이었는지 계산함으로써, 장기적/집합 수준에서 가문의 정치적 영향력을 측정할 수 있다.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="중심성-centrality.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>Priorates <span class="ot">&lt;-</span> florentine_attributes<span class="sc">$</span>Npriors[<span class="fu">match</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>name, florentine_attributes<span class="sc">$</span>Family)]</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="중심성-centrality.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>Priorates <span class="ot">&lt;-</span> florentine_attributes<span class="sc">$</span>Npriors[<span class="fu">match</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>name, florentine_attributes<span class="sc">$</span>Family)]</span></code></pre></div>
 <p>시각화 해보자.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="중심성-centrality.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, <span class="at">vertex.size =</span> <span class="dv">8</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">edge.arrow.size =</span> <span class="fl">0.4</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="중심성-centrality.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, <span class="at">vertex.size =</span> <span class="dv">8</span>, <span class="at">vertex.label.cex =</span> .<span class="dv">4</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.color =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">edge.arrow.size =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
 </div>
 <div id="연결중심성degree-centrality" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> 연결중심성(Degree Centrality)<a href="중심성-centrality.html#연결중심성degree-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>연결중심성은 가장 단순한 중심성 척도로, 각 노드가 얼마나 많은 엣지를 갖는지를 계산한 값이다. 즉, 가장 중심성이 높은 노드는 가장 많은 연결(ties)을 가지고 있는 노드다.</p>
 <p><strong><em>주의</em></strong>: 방향성이 있는 네트워크에서는 in 또는 out ties 중 어느 것을 계산에 포함할지 명시해야 한다. 만약 in-degree, out-degree 둘 다 계산에 포함한다면, 그냥 degree라고 부른다.
 연결중심성은 R의 <code>degree()</code>함수를 통해 계산할 수 있다.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="중심성-centrality.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">degree</span>(marriageNet) </span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="중심성-centrality.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">degree</span>(marriageNet) </span></code></pre></div>
 <pre><code>##    Acciaiuoli  Guicciardini        Medici       Adimari     Arrigucci 
 ##             4            14            40             6             2 
 ##     Barbadori       Strozzi       Albizzi      Altoviti    Della_Casa 
@@ -292,143 +292,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##             2</code></pre>
 <p>어떤 가문이 가장 연결중심성이 높은가?</p>
 <p>이 연결중심성 값들을 새로운 변수로 추가하여, 노드의 크기를 연결중심성에 비례하도록 표시할 수 있다.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="중심성-centrality.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>degree <span class="ot">&lt;-</span> <span class="fu">degree</span>(marriageNet) <span class="co"># assignment</span></span>
-<span id="cb13-2"><a href="중심성-centrality.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="중심성-centrality.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>degree, <span class="at">vertex.label.cex =</span> .<span class="dv">2</span>) <span class="co"># sized by degree</span></span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="중심성-centrality.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>degree <span class="ot">&lt;-</span> <span class="fu">degree</span>(marriageNet) <span class="co"># assignment</span></span>
+<span id="cb99-2"><a href="중심성-centrality.html#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="중심성-centrality.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>degree, <span class="at">vertex.label.cex =</span> .<span class="dv">2</span>) <span class="co"># sized by degree</span></span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 <p>이때 문제는 연결중심성 값들이 너무 작아서 시각화하는데 어려움이 있다는 것이다. 따라서 비율은 그대로 유지하되 값을 좀 키워 다시 시각화해보자.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="중심성-centrality.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, </span>
-<span id="cb14-2"><a href="중심성-centrality.html#cb14-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
-<span id="cb14-3"><a href="중심성-centrality.html#cb14-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb14-4"><a href="중심성-centrality.html#cb14-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>degree<span class="sc">*</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="중심성-centrality.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, </span>
+<span id="cb100-2"><a href="중심성-centrality.html#cb100-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
+<span id="cb100-3"><a href="중심성-centrality.html#cb100-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb100-4"><a href="중심성-centrality.html#cb100-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>degree<span class="sc">*</span><span class="dv">3</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 </div>
 <div id="매개중심성betweenness-centrality" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> 매개중심성(Betweenness Centrality)<a href="중심성-centrality.html#매개중심성betweenness-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>매개중심성은 네트워크 흐름 상 어떤 노드들이 중요한지를 측정한다. 이때 네트워크에서 가장 짧은 경로(shortest paths)를 이용한다. 경로란 인접한 노드들의 나열을 의미한다. 어떤 두 노드가 있을 때 가장 짧은 경로를 찾을 수 있다. 만약 노드 C가 A와 B 사이의 가장 짧은 경로에 놓여 있다면, 노드 C는 노드 A와 B사이의 효율적인 흐름 상 중요한 위치를 차지한다. 달리 말하면, C가 없을 경우 A에서 B로 가는 길이 더 멀어진다는 것이다.</p>
 <p>그러므로, 매개중심성은 각 노드가 얼마나 많은 최단 경로 위에 놓여 있는지를 보여준다. 어떤 노드의 매개중심성이 높을수록 네트워크 내 효율적인 흐름 상 중요하다고 볼 수 있다.</p>
 <p>매개중심성은 igraph 의 <code>betweenness()</code> 함수를 사용하여 계산할 수 있다.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="중심성-centrality.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">betweenness</span>(marriageNet, <span class="at">directed =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<pre><code>##    Acciaiuoli  Guicciardini        Medici       Adimari     Arrigucci 
-##      0.000000    327.850305   1029.609288     93.009524      0.000000 
-##     Barbadori       Strozzi       Albizzi      Altoviti    Della_Casa 
-##    162.697344   1369.979110    856.436111    125.620147     11.577398 
-##         Corsi     Davanzati   Frescobaldi        Ginori      Guadagni 
-##      0.000000    260.000000    145.532681    180.571429    277.059921 
-##      Guasconi         Nerli   Del_Palagio   Panciatichi       Scolari 
-##    583.679251      0.000000      0.000000    167.994891     19.801010 
-##  Aldobrandini    Alessandri       Tanagli    Bencivenni Gianfigliazzi 
-##     23.351190      0.000000     88.000000      0.000000    187.915043 
-##         Spini  Dall&#39;Antella      Martelli    Rondinelli   Ardinghelli 
-##     89.500000    174.000000     88.000000     43.186597     58.278211 
-##       Peruzzi         Rossi       Arrighi  Baldovinetti     Ciampegli 
-##    604.369691      0.000000      0.000000     95.613889      0.000000 
-##       Manelli      Carducci    Castellani      Ricasoli         Bardi 
-##      0.000000      5.009524    194.199423    205.097092    280.248232 
-##       Bucelli      Serragli     Da_Uzzano    Baroncelli         Raugi 
-##      1.066667     81.000000      3.666667      0.000000      0.000000 
-##       Baronci     Manovelli       Bartoli      Solosmei     Bartolini 
-##      0.000000     88.000000      0.000000      0.000000      0.000000 
-##   Belfradelli    Del_Benino        Donati       Benizzi      Bischeri 
-##      0.000000      0.000000     88.000000      0.000000     63.995238 
-##     Brancacci       Capponi       Nasi(?)     Sacchetti       Vettori 
-##      0.000000    177.000000      0.000000    197.651515      0.000000 
-##         Doffi          Pepi    Cavalcanti          Ciai    Corbinelli 
-##      0.000000      0.000000    125.467749      0.000000      0.000000 
-##          Lapi     Orlandini    Dietisalvi        Valori     Federighi 
-##      0.000000     88.000000      0.000000    202.285859      0.000000 
-##  Dello_Scarfa    Fioravanti      Salviati        Giugni    Pandolfini 
-##      0.000000      5.951190     35.571429     96.664141      0.000000 
-##  Lamberteschi    Tornabuoni       Mancini  Di_Ser_Segna      Macinghi 
-##      0.000000     23.831746      0.000000      0.000000      0.000000 
-##          Masi        Pecori         Pitti    Popoleschi     Portinari 
-##      0.000000      0.000000     19.610606      0.000000      0.000000 
-##       Ridolfi    Serristori    Vecchietti    Minerbetti         Pucci 
-##    213.727670      0.000000      0.000000      0.000000      0.000000 
-##    Da_Panzano       Parenti         Pazzi      Rucellai    Scambrilla 
-##     16.961111      0.000000      4.361111      0.000000      0.000000 
-##      Soderini 
-##      0.000000</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="중심성-centrality.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">betweenness</span>(marriageNet, <span class="at">directed =</span> <span class="cn">FALSE</span>))</span></code></pre></div>
+<pre><code>##   Acciaiuoli Guicciardini       Medici      Adimari    Arrigucci    Barbadori 
+##      0.00000    327.85031   1029.60929     93.00952      0.00000    162.69734</code></pre>
 <p>이 매개중심성 값들을 네트워크 노드의 새로운 변수로 추가하여 노드의 크기를 비례하게 표시할 수 있다.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="중심성-centrality.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness <span class="ot">&lt;-</span> <span class="fu">betweenness</span>(marriageNet, <span class="at">directed =</span> F) <span class="co"># assignment</span></span>
-<span id="cb17-2"><a href="중심성-centrality.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="중심성-centrality.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, </span>
-<span id="cb17-4"><a href="중심성-centrality.html#cb17-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
-<span id="cb17-5"><a href="중심성-centrality.html#cb17-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb17-6"><a href="중심성-centrality.html#cb17-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness) <span class="co"># sized by betweenness</span></span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="중심성-centrality.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness <span class="ot">&lt;-</span> <span class="fu">betweenness</span>(marriageNet, <span class="at">directed =</span> F) <span class="co"># assignment</span></span>
+<span id="cb103-2"><a href="중심성-centrality.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="중심성-centrality.html#cb103-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet, </span>
+<span id="cb103-4"><a href="중심성-centrality.html#cb103-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
+<span id="cb103-5"><a href="중심성-centrality.html#cb103-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb103-6"><a href="중심성-centrality.html#cb103-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness) <span class="co"># sized by betweenness</span></span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/cha1-1.png" width="672" /></p>
 <p>매개중심성 값은 매우 크다. 따라서 매개중심성 값에 비례하여 노드 크기를 설정할 때에는 정규화(normalize)해주는 것이 유용하다.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="중심성-centrality.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet,</span>
-<span id="cb18-2"><a href="중심성-centrality.html#cb18-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
-<span id="cb18-3"><a href="중심성-centrality.html#cb18-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb18-4"><a href="중심성-centrality.html#cb18-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness<span class="sc">/</span><span class="fu">max</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness) <span class="sc">*</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="중심성-centrality.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet,</span>
+<span id="cb104-2"><a href="중심성-centrality.html#cb104-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
+<span id="cb104-3"><a href="중심성-centrality.html#cb104-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb104-4"><a href="중심성-centrality.html#cb104-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness<span class="sc">/</span><span class="fu">max</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>betweenness) <span class="sc">*</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/cha2-1.png" width="672" /></p>
 </div>
 <div id="근접중심성closeness-centrality" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> 근접중심성(Closeness Centrality)<a href="중심성-centrality.html#근접중심성closeness-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>근접중심성 척도 또한 노드 간 최단 경로에 기반한 척도이다. 두 노드 간 거리를 최단 경로의 길이(length)로 측정한다. 어떤 노드의 farness는 해당 노드에서 다른 노드들까지의 평균 거리를 의미한다. 따라서 closeness는 farness의 역수이다 (1/farness). 근접중심성은 <code>closeness()</code>함수를 통해 계산 가능하다.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="중심성-centrality.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">closeness</span>(marriageNet)</span></code></pre></div>
-<pre><code>##    Acciaiuoli  Guicciardini        Medici       Adimari     Arrigucci 
-##   0.003610108   0.004424779   0.004926108   0.003846154   0.002873563 
-##     Barbadori       Strozzi       Albizzi      Altoviti    Della_Casa 
-##   0.004115226   0.005128205   0.004672897   0.004065041   0.003676471 
-##         Corsi     Davanzati   Frescobaldi        Ginori      Guadagni 
-##   0.003311258   0.003378378   0.004081633   0.003623188   0.004166667 
-##      Guasconi         Nerli   Del_Palagio   Panciatichi       Scolari 
-##   0.005025126   0.003311258   0.003717472   0.004545455   0.003717472 
-##  Aldobrandini    Alessandri       Tanagli    Bencivenni Gianfigliazzi 
-##   0.003717472   0.002439024   0.003105590   0.002994012   0.004716981 
-##         Spini  Dall&#39;Antella      Martelli    Rondinelli   Ardinghelli 
-##   0.003676471   0.003597122   0.002747253   0.004098361   0.004255319 
-##       Peruzzi         Rossi       Arrighi  Baldovinetti     Ciampegli 
-##   0.004761905   0.003436426   0.003048780   0.003984064   0.002949853 
-##       Manelli      Carducci    Castellani      Ricasoli         Bardi 
-##   0.003558719   0.003816794   0.004166667   0.004184100   0.004504505 
-##       Bucelli      Serragli     Da_Uzzano    Baroncelli         Raugi 
-##   0.003521127   0.003311258   0.003623188   1.000000000   1.000000000 
-##       Baronci     Manovelli       Bartoli      Solosmei     Bartolini 
-##   0.002604167   0.003378378   1.000000000   1.000000000   0.002212389 
-##   Belfradelli    Del_Benino        Donati       Benizzi      Bischeri 
-##   0.003003003   0.002083333   0.002551020   0.003355705   0.004291845 
-##     Brancacci       Capponi       Nasi(?)     Sacchetti       Vettori 
-##   0.003937008   0.002985075   0.002364066   0.003690037   0.002364066 
-##         Doffi          Pepi    Cavalcanti          Ciai    Corbinelli 
-##   0.003048780   0.003048780   0.004201681   0.002747253   0.003436426 
-##          Lapi     Orlandini    Dietisalvi        Valori     Federighi 
-##   0.002604167   0.002617801   0.002747253   0.003267974   1.000000000 
-##  Dello_Scarfa    Fioravanti      Salviati        Giugni    Pandolfini 
-##   1.000000000   0.003571429   0.003610108   0.003533569   0.002801120 
-##  Lamberteschi    Tornabuoni       Mancini  Di_Ser_Segna      Macinghi 
-##   0.003048780   0.003773585   0.003484321   0.003484321   0.003533569 
-##          Masi        Pecori         Pitti    Popoleschi     Portinari 
-##   0.003355705   0.003436426   0.004098361   0.003484321   0.003436426 
-##       Ridolfi    Serristori    Vecchietti    Minerbetti         Pucci 
-##   0.004237288   0.003436426   0.003436426   0.003533569   0.002127660 
-##    Da_Panzano       Parenti         Pazzi      Rucellai    Scambrilla 
-##   0.003311258   0.003533569   0.003267974   0.003533569   0.002777778 
-##      Soderini 
-##   0.003533569</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="중심성-centrality.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">closeness</span>(marriageNet))</span></code></pre></div>
+<pre><code>##   Acciaiuoli Guicciardini       Medici      Adimari    Arrigucci    Barbadori 
+##  0.003610108  0.004424779  0.004926108  0.003846154  0.002873563  0.004115226</code></pre>
 <p>마찬가지로 네트워크 노드의 새로운 변수로 추가한 후 시각화를 해보자.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="중심성-centrality.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>closeness <span class="ot">&lt;-</span> <span class="fu">closeness</span>(marriageNet)</span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="중심성-centrality.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet,</span>
-<span id="cb22-2"><a href="중심성-centrality.html#cb22-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
-<span id="cb22-3"><a href="중심성-centrality.html#cb22-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb22-4"><a href="중심성-centrality.html#cb22-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span>  <span class="fu">V</span>(marriageNet)<span class="sc">$</span>closeness<span class="sc">/</span><span class="fu">max</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>closeness) <span class="sc">*</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="중심성-centrality.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>closeness <span class="ot">&lt;-</span> <span class="fu">closeness</span>(marriageNet)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="중심성-centrality.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet,</span>
+<span id="cb108-2"><a href="중심성-centrality.html#cb108-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
+<span id="cb108-3"><a href="중심성-centrality.html#cb108-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb108-4"><a href="중심성-centrality.html#cb108-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span>  <span class="fu">V</span>(marriageNet)<span class="sc">$</span>closeness<span class="sc">/</span><span class="fu">max</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>closeness) <span class="sc">*</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/cha3-1.png" width="672" /></p>
 </div>
 <div id="위세중심성eigenvector-centrality" class="section level2 hasAnchor" number="6.5">
 <h2><span class="header-section-number">6.5</span> 위세중심성(Eigenvector Centrality)<a href="중심성-centrality.html#위세중심성eigenvector-centrality" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>연결중심성은 각 노드의 엣지의 개수를 고려할 뿐, 에고의 alters(연결된 타인)에 대한 정보는 고려하지 않는다. 하지만 만약 어떤 사람이 권력 있는 사람들과 연결되어 있다면, 엣지의 개수가 같더라도 차이가 있기 마련이다. 예컨대, 노드 A와 B가 동일한 연결중심성을 가지고 있더라도, A가 연결중심성이 높은 이들과 더 많이 연결되어 있는 반면, B가 연결중심성이 낮은 이들과 주로 연결되어 있다고 가정해보자. 이 경우, A의 중심성이 B보다는 더 높아야 하는 것이 직관적이다.</p>
 <p>아이겐벡터 또는 위세중심성은 alters의 권력 또한 고려한다. <code>evcent()</code> 함수를 통해 계산할 수 있는데, 특이하게도 이 함수는 리스트 객체를 반환한다. 우리는 이 리스트에서 벡터만 필요하기 때문에 벡터를 추출하겠다.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="중심성-centrality.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">evcent</span>(marriageNet)<span class="sc">$</span>vector</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="중심성-centrality.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">evcent</span>(marriageNet)<span class="sc">$</span>vector)</span></code></pre></div>
+<pre><code>##   Acciaiuoli Guicciardini       Medici      Adimari    Arrigucci    Barbadori 
+##   0.13996990   0.38307521   0.67071597   0.18318118   0.02433106   0.35478486</code></pre>
 <p>위세중심성 값들을 네트워크 노드의 새로운 변수로 추가한 후 시각화해보자.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="중심성-centrality.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>eigenvector <span class="ot">&lt;-</span> <span class="fu">evcent</span>(marriageNet)<span class="sc">$</span>vector</span>
-<span id="cb24-2"><a href="중심성-centrality.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="중심성-centrality.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet,</span>
-<span id="cb24-4"><a href="중심성-centrality.html#cb24-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
-<span id="cb24-5"><a href="중심성-centrality.html#cb24-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
-<span id="cb24-6"><a href="중심성-centrality.html#cb24-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>eigenvector<span class="sc">/</span><span class="fu">max</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>eigenvector) <span class="sc">*</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="중심성-centrality.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(marriageNet)<span class="sc">$</span>eigenvector <span class="ot">&lt;-</span> <span class="fu">evcent</span>(marriageNet)<span class="sc">$</span>vector</span>
+<span id="cb111-2"><a href="중심성-centrality.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="중심성-centrality.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(marriageNet,</span>
+<span id="cb111-4"><a href="중심성-centrality.html#cb111-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.cex =</span> .<span class="dv">6</span>, </span>
+<span id="cb111-5"><a href="중심성-centrality.html#cb111-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, </span>
+<span id="cb111-6"><a href="중심성-centrality.html#cb111-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">vertex.size =</span> <span class="fu">V</span>(marriageNet)<span class="sc">$</span>eigenvector<span class="sc">/</span><span class="fu">max</span>(<span class="fu">V</span>(marriageNet)<span class="sc">$</span>eigenvector) <span class="sc">*</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/cha5-1.png" width="672" /></p>
 
 </div>
 </div>

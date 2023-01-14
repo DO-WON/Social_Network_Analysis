@@ -109,13 +109,13 @@ plot(marriageNet,
 매개중심성은 igraph 의 `betweenness()` 함수를 사용하여 계산할 수 있다. 
 
 ```{r}
-betweenness(marriageNet, directed = FALSE)
+head(betweenness(marriageNet, directed = FALSE))
 ```
 
 
 이 매개중심성 값들을 네트워크 노드의 새로운 변수로 추가하여 노드의 크기를 비례하게 표시할 수 있다. 
 
-```{r}
+```{r cha1, echo=TRUE}
 V(marriageNet)$betweenness <- betweenness(marriageNet, directed = F) # assignment
 
 plot(marriageNet, 
@@ -126,7 +126,7 @@ plot(marriageNet,
 
 매개중심성 값은 매우 크다. 따라서 매개중심성 값에 비례하여 노드 크기를 설정할 때에는 정규화(normalize)해주는 것이 유용하다. 
 
-```{r}
+```{r cha2, echo=TRUE}
 plot(marriageNet,
      vertex.label.cex = .6, 
      vertex.label.color = "black", 
@@ -139,16 +139,16 @@ plot(marriageNet,
 근접중심성 척도 또한 노드 간 최단 경로에 기반한 척도이다. 두 노드 간 거리를 최단 경로의 길이(length)로 측정한다. 어떤 노드의 farness는 해당 노드에서 다른 노드들까지의 평균 거리를 의미한다. 따라서 closeness는 farness의 역수이다 (1/farness). 근접중심성은 `closeness()`함수를 통해 계산 가능하다. 
 
 ```{r}
-closeness(marriageNet)
+head(closeness(marriageNet))
 ```
 
 마찬가지로 네트워크 노드의 새로운 변수로 추가한 후 시각화를 해보자. 
-```{r, results='hide'}
+```{r}
 V(marriageNet)$closeness <- closeness(marriageNet)
 ```
 
 
-```{r, results='hide'}
+```{r cha3, echo=TRUE, , echo=TRUE}
 plot(marriageNet,
      vertex.label.cex = .6, 
      vertex.label.color = "black", 
@@ -162,13 +162,13 @@ plot(marriageNet,
 
 아이겐벡터 또는 위세중심성은 alters의 권력 또한 고려한다. `evcent()` 함수를 통해 계산할 수 있는데, 특이하게도 이 함수는 리스트 객체를 반환한다. 우리는 이 리스트에서 벡터만 필요하기 때문에 벡터를 추출하겠다. 
 
-```{r, results='hide'}
-evcent(marriageNet)$vector
+```{r , echo=TRUE}
+head(evcent(marriageNet)$vector)
 ```
 
 위세중심성 값들을 네트워크 노드의 새로운 변수로 추가한 후 시각화해보자. 
 
-```{r, results='hide'}
+```{r cha5, echo=TRUE}
 V(marriageNet)$eigenvector <- evcent(marriageNet)$vector
 
 plot(marriageNet,

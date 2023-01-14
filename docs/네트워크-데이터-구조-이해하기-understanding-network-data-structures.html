@@ -344,9 +344,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>그렇다면 인접행렬의 경우는 어떻게 네트워크 객체로 바꿀 수 있을까? 인접행렬은 igraph 패키지의 <code>graph.adjacency()</code> 함수를 통해 네트워크로 바꿔주면 된다.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb11-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 참고 </span></span>
 <span id="cb11-2"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">graph.adjacency</span>(adjacency, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>)</span></code></pre></div>
-<pre><code>## IGRAPH 0da54c4 UN-- 5 6 -- 
+<pre><code>## IGRAPH 2b4f19e UN-- 5 6 -- 
 ## + attr: name (v/c)
-## + edges from 0da54c4 (vertex names):
+## + edges from 2b4f19e (vertex names):
 ## [1] Mark --Peter Mark --Jill  Peter--Bob   Peter--Aaron Bob  --Jill 
 ## [6] Jill --Aaron</code></pre>
 </div>
@@ -355,9 +355,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>이제 네트워크의 각각의 요소들이 무엇을 의미하는지 알아보자.
 아까 만든 moneyNetwork를 입력하면 네트워크의 summary가 출력된다.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="네트워크-데이터-구조-이해하기-understanding-network-data-structures.html#cb13-1" aria-hidden="true" tabindex="-1"></a>  moneyNetwork</span></code></pre></div>
-<pre><code>## IGRAPH 0d9485d DN-- 6 11 -- 
+<pre><code>## IGRAPH 2b49071 DN-- 6 11 -- 
 ## + attr: name (v/c)
-## + edges from 0d9485d (vertex names):
+## + edges from 2b49071 (vertex names):
 ##  [1] Greg -&gt;Maria Greg -&gt;Mark  Greg -&gt;Lexi  Greg -&gt;Grace Greg -&gt;Nick 
 ##  [6] Maria-&gt;Mark  Maria-&gt;Lexi  Maria-&gt;Grace Maria-&gt;Nick  Mark -&gt;Nick 
 ## [11] Lexi -&gt;Nick</code></pre>

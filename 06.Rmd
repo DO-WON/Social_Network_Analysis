@@ -56,9 +56,7 @@ knitr::include_graphics("images/42.png")
 던칸 와츠(Duncan Watts)는 그의 유명한 페이퍼에서 이 현상에 대해 설명한다. 그는 가장 clustered 된 "caveman" 구조를 가진 네트워크에서 출발한다. Clustered 된 사람들의 집단이 있고, 다른 집단으로 하나 또는 두 개의 연결고리가 있는 상태를 caveman 구조라고 한다.  
 
 
-```{r, results='hide', message=FALSE}
-library(igraph)
-
+```{r, message=FALSE}
 simulate_caveman <- function(n = 25, clique_size = 5){
   require(igraph)
   # Groups are all the same size, so I check whether N is divisible by the size of groups
@@ -121,7 +119,7 @@ caveman 구조 네트워크는 전반적으로 상당히 낮은 밀도(density)�
 
 이 네트워크 구조의 지름도 구할 수 있다. 지름은 가장 긴 최단 경로이다. 
 
-```{r, message=FALSE}
+```{r}
 nodes_diameter<-get.diameter(caveman_net)
 edges_incident <- get.edge.ids(caveman_net, nodes_diameter)
 
@@ -130,11 +128,13 @@ V(caveman_net)[nodes_diameter]$color<-"green" # Set the nodes on the diameter to
 
 E(caveman_net)$color<-"grey70" # Set default edge color
 E(caveman_net)[edges_incident]$color<-"green" # Set the edges on the diameter to be green
+```
 
+
+```{r new, echo=TRUE}
 plot(caveman_net, layout = layout.kamada.kawai(caveman_net), vertex.size = 2, vertex.label = NA)
 
 ```
-
 Watts는 이 네트워크 구조에서 시작하여, 평균 경로 길이가 훨씬 작은 네트워크로 이동하고자 했다. 그러기 위해서 네트워크를 랜덤하게 rewire 하여, 점점 (낮은 평균 경로 길이를 갖는) 랜덤 네트워크에 근접하도록 실험하였다. 
 
 따라서 몇 개의 엣지를 rewire하여 네트워크를 가로지르도록 하였다. 이때 `rewire()` 함수를 사용하면 되고, `keeping_degseq()` 함수를 통해 연결의 분포(degree distribution)가 바뀌지 않도록 설정한다. 또한 랜덤으로 rewiring할 때 반복 횟수(number of iterations)는1000으로 설정하였다. 
@@ -145,7 +145,7 @@ caveman_net_rewired <-  rewire(caveman_net, keeping_degseq(niter = 1000))
 
 시각화를 하기 위해 rewired된 caveman 네트워크의 엣지와 노드 색상을 구분해준 후 그려보자. 
 
-```{r }
+```{r , echo=TRUE}
 E(caveman_net_rewired)$color <- "grey80"
 V(caveman_net)$color <- "grey60"
 
@@ -174,7 +174,7 @@ average.path.length(caveman_net_rewired)
 
 Rewirings을 하면서 나타는 변화를 살펴보자. 
 
-```{r}
+```{r, echo=TRUE}
 caveman_net_rewired <- simulate_caveman(n = 100, clique_size = 10)
 avgpathlength <- average.path.length(caveman_net_rewired) # These are the first observation
 clusteringcoefficient <- transitivity(caveman_net_rewired)
@@ -192,7 +192,7 @@ lines(1:100, clusteringcoefficient)
 
 
 
-```{r}
+```{r, echo=TRUE}
 plot(1:100, clusteringcoefficient, xlab = "Numer of Rewirings", ylab = "Clustering Coefficient", main = "Caveman", type = "l", ylim = c(0,1))
 
 ```

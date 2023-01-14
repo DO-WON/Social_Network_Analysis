@@ -203,10 +203,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> 에고 네트워크 분석하기<a href="에고-네트워크ego-networks.html#에고-네트워크-분석하기" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>2004년 GSS 서베이 데이터의 네트워크 모듈 데이터를 사용하여 에고 네트워크를 분석해보자.
 데이터는 호프만 교수의 깃헙에서 다운로드 받을 수 있다.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="에고-네트워크ego-networks.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb1-2"><a href="에고-네트워크ego-networks.html#cb1-2" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/gss_local_nets.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="에고-네트워크ego-networks.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb39-2"><a href="에고-네트워크ego-networks.html#cb39-2" aria-hidden="true" tabindex="-1"></a>gss <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/mahoffman/stanford_networks/main/data/gss_local_nets.csv&quot;</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>) </span></code></pre></div>
 <p>데이터가 어떻게 생겼는지 살펴보자.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="에고-네트워크ego-networks.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gss)</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="에고-네트워크ego-networks.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(gss)</span></code></pre></div>
 <pre><code>##      sex  race age            partyid        relig numgiven close12 close13
 ## 1 female other  52        independent     catholic        0      NA      NA
 ## 2 female other  43 not str republican     catholic        0      NA      NA
@@ -245,8 +245,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>변수는 총 42개이다. 처음 다섯 개 변수(sex, race, age, partyid, relig)는 각 응답자의 특성을 의미한다. 나머지는 네트워크를 구성하는 변수들이다. GSS 데이터 네트워크 모듈에서는 각 응답자에게 “중요한 이슈”에 대해 함께 논의한 최대 5명의 타인에 대해서 물어본다. numgiven 변수는 응답자가 중요한 이슈를 몇 명과 함께 논의했는지를 나타낸다. 또한 응답자들은 이 타인들 간의 관계에 대해 구체적으로 답한다. 예를 들어, 이들이 특별히 가까운지, 서로 아는지, 아예 모르는 사이인지 등에 대해 밝힌다. 따라서 close12 변수는 타인1과 타인2 간 가까운 정도를 의미한다. 마지막으로, 이 각각의 타인들의 특성(sex, race, age) 변수들도 수집되었다.</p>
 <p>왜 이 변수들이 에고 네트워크를 구성하는지 살펴보자. 먼저 각 응답자마다 close12부터 close45까지의 관계 변수들을 엣지 리스트로 바꾸어 주어야 한다.</p>
 <p>우선, grepl 함수를 사용하여 우리가 원하는 관계 변수들만을 추출하여 ties라는 데이터프레임으로 저장하자.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="에고-네트워크ego-networks.html#cb4-1" aria-hidden="true" tabindex="-1"></a>ties <span class="ot">&lt;-</span> gss[,<span class="fu">grepl</span>(<span class="st">&quot;close&quot;</span>, <span class="fu">colnames</span>(gss))]</span>
-<span id="cb4-2"><a href="에고-네트워크ego-networks.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ties)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="에고-네트워크ego-networks.html#cb42-1" aria-hidden="true" tabindex="-1"></a>ties <span class="ot">&lt;-</span> gss[,<span class="fu">grepl</span>(<span class="st">&quot;close&quot;</span>, <span class="fu">colnames</span>(gss))]</span>
+<span id="cb42-2"><a href="에고-네트워크ego-networks.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ties)</span></code></pre></div>
 <pre><code>##   close12 close13 close14 close15 close23 close24 close25 close34 close35
 ## 1      NA      NA      NA      NA      NA      NA      NA      NA      NA
 ## 2      NA      NA      NA      NA      NA      NA      NA      NA      NA
@@ -262,112 +262,112 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5      NA
 ## 6       2</code></pre>
 <p>각 응답자마다 다음의 작업을 진행할 것이다: 5 x 5 행렬을 만들어서 각 응답자마다 closeness 값을 채워 넣는다.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="에고-네트워크ego-networks.html#cb6-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="에고-네트워크ego-networks.html#cb44-1" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span></code></pre></div>
 <p>각 응답자의 close 값들을 행렬의 대각성분 아래쪽(lower triangle)에 할당할 수 있다.
 예를 들어 3번째 응답자의 close 값들을 넣어보자.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="에고-네트워크ego-networks.html#cb7-1" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">lower.tri</span>(mat)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ties[<span class="dv">3</span>,])</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="에고-네트워크ego-networks.html#cb45-1" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">lower.tri</span>(mat)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ties[<span class="dv">3</span>,])</span></code></pre></div>
 <p>방향성이 없는 네트워크에서는 대각성분을 기준으로 대칭이기 때문에, 대각성분 위쪽(upper triangle)에도 값을 대칭적으로 넣어주면 된다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="에고-네트워크ego-networks.html#cb8-1" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">upper.tri</span>(mat)] <span class="ot">=</span> <span class="fu">t</span>(mat)[<span class="fu">upper.tri</span>(mat)]</span>
-<span id="cb8-2"><a href="에고-네트워크ego-networks.html#cb8-2" aria-hidden="true" tabindex="-1"></a>mat</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="에고-네트워크ego-networks.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4] [,5]</span></span>
-<span id="cb9-2"><a href="에고-네트워크ego-networks.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]   NA    1    2    0   NA</span></span>
-<span id="cb9-3"><a href="에고-네트워크ego-networks.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    1   NA    2    2   NA</span></span>
-<span id="cb9-4"><a href="에고-네트워크ego-networks.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    2    2   NA    1   NA</span></span>
-<span id="cb9-5"><a href="에고-네트워크ego-networks.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    0    2    1   NA   NA</span></span>
-<span id="cb9-6"><a href="에고-네트워크ego-networks.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]   NA   NA   NA   NA   NA</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="에고-네트워크ego-networks.html#cb46-1" aria-hidden="true" tabindex="-1"></a>mat[<span class="fu">upper.tri</span>(mat)] <span class="ot">=</span> <span class="fu">t</span>(mat)[<span class="fu">upper.tri</span>(mat)]</span>
+<span id="cb46-2"><a href="에고-네트워크ego-networks.html#cb46-2" aria-hidden="true" tabindex="-1"></a>mat</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="에고-네트워크ego-networks.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4] [,5]</span></span>
+<span id="cb47-2"><a href="에고-네트워크ego-networks.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]   NA    1    2    0   NA</span></span>
+<span id="cb47-3"><a href="에고-네트워크ego-networks.html#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    1   NA    2    2   NA</span></span>
+<span id="cb47-4"><a href="에고-네트워크ego-networks.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    2    2   NA    1   NA</span></span>
+<span id="cb47-5"><a href="에고-네트워크ego-networks.html#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    0    2    1   NA   NA</span></span>
+<span id="cb47-6"><a href="에고-네트워크ego-networks.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="do">## [5,]   NA   NA   NA   NA   NA</span></span></code></pre></div>
 <p>이제 결측행(missing rows)을 지워주자.
 NA가 있는 행의 개수를 합한 값이 행렬의 행 개수보다 적은 경우, 결측행이 없다는 것을 의미한다.
 즉, 5 X 5 행렬에서 해당 응답자의 모든 응답이 NA인 경우, NA가 있는 행의 개수의 총합은 5이다.
 따라서 이 경우는 rowSums(is.na(mat))가 nrow(mat)와 같게 되는 결측행이다.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="에고-네트워크ego-networks.html#cb10-1" aria-hidden="true" tabindex="-1"></a>na_vals <span class="ot">&lt;-</span> <span class="fu">is.na</span>(mat)</span>
-<span id="cb10-2"><a href="에고-네트워크ego-networks.html#cb10-2" aria-hidden="true" tabindex="-1"></a>non_missing_rows <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(na_vals) <span class="sc">&lt;</span> <span class="fu">nrow</span>(mat)</span>
-<span id="cb10-3"><a href="에고-네트워크ego-networks.html#cb10-3" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> mat[non_missing_rows,non_missing_rows]</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="에고-네트워크ego-networks.html#cb48-1" aria-hidden="true" tabindex="-1"></a>na_vals <span class="ot">&lt;-</span> <span class="fu">is.na</span>(mat)</span>
+<span id="cb48-2"><a href="에고-네트워크ego-networks.html#cb48-2" aria-hidden="true" tabindex="-1"></a>non_missing_rows <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(na_vals) <span class="sc">&lt;</span> <span class="fu">nrow</span>(mat)</span>
+<span id="cb48-3"><a href="에고-네트워크ego-networks.html#cb48-3" aria-hidden="true" tabindex="-1"></a>mat <span class="ot">&lt;-</span> mat[non_missing_rows,non_missing_rows]</span></code></pre></div>
 <p>igraph 패키지는 NA를 처리하지 못하므로, 대각성분을 모두 0으로 바꿔주자.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="에고-네트워크ego-networks.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(mat) <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="에고-네트워크ego-networks.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(mat) <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
 <p>어떻게 생겼는지 확인해보자.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="에고-네트워크ego-networks.html#cb12-1" aria-hidden="true" tabindex="-1"></a>mat</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="에고-네트워크ego-networks.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4]</span></span>
-<span id="cb13-2"><a href="에고-네트워크ego-networks.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    0    1    2    0</span></span>
-<span id="cb13-3"><a href="에고-네트워크ego-networks.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    1    0    2    2</span></span>
-<span id="cb13-4"><a href="에고-네트워크ego-networks.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    2    2    0    1</span></span>
-<span id="cb13-5"><a href="에고-네트워크ego-networks.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    0    2    1    0</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="에고-네트워크ego-networks.html#cb50-1" aria-hidden="true" tabindex="-1"></a>mat</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="에고-네트워크ego-networks.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">##      [,1] [,2] [,3] [,4]</span></span>
+<span id="cb51-2"><a href="에고-네트워크ego-networks.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="do">## [1,]    0    1    2    0</span></span>
+<span id="cb51-3"><a href="에고-네트워크ego-networks.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [2,]    1    0    2    2</span></span>
+<span id="cb51-4"><a href="에고-네트워크ego-networks.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="do">## [3,]    2    2    0    1</span></span>
+<span id="cb51-5"><a href="에고-네트워크ego-networks.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [4,]    0    2    1    0</span></span></code></pre></div>
 <p>자 이런 방식으로 인접행렬을 만들어서 3번째 응답자의 네트워크를 만들 수 있다.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="에고-네트워크ego-networks.html#cb14-1" aria-hidden="true" tabindex="-1"></a>ego_net <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(mat, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="at">weighted =</span> T)</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="에고-네트워크ego-networks.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ego_net, <span class="at">vertex.size =</span> <span class="dv">30</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.label.cex =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="에고-네트워크ego-networks.html#cb52-1" aria-hidden="true" tabindex="-1"></a>ego_net <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(mat, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="at">weighted =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="에고-네트워크ego-networks.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ego_net, <span class="at">vertex.size =</span> <span class="dv">30</span>, <span class="at">vertex.label.color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">vertex.label.cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>문제는 3번째 응답자 뿐만 아니라 데이터의 모든 응답자에 대해서 위의 작업을 해야 한다는 것이다.
 따라서 위의 작업을 각 행마다 자동화해주는 함수를 만들어 사용하자.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="에고-네트워크ego-networks.html#cb16-1" aria-hidden="true" tabindex="-1"></a>make_ego_nets <span class="ot">&lt;-</span> <span class="cf">function</span>(tie){</span>
-<span id="cb16-2"><a href="에고-네트워크ego-networks.html#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the matrix</span></span>
-<span id="cb16-3"><a href="에고-네트워크ego-networks.html#cb16-3" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
-<span id="cb16-4"><a href="에고-네트워크ego-networks.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-5"><a href="에고-네트워크ego-networks.html#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># assign the tie values to the lower triangle</span></span>
-<span id="cb16-6"><a href="에고-네트워크ego-networks.html#cb16-6" aria-hidden="true" tabindex="-1"></a>  mat[<span class="fu">lower.tri</span>(mat)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(tie)</span>
-<span id="cb16-7"><a href="에고-네트워크ego-networks.html#cb16-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-8"><a href="에고-네트워크ego-networks.html#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># symmetrize</span></span>
-<span id="cb16-9"><a href="에고-네트워크ego-networks.html#cb16-9" aria-hidden="true" tabindex="-1"></a>  mat[<span class="fu">upper.tri</span>(mat)] <span class="ot">=</span> <span class="fu">t</span>(mat)[<span class="fu">upper.tri</span>(mat)]</span>
-<span id="cb16-10"><a href="에고-네트워크ego-networks.html#cb16-10" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-11"><a href="에고-네트워크ego-networks.html#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify missing values</span></span>
-<span id="cb16-12"><a href="에고-네트워크ego-networks.html#cb16-12" aria-hidden="true" tabindex="-1"></a>  na_vals <span class="ot">&lt;-</span> <span class="fu">is.na</span>(mat)</span>
-<span id="cb16-13"><a href="에고-네트워크ego-networks.html#cb16-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-14"><a href="에고-네트워크ego-networks.html#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify rows where all values are missing</span></span>
-<span id="cb16-15"><a href="에고-네트워크ego-networks.html#cb16-15" aria-hidden="true" tabindex="-1"></a>  non_missing_rows <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(na_vals) <span class="sc">&lt;</span> <span class="fu">nrow</span>(mat)</span>
-<span id="cb16-16"><a href="에고-네트워크ego-networks.html#cb16-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb16-17"><a href="에고-네트워크ego-networks.html#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if any rows </span></span>
-<span id="cb16-18"><a href="에고-네트워크ego-networks.html#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sum</span>(<span class="sc">!</span>non_missing_rows) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
-<span id="cb16-19"><a href="에고-네트워크ego-networks.html#cb16-19" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">&lt;-</span> mat[non_missing_rows,non_missing_rows]</span>
-<span id="cb16-20"><a href="에고-네트워크ego-networks.html#cb16-20" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-21"><a href="에고-네트워크ego-networks.html#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(mat) <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb16-22"><a href="에고-네트워크ego-networks.html#cb16-22" aria-hidden="true" tabindex="-1"></a>  ego_net <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(mat, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="at">weighted =</span> T)</span>
-<span id="cb16-23"><a href="에고-네트워크ego-networks.html#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ego_net)</span>
-<span id="cb16-24"><a href="에고-네트워크ego-networks.html#cb16-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="에고-네트워크ego-networks.html#cb54-1" aria-hidden="true" tabindex="-1"></a>make_ego_nets <span class="ot">&lt;-</span> <span class="cf">function</span>(tie){</span>
+<span id="cb54-2"><a href="에고-네트워크ego-networks.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the matrix</span></span>
+<span id="cb54-3"><a href="에고-네트워크ego-networks.html#cb54-3" aria-hidden="true" tabindex="-1"></a>  mat <span class="ot">=</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">5</span>, <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb54-4"><a href="에고-네트워크ego-networks.html#cb54-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-5"><a href="에고-네트워크ego-networks.html#cb54-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># assign the tie values to the lower triangle</span></span>
+<span id="cb54-6"><a href="에고-네트워크ego-networks.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  mat[<span class="fu">lower.tri</span>(mat)] <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(tie)</span>
+<span id="cb54-7"><a href="에고-네트워크ego-networks.html#cb54-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-8"><a href="에고-네트워크ego-networks.html#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># symmetrize</span></span>
+<span id="cb54-9"><a href="에고-네트워크ego-networks.html#cb54-9" aria-hidden="true" tabindex="-1"></a>  mat[<span class="fu">upper.tri</span>(mat)] <span class="ot">=</span> <span class="fu">t</span>(mat)[<span class="fu">upper.tri</span>(mat)]</span>
+<span id="cb54-10"><a href="에고-네트워크ego-networks.html#cb54-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-11"><a href="에고-네트워크ego-networks.html#cb54-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify missing values</span></span>
+<span id="cb54-12"><a href="에고-네트워크ego-networks.html#cb54-12" aria-hidden="true" tabindex="-1"></a>  na_vals <span class="ot">&lt;-</span> <span class="fu">is.na</span>(mat)</span>
+<span id="cb54-13"><a href="에고-네트워크ego-networks.html#cb54-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-14"><a href="에고-네트워크ego-networks.html#cb54-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># identify rows where all values are missing</span></span>
+<span id="cb54-15"><a href="에고-네트워크ego-networks.html#cb54-15" aria-hidden="true" tabindex="-1"></a>  non_missing_rows <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(na_vals) <span class="sc">&lt;</span> <span class="fu">nrow</span>(mat)</span>
+<span id="cb54-16"><a href="에고-네트워크ego-networks.html#cb54-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb54-17"><a href="에고-네트워크ego-networks.html#cb54-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if any rows </span></span>
+<span id="cb54-18"><a href="에고-네트워크ego-networks.html#cb54-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">sum</span>(<span class="sc">!</span>non_missing_rows) <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb54-19"><a href="에고-네트워크ego-networks.html#cb54-19" aria-hidden="true" tabindex="-1"></a>    mat <span class="ot">&lt;-</span> mat[non_missing_rows,non_missing_rows]</span>
+<span id="cb54-20"><a href="에고-네트워크ego-networks.html#cb54-20" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb54-21"><a href="에고-네트워크ego-networks.html#cb54-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(mat) <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb54-22"><a href="에고-네트워크ego-networks.html#cb54-22" aria-hidden="true" tabindex="-1"></a>  ego_net <span class="ot">&lt;-</span> <span class="fu">graph.adjacency</span>(mat, <span class="at">mode =</span> <span class="st">&quot;undirected&quot;</span>, <span class="at">weighted =</span> T)</span>
+<span id="cb54-23"><a href="에고-네트워크ego-networks.html#cb54-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(ego_net)</span>
+<span id="cb54-24"><a href="에고-네트워크ego-networks.html#cb54-24" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>그 다음에는 lapply 함수[list+apply]를 사용해서 위에 정의한 함수를 데이터의 각 행에 적용해주면 된다. ties 데이터의 각 행은 각 응답자를 의미한다. 따라서 ties 데이터의 행 개수와 동일한 사이즈의 리스트가 결과로 출력될 것이고, 각 리스트 안에는 각 응답자의 에고 네트워크가 포함될 것이다.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="에고-네트워크ego-networks.html#cb17-1" aria-hidden="true" tabindex="-1"></a>ego_nets <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(ties), </span>
-<span id="cb17-2"><a href="에고-네트워크ego-networks.html#cb17-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">make_ego_nets</span>(ties[x,]))</span>
-<span id="cb17-3"><a href="에고-네트워크ego-networks.html#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="에고-네트워크ego-networks.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ego_nets)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="에고-네트워크ego-networks.html#cb55-1" aria-hidden="true" tabindex="-1"></a>ego_nets <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(ties), </span>
+<span id="cb55-2"><a href="에고-네트워크ego-networks.html#cb55-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">make_ego_nets</span>(ties[x,]))</span>
+<span id="cb55-3"><a href="에고-네트워크ego-networks.html#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-4"><a href="에고-네트워크ego-networks.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ego_nets)</span></code></pre></div>
 <pre><code>## [[1]]
-## IGRAPH 57fded6 U--- 0 0 -- 
-## + edges from 57fded6:
+## IGRAPH 2ed2f3f U--- 0 0 -- 
+## + edges from 2ed2f3f:
 ## 
 ## [[2]]
-## IGRAPH 57feb10 U--- 0 0 -- 
-## + edges from 57feb10:
+## IGRAPH 2ed3558 U--- 0 0 -- 
+## + edges from 2ed3558:
 ## 
 ## [[3]]
-## IGRAPH 57fed45 U-W- 4 5 -- 
+## IGRAPH 2ed369c U-W- 4 5 -- 
 ## + attr: weight (e/n)
-## + edges from 57fed45:
+## + edges from 2ed369c:
 ## [1] 1--2 1--3 2--3 2--4 3--4
 ## 
 ## [[4]]
-## IGRAPH 57fef66 U-W- 4 5 -- 
+## IGRAPH 2ed37b4 U-W- 4 5 -- 
 ## + attr: weight (e/n)
-## + edges from 57fef66:
+## + edges from 2ed37b4:
 ## [1] 1--2 1--4 2--3 2--4 3--4
 ## 
 ## [[5]]
-## IGRAPH 57ff18b U--- 0 0 -- 
-## + edges from 57ff18b:
+## IGRAPH 2ed393a U--- 0 0 -- 
+## + edges from 2ed393a:
 ## 
 ## [[6]]
-## IGRAPH 57ff3a8 U-W- 5 9 -- 
+## IGRAPH 2ed3ad5 U-W- 5 9 -- 
 ## + attr: weight (e/n)
-## + edges from 57ff3a8:
+## + edges from 2ed3ad5:
 ## [1] 1--3 1--4 1--5 2--3 2--4 2--5 3--4 3--5 4--5</code></pre>
 <p>에고 네트워크의 리스트가 잘 만들어졌다. 그럼 랜덤으로 1021번째 응답자의 에고 네트워크를 추출해서 그려보자.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="에고-네트워크ego-networks.html#cb19-1" aria-hidden="true" tabindex="-1"></a>random_ego_net <span class="ot">&lt;-</span> ego_nets[[<span class="dv">1021</span>]]</span>
-<span id="cb19-2"><a href="에고-네트워크ego-networks.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(random_ego_net)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="에고-네트워크ego-networks.html#cb57-1" aria-hidden="true" tabindex="-1"></a>random_ego_net <span class="ot">&lt;-</span> ego_nets[[<span class="dv">1021</span>]]</span>
+<span id="cb57-2"><a href="에고-네트워크ego-networks.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(random_ego_net)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 </div>
 <div id="네트워크-크기와-밀도-계산하기-calculating-network-size-and-density" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> 네트워크 크기와 밀도 계산하기 (Calculating Network Size and Density)<a href="에고-네트워크ego-networks.html#네트워크-크기와-밀도-계산하기-calculating-network-size-and-density" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>네트워크의 리스트가 있으므로 lapply 함수를 써서 여러 가지를 계산할 수 있다.
 vcount() 함수로 네트워크 크기(=노드의 개수)를 계산하거나, ecount() 함수로 엣지의 개수를 계산할 수 있다.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="에고-네트워크ego-networks.html#cb20-1" aria-hidden="true" tabindex="-1"></a>network_sizes <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, vcount)</span>
-<span id="cb20-2"><a href="에고-네트워크ego-networks.html#cb20-2" aria-hidden="true" tabindex="-1"></a>network_edge_counts <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, ecount)</span>
-<span id="cb20-3"><a href="에고-네트워크ego-networks.html#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-4"><a href="에고-네트워크ego-networks.html#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(network_sizes)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="에고-네트워크ego-networks.html#cb58-1" aria-hidden="true" tabindex="-1"></a>network_sizes <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, vcount)</span>
+<span id="cb58-2"><a href="에고-네트워크ego-networks.html#cb58-2" aria-hidden="true" tabindex="-1"></a>network_edge_counts <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, ecount)</span>
+<span id="cb58-3"><a href="에고-네트워크ego-networks.html#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="에고-네트워크ego-networks.html#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(network_sizes)</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 0
 ## 
@@ -386,31 +386,31 @@ vcount() 함수로 네트워크 크기(=노드의 개수)를 계산하거나, ec
 ## [[6]]
 ## [1] 5</code></pre>
 <p>이 리스트를 벡터로 바꾼 후 mean() 안에 input으로 넣으면 평균도 계산 가능하다.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="에고-네트워크ego-networks.html#cb22-1" aria-hidden="true" tabindex="-1"></a>network_sizes <span class="ot">&lt;-</span> <span class="fu">unlist</span>(network_sizes)</span>
-<span id="cb22-2"><a href="에고-네트워크ego-networks.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(network_sizes, <span class="at">na.rm =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="에고-네트워크ego-networks.html#cb60-1" aria-hidden="true" tabindex="-1"></a>network_sizes <span class="ot">&lt;-</span> <span class="fu">unlist</span>(network_sizes)</span>
+<span id="cb60-2"><a href="에고-네트워크ego-networks.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(network_sizes, <span class="at">na.rm =</span> T)</span></code></pre></div>
 <pre><code>## [1] 1.796634</code></pre>
 <p>평균 네트워크는 약 1.8 정도의 크기(=노드 개수)를 가지고 있다. 네트워크 크기의 분포를 시각화할 수도 있겠다.
 The average network has a little over one and a half people in it. We could similarly plot the distribution.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="에고-네트워크ego-networks.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(network_sizes, <span class="at">main =</span> <span class="st">&quot;Histogram of Ego Network Sizes&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Network Size&quot;</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="에고-네트워크ego-networks.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(network_sizes, <span class="at">main =</span> <span class="st">&quot;Histogram of Ego Network Sizes&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Network Size&quot;</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p>엣지에 대해서도 똑같이 해볼 수 있다.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="에고-네트워크ego-networks.html#cb25-1" aria-hidden="true" tabindex="-1"></a>network_edge_counts <span class="ot">&lt;-</span> <span class="fu">unlist</span>(network_edge_counts)</span>
-<span id="cb25-2"><a href="에고-네트워크ego-networks.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(network_edge_counts, <span class="at">main =</span> <span class="st">&quot;Histogram of Ego Network Edge Counts&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;# of Edges&quot;</span>)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="에고-네트워크ego-networks.html#cb63-1" aria-hidden="true" tabindex="-1"></a>network_edge_counts <span class="ot">&lt;-</span> <span class="fu">unlist</span>(network_edge_counts)</span>
+<span id="cb63-2"><a href="에고-네트워크ego-networks.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(network_edge_counts, <span class="at">main =</span> <span class="st">&quot;Histogram of Ego Network Edge Counts&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;# of Edges&quot;</span>)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <p>다음은 밀도를 계산해보자. 네트워크 밀도는 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값이다. 예를 들어 방향성이 없는 네트워크에서는 노드가 총 N개 있다면(=size of N), 모두가 서로 연결됐다고 가정할 때 최대로 가능한 엣지 개수는 (N*(N-1))/2이다.</p>
 <p>밀도(Density)
 - 실제로 존재하는 링크의 비율(가능성에 비해)
 - 한 네트워크의 링크 개수를 최대로 가능한 링크 개수의 총합으로 나눈 값
 - 평균 디그리/노드 숫자</p>
 <p>앞서 랜덤으로 1021번째 응답자의 네트워크를 골랐던 것처럼, 이번에도 이 랜덤 네트워크의 밀도를 계산해보자.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="에고-네트워크ego-networks.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ecount</span>(random_ego_net)<span class="sc">/</span>((<span class="fu">vcount</span>(random_ego_net) <span class="sc">*</span> (<span class="fu">vcount</span>(random_ego_net) <span class="sc">-</span> <span class="dv">1</span>))<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="에고-네트워크ego-networks.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ecount</span>(random_ego_net)<span class="sc">/</span>((<span class="fu">vcount</span>(random_ego_net) <span class="sc">*</span> (<span class="fu">vcount</span>(random_ego_net) <span class="sc">-</span> <span class="dv">1</span>))<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 0.6</code></pre>
 <p>이렇게 계산해볼 수 있지만, 우리는 네트워크 리스트에 적용을 해야 한다. igraph 패키지의 graph.density 함수를 리스트의 각 요소에 적용한 후, 벡터로 만들어주자.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="에고-네트워크ego-networks.html#cb28-1" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, graph.density)</span>
-<span id="cb28-2"><a href="에고-네트워크ego-networks.html#cb28-2" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">unlist</span>(densities)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="에고-네트워크ego-networks.html#cb66-1" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">lapply</span>(ego_nets, graph.density)</span>
+<span id="cb66-2"><a href="에고-네트워크ego-networks.html#cb66-2" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">unlist</span>(densities)</span></code></pre></div>
 <p>마지막으로 이 네트워크 밀도의 분포를 히스토그램으로 시각화할 수 있다.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="에고-네트워크ego-networks.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(densities)</span></code></pre></div>
-<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="에고-네트워크ego-networks.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(densities)</span></code></pre></div>
+<p><img src="Social_Network_Analysis_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
 
 </div>
 </div>
